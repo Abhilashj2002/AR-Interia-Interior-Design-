@@ -1,0 +1,3 @@
+/* Compatibility wrapper: canonical frontend stylesheet lives in frontend/src. */
+@import './frontend/src/index.css';
+

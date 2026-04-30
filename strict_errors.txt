@@ -1,0 +1,124 @@
+main.ts(902,30): error TS2322: Type '{ Authorization: string; } | { Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; }' is not assignable to type 'undefined'.
+main.ts(916,29): error TS2322: Type '{ Authorization: string; } | { Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; }' is not assignable to type 'undefined'.
+main.ts(929,26): error TS2322: Type '{ Authorization: string; } | { Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; }' is not assignable to type 'undefined'.
+main.ts(948,30): error TS2322: Type '{ Authorization: string; } | { Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; }' is not assignable to type 'undefined'.
+main.ts(967,31): error TS2322: Type '{ Authorization: string; } | { Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; }' is not assignable to type 'undefined'.
+main.ts(981,84): error TS2322: Type '{ Authorization: string; } | { Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; }' is not assignable to type 'undefined'.
+main.ts(1007,77): error TS2322: Type '{ Authorization: string; } | { Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; }' is not assignable to type 'undefined'.
+main.ts(1026,81): error TS2322: Type '{ Authorization: string; } | { Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; }' is not assignable to type 'undefined'.
+main.ts(1044,82): error TS2322: Type '{ Authorization: string; } | { Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; }' is not assignable to type 'undefined'.
+main.ts(1084,9): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(1094,9): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(1307,17): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(4272,52): error TS2322: Type '{ Authorization: string; } | { Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; }' is not assignable to type 'undefined'.
+main.ts(6179,7): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6213,7): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6228,7): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6263,11): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6316,5): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6378,9): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6397,9): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6402,9): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6464,7): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6598,9): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6605,9): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6626,9): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6676,9): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6691,9): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(6768,9): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(7234,13): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(7258,13): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(7350,13): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(7384,13): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(7633,15): error TS2322: Type '{ Authorization: string; } | { Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; }' is not assignable to type 'undefined'.
+main.ts(7718,15): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(7724,15): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(7755,13): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(7789,13): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(7850,9): error TS2322: Type '{ Authorization: string; 'Content-Type': string; } | { Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+  Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'HeadersInit | undefined'.
+    Type '{ Authorization?: undefined; 'Content-Type': string; }' is not assignable to type 'undefined'.
+main.ts(7952,7): error TS2322: Type 'null' is not assignable to type '{ id?: string | undefined; title?: string | undefined; images: { url: string; name?: string | undefined; categoryId?: string | undefined; categoryName?: string | undefined; index?: number | undefined; }[]; } | undefined'.
+main.ts(8521,30): error TS7016: Could not find a declaration file for module 'three'. 'D:/AR_INTERIA1_copy/node_modules/three/build/three.module.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/three` if it exists or add a new declaration (.d.ts) file containing `declare module 'three';`
+project-name]/src/app.ts(1,21): error TS7016: Could not find a declaration file for module 'express'. 'D:/AR_INTERIA1_copy/node_modules/express/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/express` if it exists or add a new declaration (.d.ts) file containing `declare module 'express';`
+project-name]/src/app.ts(2,35): error TS7016: Could not find a declaration file for module 'express'. 'D:/AR_INTERIA1_copy/node_modules/express/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/express` if it exists or add a new declaration (.d.ts) file containing `declare module 'express';`
+services/dataStore.ts(384,24): error TS2339: Property 'length' does not exist on type 'never'.
+services/designer3d.ts(1,24): error TS7016: Could not find a declaration file for module 'three'. 'D:/AR_INTERIA1_copy/node_modules/three/build/three.module.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/three` if it exists or add a new declaration (.d.ts) file containing `declare module 'three';`

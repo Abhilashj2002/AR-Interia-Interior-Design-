@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AR Interia | AR Interior Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://unpkg.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    <link rel="icon" type="image/png" href="/spidey/images/white-logo-spiderman.png" />
+    <link rel="shortcut icon" type="image/png" href="/spidey/images/white-logo-spiderman.png" />
+    <script type="module" src="/frontend/src/index/main.ts"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css" integrity="sha512-/VYneElp5u4puMaIp/4ibGxlTd2MV3kuUIroR3NSQjS2h9XKQNebRQiyyoQKeiGE9mRdjSCIZf9pb7AVJ8DhCg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script>
+      // In-page error overlay reporter to surface runtime/module errors
+      (function () {
+        function createOverlay() {
+          const overlay = document.createElement('div');
+          overlay.id = 'error-overlay';
+          overlay.style.position = 'fixed';
+          overlay.style.left = '12px';
+          overlay.style.right = '12px';
+          overlay.style.top = '12px';
+          overlay.style.zIndex = '999999';
+          overlay.style.background = 'rgba(255, 245, 240, 0.98)';
+          overlay.style.border = '1px solid #ffb4a2';
+          overlay.style.color = '#6b1e00';
+          overlay.style.padding = '12px';
+          overlay.style.borderRadius = '8px';
+          overlay.style.boxShadow = '0 6px 24px rgba(0,0,0,0.12)';
+          overlay.style.fontFamily = 'Inter, system-ui, -apple-system, sans-serif';
+          overlay.style.maxHeight = '60vh';
+          overlay.style.overflow = 'auto';
+
+          const title = document.createElement('div');
+          title.style.fontWeight = '700';
+          title.style.marginBottom = '6px';
+          title.textContent = 'Application Error (see details)';
+          overlay.appendChild(title);
+
+          const msg = document.createElement('pre');
+          msg.id = 'error-overlay-msg';
+          msg.style.whiteSpace = 'pre-wrap';
+          msg.style.margin = '0';
+          msg.style.fontSize = '13px';
+          overlay.appendChild(msg);
+
+          const close = document.createElement('button');
+          close.textContent = 'Close';
+          close.style.marginTop = '8px';
+          close.style.padding = '6px 10px';
+          close.style.border = 'none';
+          close.style.background = '#6b1e00';
+          close.style.color = '#fff';
+          close.style.borderRadius = '6px';
+          close.onclick = () => overlay.remove();
+          overlay.appendChild(close);
+
+          return overlay;
+        }
+
+        function showError(message) {
+          try {
+            let overlay = document.getElementById('error-overlay');
+            if (!overlay) {
+              overlay = createOverlay();
+              document.body.appendChild(overlay);
+            }
+            const msg = document.getElementById('error-overlay-msg');
+            if (msg) msg.textContent = message;
+            console.error('In-page error overlay:', message);
+          } catch (e) {
+            // ignore overlay failures
+            console.error('Failed to show error overlay', e);
+          }
+        }
+
+        window.addEventListener('error', function (ev) {
+          const err = ev.error || ev.message || String(ev);
+          showError(String(err));
+        });
+
+        window.addEventListener('unhandledrejection', function (ev) {
+          const reason = ev.reason ? (ev.reason.stack || ev.reason.message || JSON.stringify(ev.reason)) : 'Unhandled rejection';
+          showError(String(reason));
+        });
+
+        // Expose helper for programmatic reporting
+        window.__showAppError = showError;
+      })();
+    </script>
+</head>
+  <body>
+    <div id="root">
+      <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; flex-direction: column; gap: 20px;">
+        <div style="font-size: 24px; color: #4A3728; font-weight: bold;">AR Interia</div>
+        <div style="color: #666;">Loading...</div>
+      </div>
+    </div>

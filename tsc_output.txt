@@ -1,0 +1,19 @@
+constants.ts(1,90): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+main.ts(3,168): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+main.ts(33,8): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+main.ts(34,43): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+main.ts(35,50): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+main.ts(36,93): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+main.ts(39,58): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+main.ts(99,8): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+main.ts(100,63): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+main.ts(101,58): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+main.ts(761,29): error TS1323: Dynamic imports are only supported when the '--module' flag is set to 'es2020', 'es2022', 'esnext', 'commonjs', 'amd', 'system', 'umd', 'node16', 'node18', 'node20', or 'nodenext'.
+main.ts(761,36): error TS2792: Cannot find module 'chart.js/auto'. Did you mean to set the 'moduleResolution' option to 'nodenext', or to add aliases to the 'paths' option?
+main.ts(19314,13): error TS1323: Dynamic imports are only supported when the '--module' flag is set to 'es2020', 'es2022', 'esnext', 'commonjs', 'amd', 'system', 'umd', 'node16', 'node18', 'node20', or 'nodenext'.
+services/chatbot.ts(1,29): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+services/dataStore.ts(1,177): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+services/dataStore.ts(2,93): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+services/dataStore.ts(3,48): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+services/luxuryShowcase.ts(1,37): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+services/smartService.ts(1,58): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.

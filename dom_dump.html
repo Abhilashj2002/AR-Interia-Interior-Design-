@@ -1,0 +1,5228 @@
+<!DOCTYPE html><html lang="en" style="--primary: #4A3728; --accent: #D4AF37;"><head>
+    <script type="module" src="/@vite/client"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Interia | AR Interior Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="icon" type="image/png" href="/spidey/images/white-logo-spiderman.png">
+    <link rel="shortcut icon" type="image/png" href="/spidey/images/white-logo-spiderman.png">
+    <script type="module" src="/main.ts?t=1774080296338"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&amp;family=Poppins:wght@400;500;600;700;800;900&amp;family=Playfair+Display:wght@400;700&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css" integrity="sha512-/VYneElp5u4puMaIp/4ibGxlTd2MV3kuUIroR3NSQjS2h9XKQNebRQiyyoQKeiGE9mRdjSCIZf9pb7AVJ8DhCg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/index.css">
+    <style>
+      body { background: #faf9f6; font-family: "Inter", sans-serif; }
+      #root { min-height: 100vh; }
+    </style>
+    <script>
+      // In-page error overlay reporter to surface runtime/module errors
+      (function () {
+        function createOverlay() {
+          const overlay = document.createElement('div');
+          overlay.id = 'error-overlay';
+          overlay.style.position = 'fixed';
+          overlay.style.left = '12px';
+          overlay.style.right = '12px';
+          overlay.style.top = '12px';
+          overlay.style.zIndex = '999999';
+          overlay.style.background = 'rgba(255, 245, 240, 0.98)';
+          overlay.style.border = '1px solid #ffb4a2';
+          overlay.style.color = '#6b1e00';
+          overlay.style.padding = '12px';
+          overlay.style.borderRadius = '8px';
+          overlay.style.boxShadow = '0 6px 24px rgba(0,0,0,0.12)';
+          overlay.style.fontFamily = 'Inter, system-ui, -apple-system, sans-serif';
+          overlay.style.maxHeight = '60vh';
+          overlay.style.overflow = 'auto';
+
+          const title = document.createElement('div');
+          title.style.fontWeight = '700';
+          title.style.marginBottom = '6px';
+          title.textContent = 'Application Error (see details)';
+          overlay.appendChild(title);
+
+          const msg = document.createElement('pre');
+          msg.id = 'error-overlay-msg';
+          msg.style.whiteSpace = 'pre-wrap';
+          msg.style.margin = '0';
+          msg.style.fontSize = '13px';
+          overlay.appendChild(msg);
+
+          const close = document.createElement('button');
+          close.textContent = 'Close';
+          close.style.marginTop = '8px';
+          close.style.padding = '6px 10px';
+          close.style.border = 'none';
+          close.style.background = '#6b1e00';
+          close.style.color = '#fff';
+          close.style.borderRadius = '6px';
+          close.onclick = () => overlay.remove();
+          overlay.appendChild(close);
+
+          return overlay;
+        }
+
+        function showError(message) {
+          try {
+            let overlay = document.getElementById('error-overlay');
+            if (!overlay) {
+              overlay = createOverlay();
+              document.body.appendChild(overlay);
+            }
+            const msg = document.getElementById('error-overlay-msg');
+            if (msg) msg.textContent = message;
+            console.error('In-page error overlay:', message);
+          } catch (e) {
+            // ignore overlay failures
+            console.error('Failed to show error overlay', e);
+          }
+        }
+
+        window.addEventListener('error', function (ev) {
+          const err = ev.error || ev.message || String(ev);
+          showError(String(err));
+        });
+
+        window.addEventListener('unhandledrejection', function (ev) {
+          const reason = ev.reason ? (ev.reason.stack || ev.reason.message || JSON.stringify(ev.reason)) : 'Unhandled rejection';
+          showError(String(reason));
+        });
+
+        // Expose helper for programmatic reporting
+        window.__showAppError = showError;
+      })();
+    </script>
+<style type="text/css" data-vite-dev-id="C:/Users/abhil/Downloads/ar14/index.css">*, ::before, ::after {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}
+
+::backdrop {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}/*
+! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com
+*//*
+1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
+*/
+
+*,
+::before,
+::after {
+  box-sizing: border-box; /* 1 */
+  border-width: 0; /* 2 */
+  border-style: solid; /* 2 */
+  border-color: #e5e7eb; /* 2 */
+}
+
+::before,
+::after {
+  --tw-content: '';
+}
+
+/*
+1. Use a consistent sensible line-height in all browsers.
+2. Prevent adjustments of font size after orientation changes in iOS.
+3. Use a more readable tab size.
+4. Use the user's configured `sans` font-family by default.
+5. Use the user's configured `sans` font-feature-settings by default.
+6. Use the user's configured `sans` font-variation-settings by default.
+7. Disable tap highlights on iOS
+*/
+
+html,
+:host {
+  line-height: 1.5; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+  -moz-tab-size: 4; /* 3 */
+  -o-tab-size: 4;
+     tab-size: 4; /* 3 */
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
+  font-feature-settings: normal; /* 5 */
+  font-variation-settings: normal; /* 6 */
+  -webkit-tap-highlight-color: transparent; /* 7 */
+}
+
+/*
+1. Remove the margin in all browsers.
+2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
+*/
+
+body {
+  margin: 0; /* 1 */
+  line-height: inherit; /* 2 */
+}
+
+/*
+1. Add the correct height in Firefox.
+2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
+3. Ensure horizontal rules are visible by default.
+*/
+
+hr {
+  height: 0; /* 1 */
+  color: inherit; /* 2 */
+  border-top-width: 1px; /* 3 */
+}
+
+/*
+Add the correct text decoration in Chrome, Edge, and Safari.
+*/
+
+abbr:where([title]) {
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+
+/*
+Remove the default font size and weight for headings.
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/*
+Reset links to optimize for opt-in styling instead of opt-out.
+*/
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+/*
+Add the correct font weight in Edge and Safari.
+*/
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+/*
+1. Use the user's configured `mono` font-family by default.
+2. Use the user's configured `mono` font-feature-settings by default.
+3. Use the user's configured `mono` font-variation-settings by default.
+4. Correct the odd `em` font sizing in all browsers.
+*/
+
+code,
+kbd,
+samp,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; /* 1 */
+  font-feature-settings: normal; /* 2 */
+  font-variation-settings: normal; /* 3 */
+  font-size: 1em; /* 4 */
+}
+
+/*
+Add the correct font size in all browsers.
+*/
+
+small {
+  font-size: 80%;
+}
+
+/*
+Prevent `sub` and `sup` elements from affecting the line height in all browsers.
+*/
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/*
+1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+3. Remove gaps between table borders by default.
+*/
+
+table {
+  text-indent: 0; /* 1 */
+  border-color: inherit; /* 2 */
+  border-collapse: collapse; /* 3 */
+}
+
+/*
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+3. Remove default padding in all browsers.
+*/
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit; /* 1 */
+  font-feature-settings: inherit; /* 1 */
+  font-variation-settings: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  font-weight: inherit; /* 1 */
+  line-height: inherit; /* 1 */
+  letter-spacing: inherit; /* 1 */
+  color: inherit; /* 1 */
+  margin: 0; /* 2 */
+  padding: 0; /* 3 */
+}
+
+/*
+Remove the inheritance of text transform in Edge and Firefox.
+*/
+
+button,
+select {
+  text-transform: none;
+}
+
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Remove default button styles.
+*/
+
+button,
+input:where([type='button']),
+input:where([type='reset']),
+input:where([type='submit']) {
+  -webkit-appearance: button; /* 1 */
+  background-color: transparent; /* 2 */
+  background-image: none; /* 2 */
+}
+
+/*
+Use the modern Firefox focus style for all focusable elements.
+*/
+
+:-moz-focusring {
+  outline: auto;
+}
+
+/*
+Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
+*/
+
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+/*
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+
+progress {
+  vertical-align: baseline;
+}
+
+/*
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/*
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+
+[type='search'] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/*
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to `inherit` in Safari.
+*/
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+/*
+Add the correct display in Chrome and Safari.
+*/
+
+summary {
+  display: list-item;
+}
+
+/*
+Removes the default spacing and border for appropriate elements.
+*/
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+ol,
+ul,
+menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+Reset default styling for dialogs.
+*/
+dialog {
+  padding: 0;
+}
+
+/*
+Prevent resizing textareas horizontally by default.
+*/
+
+textarea {
+  resize: vertical;
+}
+
+/*
+1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
+2. Set the default placeholder color to the user's configured gray 400 color.
+*/
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+  opacity: 1; /* 1 */
+  color: #9ca3af; /* 2 */
+}
+
+input::placeholder,
+textarea::placeholder {
+  opacity: 1; /* 1 */
+  color: #9ca3af; /* 2 */
+}
+
+/*
+Set the default cursor for buttons.
+*/
+
+button,
+[role="button"] {
+  cursor: pointer;
+}
+
+/*
+Make sure disabled buttons don't get the pointer cursor.
+*/
+:disabled {
+  cursor: default;
+}
+
+/*
+1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
+2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+   This can trigger a poorly considered lint error in some tools but is included by design.
+*/
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block; /* 1 */
+  vertical-align: middle; /* 2 */
+}
+
+/*
+Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
+*/
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Make elements with the HTML hidden attribute stay hidden by default */
+[hidden]:where(:not([hidden="until-found"])) {
+  display: none;
+}
+.\!container {
+  width: 100% !important;
+}
+.container {
+  width: 100%;
+}
+@media (min-width: 640px) {
+
+  .\!container {
+    max-width: 640px !important;
+  }
+
+  .container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+
+  .\!container {
+    max-width: 768px !important;
+  }
+
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+
+  .\!container {
+    max-width: 1024px !important;
+  }
+
+  .container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+
+  .\!container {
+    max-width: 1280px !important;
+  }
+
+  .container {
+    max-width: 1280px;
+  }
+}
+@media (min-width: 1536px) {
+
+  .\!container {
+    max-width: 1536px !important;
+  }
+
+  .container {
+    max-width: 1536px;
+  }
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.pointer-events-none {
+  pointer-events: none;
+}
+.pointer-events-auto {
+  pointer-events: auto;
+}
+.static {
+  position: static;
+}
+.fixed {
+  position: fixed;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.sticky {
+  position: sticky;
+}
+.inset-0 {
+  inset: 0px;
+}
+.inset-x-0 {
+  left: 0px;
+  right: 0px;
+}
+.bottom-0 {
+  bottom: 0px;
+}
+.bottom-2 {
+  bottom: 0.5rem;
+}
+.bottom-3 {
+  bottom: 0.75rem;
+}
+.bottom-32 {
+  bottom: 8rem;
+}
+.bottom-4 {
+  bottom: 1rem;
+}
+.bottom-6 {
+  bottom: 1.5rem;
+}
+.left-0 {
+  left: 0px;
+}
+.left-1\/2 {
+  left: 50%;
+}
+.left-1\/4 {
+  left: 25%;
+}
+.left-10 {
+  left: 2.5rem;
+}
+.left-2 {
+  left: 0.5rem;
+}
+.left-3 {
+  left: 0.75rem;
+}
+.left-4 {
+  left: 1rem;
+}
+.right-0 {
+  right: 0px;
+}
+.right-1\/3 {
+  right: 33.333333%;
+}
+.right-2 {
+  right: 0.5rem;
+}
+.right-20 {
+  right: 5rem;
+}
+.right-3 {
+  right: 0.75rem;
+}
+.right-4 {
+  right: 1rem;
+}
+.right-6 {
+  right: 1.5rem;
+}
+.top-0 {
+  top: 0px;
+}
+.top-1\/2 {
+  top: 50%;
+}
+.top-1\/3 {
+  top: 33.333333%;
+}
+.top-2 {
+  top: 0.5rem;
+}
+.top-20 {
+  top: 5rem;
+}
+.top-24 {
+  top: 6rem;
+}
+.top-3 {
+  top: 0.75rem;
+}
+.top-4 {
+  top: 1rem;
+}
+.top-40 {
+  top: 10rem;
+}
+.top-6 {
+  top: 1.5rem;
+}
+.z-10 {
+  z-index: 10;
+}
+.z-40 {
+  z-index: 40;
+}
+.z-50 {
+  z-index: 50;
+}
+.z-\[100\] {
+  z-index: 100;
+}
+.z-\[110\] {
+  z-index: 110;
+}
+.z-\[120\] {
+  z-index: 120;
+}
+.z-\[60\] {
+  z-index: 60;
+}
+.z-\[70\] {
+  z-index: 70;
+}
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+.col-span-full {
+  grid-column: 1 / -1;
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.my-8 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.mb-0\.5 {
+  margin-bottom: 0.125rem;
+}
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+.mb-12 {
+  margin-bottom: 3rem;
+}
+.mb-16 {
+  margin-bottom: 4rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mb-20 {
+  margin-bottom: 5rem;
+}
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+.mb-8 {
+  margin-bottom: 2rem;
+}
+.ml-1 {
+  margin-left: 0.25rem;
+}
+.ml-2 {
+  margin-left: 0.5rem;
+}
+.ml-4 {
+  margin-left: 1rem;
+}
+.mt-0\.5 {
+  margin-top: 0.125rem;
+}
+.mt-1 {
+  margin-top: 0.25rem;
+}
+.mt-10 {
+  margin-top: 2.5rem;
+}
+.mt-14 {
+  margin-top: 3.5rem;
+}
+.mt-16 {
+  margin-top: 4rem;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.mt-20 {
+  margin-top: 5rem;
+}
+.mt-3 {
+  margin-top: 0.75rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+.mt-6 {
+  margin-top: 1.5rem;
+}
+.mt-8 {
+  margin-top: 2rem;
+}
+.mt-auto {
+  margin-top: auto;
+}
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+.block {
+  display: block;
+}
+.inline-block {
+  display: inline-block;
+}
+.inline {
+  display: inline;
+}
+.flex {
+  display: flex;
+}
+.inline-flex {
+  display: inline-flex;
+}
+.table {
+  display: table;
+}
+.grid {
+  display: grid;
+}
+.hidden {
+  display: none;
+}
+.aspect-\[4\/3\] {
+  aspect-ratio: 4/3;
+}
+.aspect-\[4\/5\] {
+  aspect-ratio: 4/5;
+}
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+.h-1 {
+  height: 0.25rem;
+}
+.h-10 {
+  height: 2.5rem;
+}
+.h-12 {
+  height: 3rem;
+}
+.h-14 {
+  height: 3.5rem;
+}
+.h-16 {
+  height: 4rem;
+}
+.h-2 {
+  height: 0.5rem;
+}
+.h-20 {
+  height: 5rem;
+}
+.h-24 {
+  height: 6rem;
+}
+.h-28 {
+  height: 7rem;
+}
+.h-3 {
+  height: 0.75rem;
+}
+.h-32 {
+  height: 8rem;
+}
+.h-36 {
+  height: 9rem;
+}
+.h-4 {
+  height: 1rem;
+}
+.h-40 {
+  height: 10rem;
+}
+.h-44 {
+  height: 11rem;
+}
+.h-48 {
+  height: 12rem;
+}
+.h-5 {
+  height: 1.25rem;
+}
+.h-6 {
+  height: 1.5rem;
+}
+.h-64 {
+  height: 16rem;
+}
+.h-7 {
+  height: 1.75rem;
+}
+.h-72 {
+  height: 18rem;
+}
+.h-8 {
+  height: 2rem;
+}
+.h-9 {
+  height: 2.25rem;
+}
+.h-full {
+  height: 100%;
+}
+.max-h-48 {
+  max-height: 12rem;
+}
+.max-h-52 {
+  max-height: 13rem;
+}
+.max-h-64 {
+  max-height: 16rem;
+}
+.max-h-72 {
+  max-height: 18rem;
+}
+.max-h-96 {
+  max-height: 24rem;
+}
+.max-h-\[160px\] {
+  max-height: 160px;
+}
+.max-h-\[240px\] {
+  max-height: 240px;
+}
+.max-h-\[300px\] {
+  max-height: 300px;
+}
+.max-h-\[320px\] {
+  max-height: 320px;
+}
+.max-h-\[400px\] {
+  max-height: 400px;
+}
+.max-h-\[420px\] {
+  max-height: 420px;
+}
+.max-h-\[520px\] {
+  max-height: 520px;
+}
+.max-h-\[600px\] {
+  max-height: 600px;
+}
+.max-h-\[90vh\] {
+  max-height: 90vh;
+}
+.max-h-\[92vh\] {
+  max-height: 92vh;
+}
+.max-h-\[calc\(90vh-120px\)\] {
+  max-height: calc(90vh - 120px);
+}
+.min-h-28 {
+  min-height: 7rem;
+}
+.min-h-\[300px\] {
+  min-height: 300px;
+}
+.min-h-\[600px\] {
+  min-height: 600px;
+}
+.min-h-screen {
+  min-height: 100vh;
+}
+.w-1 {
+  width: 0.25rem;
+}
+.w-10 {
+  width: 2.5rem;
+}
+.w-12 {
+  width: 3rem;
+}
+.w-14 {
+  width: 3.5rem;
+}
+.w-16 {
+  width: 4rem;
+}
+.w-2 {
+  width: 0.5rem;
+}
+.w-20 {
+  width: 5rem;
+}
+.w-24 {
+  width: 6rem;
+}
+.w-3 {
+  width: 0.75rem;
+}
+.w-32 {
+  width: 8rem;
+}
+.w-4 {
+  width: 1rem;
+}
+.w-5 {
+  width: 1.25rem;
+}
+.w-6 {
+  width: 1.5rem;
+}
+.w-7 {
+  width: 1.75rem;
+}
+.w-8 {
+  width: 2rem;
+}
+.w-9 {
+  width: 2.25rem;
+}
+.w-\[90\%\] {
+  width: 90%;
+}
+.w-full {
+  width: 100%;
+}
+.min-w-0 {
+  min-width: 0px;
+}
+.min-w-\[220px\] {
+  min-width: 220px;
+}
+.max-w-2xl {
+  max-width: 42rem;
+}
+.max-w-3xl {
+  max-width: 48rem;
+}
+.max-w-4xl {
+  max-width: 56rem;
+}
+.max-w-5xl {
+  max-width: 64rem;
+}
+.max-w-6xl {
+  max-width: 72rem;
+}
+.max-w-7xl {
+  max-width: 80rem;
+}
+.max-w-\[65\%\] {
+  max-width: 65%;
+}
+.max-w-lg {
+  max-width: 32rem;
+}
+.max-w-md {
+  max-width: 28rem;
+}
+.max-w-sm {
+  max-width: 24rem;
+}
+.max-w-xl {
+  max-width: 36rem;
+}
+.flex-1 {
+  flex: 1 1 0%;
+}
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+.shrink-0 {
+  flex-shrink: 0;
+}
+.origin-left {
+  transform-origin: left;
+}
+.-translate-x-1\/2 {
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.-translate-y-1\/2 {
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.translate-y-4 {
+  --tw-translate-y: 1rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.-rotate-12 {
+  --tw-rotate: -12deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.scale-110 {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.scale-\[1\.02\] {
+  --tw-scale-x: 1.02;
+  --tw-scale-y: 1.02;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.scale-x-0 {
+  --tw-scale-x: 0;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+@keyframes spin {
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+.cursor-move {
+  cursor: move;
+}
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.cursor-zoom-in {
+  cursor: zoom-in;
+}
+.select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.appearance-none {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.items-start {
+  align-items: flex-start;
+}
+.items-end {
+  align-items: flex-end;
+}
+.items-center {
+  align-items: center;
+}
+.items-baseline {
+  align-items: baseline;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-1 {
+  gap: 0.25rem;
+}
+.gap-1\.5 {
+  gap: 0.375rem;
+}
+.gap-10 {
+  gap: 2.5rem;
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.gap-3 {
+  gap: 0.75rem;
+}
+.gap-4 {
+  gap: 1rem;
+}
+.gap-5 {
+  gap: 1.25rem;
+}
+.gap-6 {
+  gap: 1.5rem;
+}
+.gap-8 {
+  gap: 2rem;
+}
+.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+.space-y-10 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2.5rem * var(--tw-space-y-reverse));
+}
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+.space-y-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+.space-y-5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.25rem * var(--tw-space-y-reverse));
+}
+.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+.space-y-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
+.divide-y > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-y-reverse: 0;
+  border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+  border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
+.divide-black\/5 > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgb(0 0 0 / 0.05);
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.overflow-x-auto {
+  overflow-x: auto;
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+.whitespace-pre-wrap {
+  white-space: pre-wrap;
+}
+.break-words {
+  overflow-wrap: break-word;
+}
+.break-all {
+  word-break: break-all;
+}
+.rounded {
+  border-radius: 0.25rem;
+}
+.rounded-2xl {
+  border-radius: 1rem;
+}
+.rounded-3xl {
+  border-radius: 1.5rem;
+}
+.rounded-\[24px\] {
+  border-radius: 24px;
+}
+.rounded-\[32px\] {
+  border-radius: 32px;
+}
+.rounded-full {
+  border-radius: 9999px;
+}
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+.rounded-md {
+  border-radius: 0.375rem;
+}
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+.border {
+  border-width: 1px;
+}
+.border-2 {
+  border-width: 2px;
+}
+.border-4 {
+  border-width: 4px;
+}
+.border-b {
+  border-bottom-width: 1px;
+}
+.border-b-2 {
+  border-bottom-width: 2px;
+}
+.border-l-2 {
+  border-left-width: 2px;
+}
+.border-l-4 {
+  border-left-width: 4px;
+}
+.border-t {
+  border-top-width: 1px;
+}
+.border-dashed {
+  border-style: dashed;
+}
+.border-\[color\:var\(--accent\)\] {
+  border-color: var(--accent);
+}
+.border-\[color\:var\(--primary\)\] {
+  border-color: var(--primary);
+}
+.border-amber-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(254 243 199 / var(--tw-border-opacity, 1));
+}
+.border-amber-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(253 230 138 / var(--tw-border-opacity, 1));
+}
+.border-amber-200\/30 {
+  border-color: rgb(253 230 138 / 0.3);
+}
+.border-amber-200\/50 {
+  border-color: rgb(253 230 138 / 0.5);
+}
+.border-amber-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(251 191 36 / var(--tw-border-opacity, 1));
+}
+.border-black\/10 {
+  border-color: rgb(0 0 0 / 0.1);
+}
+.border-black\/5 {
+  border-color: rgb(0 0 0 / 0.05);
+}
+.border-blue-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(219 234 254 / var(--tw-border-opacity, 1));
+}
+.border-blue-200\/50 {
+  border-color: rgb(191 219 254 / 0.5);
+}
+.border-blue-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(147 197 253 / var(--tw-border-opacity, 1));
+}
+.border-blue-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(96 165 250 / var(--tw-border-opacity, 1));
+}
+.border-blue-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(59 130 246 / var(--tw-border-opacity, 1));
+}
+.border-emerald-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(209 250 229 / var(--tw-border-opacity, 1));
+}
+.border-emerald-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(167 243 208 / var(--tw-border-opacity, 1));
+}
+.border-emerald-200\/50 {
+  border-color: rgb(167 243 208 / 0.5);
+}
+.border-indigo-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(224 231 255 / var(--tw-border-opacity, 1));
+}
+.border-pink-200\/50 {
+  border-color: rgb(251 207 232 / 0.5);
+}
+.border-purple-200\/50 {
+  border-color: rgb(233 213 255 / 0.5);
+}
+.border-purple-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(192 132 252 / var(--tw-border-opacity, 1));
+}
+.border-purple-500\/30 {
+  border-color: rgb(168 85 247 / 0.3);
+}
+.border-purple-500\/40 {
+  border-color: rgb(168 85 247 / 0.4);
+}
+.border-purple-500\/50 {
+  border-color: rgb(168 85 247 / 0.5);
+}
+.border-red-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(254 226 226 / var(--tw-border-opacity, 1));
+}
+.border-red-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(254 202 202 / var(--tw-border-opacity, 1));
+}
+.border-red-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(252 165 165 / var(--tw-border-opacity, 1));
+}
+.border-rose-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(254 205 211 / var(--tw-border-opacity, 1));
+}
+.border-slate-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(241 245 249 / var(--tw-border-opacity, 1));
+}
+.border-slate-100\/50 {
+  border-color: rgb(241 245 249 / 0.5);
+}
+.border-slate-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
+}
+.border-slate-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(203 213 225 / var(--tw-border-opacity, 1));
+}
+.border-slate-50 {
+  --tw-border-opacity: 1;
+  border-color: rgb(248 250 252 / var(--tw-border-opacity, 1));
+}
+.border-slate-700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(51 65 85 / var(--tw-border-opacity, 1));
+}
+.border-transparent {
+  border-color: transparent;
+}
+.border-white {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
+}
+.border-white\/10 {
+  border-color: rgb(255 255 255 / 0.1);
+}
+.border-white\/20 {
+  border-color: rgb(255 255 255 / 0.2);
+}
+.border-white\/30 {
+  border-color: rgb(255 255 255 / 0.3);
+}
+.border-white\/5 {
+  border-color: rgb(255 255 255 / 0.05);
+}
+.border-t-transparent {
+  border-top-color: transparent;
+}
+.bg-\[\#0a0a0a\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(10 10 10 / var(--tw-bg-opacity, 1));
+}
+.bg-\[color\:var\(--accent\)\] {
+  background-color: var(--accent);
+}
+.bg-\[color\:var\(--primary\)\] {
+  background-color: var(--primary);
+}
+.bg-amber-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 243 199 / var(--tw-bg-opacity, 1));
+}
+.bg-amber-200\/30 {
+  background-color: rgb(253 230 138 / 0.3);
+}
+.bg-amber-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 191 36 / var(--tw-bg-opacity, 1));
+}
+.bg-amber-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 251 235 / var(--tw-bg-opacity, 1));
+}
+.bg-amber-50\/50 {
+  background-color: rgb(255 251 235 / 0.5);
+}
+.bg-amber-50\/60 {
+  background-color: rgb(255 251 235 / 0.6);
+}
+.bg-amber-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 158 11 / var(--tw-bg-opacity, 1));
+}
+.bg-aurora {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 249 246 / var(--tw-bg-opacity, 1));
+}
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+}
+.bg-black\/0 {
+  background-color: rgb(0 0 0 / 0);
+}
+.bg-black\/20 {
+  background-color: rgb(0 0 0 / 0.2);
+}
+.bg-black\/25 {
+  background-color: rgb(0 0 0 / 0.25);
+}
+.bg-black\/35 {
+  background-color: rgb(0 0 0 / 0.35);
+}
+.bg-black\/40 {
+  background-color: rgb(0 0 0 / 0.4);
+}
+.bg-black\/5 {
+  background-color: rgb(0 0 0 / 0.05);
+}
+.bg-black\/50 {
+  background-color: rgb(0 0 0 / 0.5);
+}
+.bg-black\/60 {
+  background-color: rgb(0 0 0 / 0.6);
+}
+.bg-black\/70 {
+  background-color: rgb(0 0 0 / 0.7);
+}
+.bg-black\/80 {
+  background-color: rgb(0 0 0 / 0.8);
+}
+.bg-black\/90 {
+  background-color: rgb(0 0 0 / 0.9);
+}
+.bg-black\/95 {
+  background-color: rgb(0 0 0 / 0.95);
+}
+.bg-blue-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
+}
+.bg-blue-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 246 255 / var(--tw-bg-opacity, 1));
+}
+.bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
+}
+.bg-blue-500\/20 {
+  background-color: rgb(59 130 246 / 0.2);
+}
+.bg-blue-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
+}
+.bg-emerald-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 250 229 / var(--tw-bg-opacity, 1));
+}
+.bg-emerald-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 253 245 / var(--tw-bg-opacity, 1));
+}
+.bg-emerald-50\/60 {
+  background-color: rgb(236 253 245 / 0.6);
+}
+.bg-emerald-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(16 185 129 / var(--tw-bg-opacity, 1));
+}
+.bg-emerald-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(5 150 105 / var(--tw-bg-opacity, 1));
+}
+.bg-green-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
+}
+.bg-green-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 163 74 / var(--tw-bg-opacity, 1));
+}
+.bg-indigo-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 242 255 / var(--tw-bg-opacity, 1));
+}
+.bg-purple-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 232 255 / var(--tw-bg-opacity, 1));
+}
+.bg-purple-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(168 85 247 / var(--tw-bg-opacity, 1));
+}
+.bg-purple-500\/10 {
+  background-color: rgb(168 85 247 / 0.1);
+}
+.bg-purple-500\/20 {
+  background-color: rgb(168 85 247 / 0.2);
+}
+.bg-red-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
+}
+.bg-red-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+}
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
+}
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
+}
+.bg-rose-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 241 242 / var(--tw-bg-opacity, 1));
+}
+.bg-slate-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
+}
+.bg-slate-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1));
+}
+.bg-slate-200\/50 {
+  background-color: rgb(226 232 240 / 0.5);
+}
+.bg-slate-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1));
+}
+.bg-slate-50\/30 {
+  background-color: rgb(248 250 252 / 0.3);
+}
+.bg-slate-50\/50 {
+  background-color: rgb(248 250 252 / 0.5);
+}
+.bg-slate-50\/60 {
+  background-color: rgb(248 250 252 / 0.6);
+}
+.bg-slate-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 41 59 / var(--tw-bg-opacity, 1));
+}
+.bg-slate-800\/60 {
+  background-color: rgb(30 41 59 / 0.6);
+}
+.bg-slate-800\/80 {
+  background-color: rgb(30 41 59 / 0.8);
+}
+.bg-slate-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--tw-bg-opacity, 1));
+}
+.bg-transparent {
+  background-color: transparent;
+}
+.bg-violet-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(237 233 254 / var(--tw-bg-opacity, 1));
+}
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+.bg-white\/10 {
+  background-color: rgb(255 255 255 / 0.1);
+}
+.bg-white\/15 {
+  background-color: rgb(255 255 255 / 0.15);
+}
+.bg-white\/20 {
+  background-color: rgb(255 255 255 / 0.2);
+}
+.bg-white\/40 {
+  background-color: rgb(255 255 255 / 0.4);
+}
+.bg-white\/5 {
+  background-color: rgb(255 255 255 / 0.05);
+}
+.bg-white\/50 {
+  background-color: rgb(255 255 255 / 0.5);
+}
+.bg-white\/60 {
+  background-color: rgb(255 255 255 / 0.6);
+}
+.bg-white\/70 {
+  background-color: rgb(255 255 255 / 0.7);
+}
+.bg-white\/90 {
+  background-color: rgb(255 255 255 / 0.9);
+}
+.bg-white\/95 {
+  background-color: rgb(255 255 255 / 0.95);
+}
+.bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+}
+.bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+.bg-gradient-to-t {
+  background-image: linear-gradient(to top, var(--tw-gradient-stops));
+}
+.from-\[color\:var\(--primary\)\] {
+  --tw-gradient-from: var(--primary) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(255 255 255 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-amber-400 {
+  --tw-gradient-from: #fbbf24 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(251 191 36 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-amber-50 {
+  --tw-gradient-from: #fffbeb var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(255 251 235 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-amber-500 {
+  --tw-gradient-from: #f59e0b var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(245 158 11 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-amber-600 {
+  --tw-gradient-from: #d97706 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(217 119 6 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-black\/60 {
+  --tw-gradient-from: rgb(0 0 0 / 0.6) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-black\/80 {
+  --tw-gradient-from: rgb(0 0 0 / 0.8) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-blue-50 {
+  --tw-gradient-from: #eff6ff var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(239 246 255 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-blue-600 {
+  --tw-gradient-from: #2563eb var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(37 99 235 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-cyan-400 {
+  --tw-gradient-from: #22d3ee var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(34 211 238 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-emerald-50 {
+  --tw-gradient-from: #ecfdf5 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(236 253 245 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-emerald-500 {
+  --tw-gradient-from: #10b981 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(16 185 129 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-emerald-600 {
+  --tw-gradient-from: #059669 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(5 150 105 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-pink-400 {
+  --tw-gradient-from: #f472b6 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(244 114 182 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-pink-50 {
+  --tw-gradient-from: #fdf2f8 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(253 242 248 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-purple-400 {
+  --tw-gradient-from: #c084fc var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(192 132 252 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-purple-50 {
+  --tw-gradient-from: #faf5ff var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(250 245 255 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-purple-500\/10 {
+  --tw-gradient-from: rgb(168 85 247 / 0.1) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(168 85 247 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-purple-600 {
+  --tw-gradient-from: #9333ea var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(147 51 234 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-purple-600\/20 {
+  --tw-gradient-from: rgb(147 51 234 / 0.2) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(147 51 234 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-purple-900\/30 {
+  --tw-gradient-from: rgb(88 28 135 / 0.3) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(88 28 135 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-slate-100 {
+  --tw-gradient-from: #f1f5f9 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(241 245 249 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-slate-200 {
+  --tw-gradient-from: #e2e8f0 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(226 232 240 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-slate-50 {
+  --tw-gradient-from: #f8fafc var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(248 250 252 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-slate-700 {
+  --tw-gradient-from: #334155 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(51 65 85 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-slate-900 {
+  --tw-gradient-from: #0f172a var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(15 23 42 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.via-\[color\:var\(--accent\)\] {
+  --tw-gradient-to: rgb(255 255 255 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--accent) var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.via-black\/40 {
+  --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), rgb(0 0 0 / 0.4) var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.via-black\/50 {
+  --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), rgb(0 0 0 / 0.5) var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.via-blue-400 {
+  --tw-gradient-to: rgb(96 165 250 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), #60a5fa var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.via-orange-400 {
+  --tw-gradient-to: rgb(251 146 60 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), #fb923c var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.via-pink-400 {
+  --tw-gradient-to: rgb(244 114 182 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), #f472b6 var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.via-transparent {
+  --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), transparent var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.to-\[\#0b0b14\] {
+  --tw-gradient-to: #0b0b14 var(--tw-gradient-to-position);
+}
+.to-\[color\:var\(--accent\)\] {
+  --tw-gradient-to: var(--accent) var(--tw-gradient-to-position);
+}
+.to-amber-100\/50 {
+  --tw-gradient-to: rgb(254 243 199 / 0.5) var(--tw-gradient-to-position);
+}
+.to-amber-700 {
+  --tw-gradient-to: #b45309 var(--tw-gradient-to-position);
+}
+.to-amber-800 {
+  --tw-gradient-to: #92400e var(--tw-gradient-to-position);
+}
+.to-black\/40 {
+  --tw-gradient-to: rgb(0 0 0 / 0.4) var(--tw-gradient-to-position);
+}
+.to-black\/70 {
+  --tw-gradient-to: rgb(0 0 0 / 0.7) var(--tw-gradient-to-position);
+}
+.to-blue-100\/50 {
+  --tw-gradient-to: rgb(219 234 254 / 0.5) var(--tw-gradient-to-position);
+}
+.to-blue-400 {
+  --tw-gradient-to: #60a5fa var(--tw-gradient-to-position);
+}
+.to-blue-600\/20 {
+  --tw-gradient-to: rgb(37 99 235 / 0.2) var(--tw-gradient-to-position);
+}
+.to-blue-700 {
+  --tw-gradient-to: #1d4ed8 var(--tw-gradient-to-position);
+}
+.to-cyan-400 {
+  --tw-gradient-to: #22d3ee var(--tw-gradient-to-position);
+}
+.to-cyan-500\/10 {
+  --tw-gradient-to: rgb(6 182 212 / 0.1) var(--tw-gradient-to-position);
+}
+.to-cyan-600 {
+  --tw-gradient-to: #0891b2 var(--tw-gradient-to-position);
+}
+.to-emerald-100\/50 {
+  --tw-gradient-to: rgb(209 250 229 / 0.5) var(--tw-gradient-to-position);
+}
+.to-emerald-700 {
+  --tw-gradient-to: #047857 var(--tw-gradient-to-position);
+}
+.to-indigo-50 {
+  --tw-gradient-to: #eef2ff var(--tw-gradient-to-position);
+}
+.to-pink-100\/50 {
+  --tw-gradient-to: rgb(252 231 243 / 0.5) var(--tw-gradient-to-position);
+}
+.to-pink-400 {
+  --tw-gradient-to: #f472b6 var(--tw-gradient-to-position);
+}
+.to-purple-100\/50 {
+  --tw-gradient-to: rgb(243 232 255 / 0.5) var(--tw-gradient-to-position);
+}
+.to-purple-400 {
+  --tw-gradient-to: #c084fc var(--tw-gradient-to-position);
+}
+.to-slate-100\/50 {
+  --tw-gradient-to: rgb(241 245 249 / 0.5) var(--tw-gradient-to-position);
+}
+.to-slate-200 {
+  --tw-gradient-to: #e2e8f0 var(--tw-gradient-to-position);
+}
+.to-slate-300 {
+  --tw-gradient-to: #cbd5e1 var(--tw-gradient-to-position);
+}
+.to-slate-400 {
+  --tw-gradient-to: #94a3b8 var(--tw-gradient-to-position);
+}
+.to-slate-900 {
+  --tw-gradient-to: #0f172a var(--tw-gradient-to-position);
+}
+.to-teal-600 {
+  --tw-gradient-to: #0d9488 var(--tw-gradient-to-position);
+}
+.to-transparent {
+  --tw-gradient-to: transparent var(--tw-gradient-to-position);
+}
+.bg-clip-text {
+  -webkit-background-clip: text;
+          background-clip: text;
+}
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.p-1 {
+  padding: 0.25rem;
+}
+.p-1\.5 {
+  padding: 0.375rem;
+}
+.p-10 {
+  padding: 2.5rem;
+}
+.p-12 {
+  padding: 3rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.p-2\.5 {
+  padding: 0.625rem;
+}
+.p-3 {
+  padding: 0.75rem;
+}
+.p-4 {
+  padding: 1rem;
+}
+.p-5 {
+  padding: 1.25rem;
+}
+.p-6 {
+  padding: 1.5rem;
+}
+.p-8 {
+  padding: 2rem;
+}
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.py-1\.5 {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.py-2\.5 {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+}
+.py-20 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.pb-1 {
+  padding-bottom: 0.25rem;
+}
+.pb-16 {
+  padding-bottom: 4rem;
+}
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+.pb-20 {
+  padding-bottom: 5rem;
+}
+.pb-24 {
+  padding-bottom: 6rem;
+}
+.pb-3 {
+  padding-bottom: 0.75rem;
+}
+.pb-32 {
+  padding-bottom: 8rem;
+}
+.pl-10 {
+  padding-left: 2.5rem;
+}
+.pl-12 {
+  padding-left: 3rem;
+}
+.pl-8 {
+  padding-left: 2rem;
+}
+.pr-1 {
+  padding-right: 0.25rem;
+}
+.pr-16 {
+  padding-right: 4rem;
+}
+.pr-2 {
+  padding-right: 0.5rem;
+}
+.pr-3 {
+  padding-right: 0.75rem;
+}
+.pr-4 {
+  padding-right: 1rem;
+}
+.pt-0 {
+  padding-top: 0px;
+}
+.pt-1 {
+  padding-top: 0.25rem;
+}
+.pt-2 {
+  padding-top: 0.5rem;
+}
+.pt-20 {
+  padding-top: 5rem;
+}
+.pt-28 {
+  padding-top: 7rem;
+}
+.pt-3 {
+  padding-top: 0.75rem;
+}
+.pt-32 {
+  padding-top: 8rem;
+}
+.pt-4 {
+  padding-top: 1rem;
+}
+.pt-5 {
+  padding-top: 1.25rem;
+}
+.pt-6 {
+  padding-top: 1.5rem;
+}
+.pt-8 {
+  padding-top: 2rem;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.font-display {
+  font-family: "Playfair Display", serif;
+}
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+.text-\[10px\] {
+  font-size: 10px;
+}
+.text-\[11px\] {
+  font-size: 11px;
+}
+.text-\[9px\] {
+  font-size: 9px;
+}
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.font-black {
+  font-weight: 900;
+}
+.font-bold {
+  font-weight: 700;
+}
+.font-extrabold {
+  font-weight: 800;
+}
+.font-light {
+  font-weight: 300;
+}
+.font-medium {
+  font-weight: 500;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.italic {
+  font-style: italic;
+}
+.leading-none {
+  line-height: 1;
+}
+.leading-relaxed {
+  line-height: 1.625;
+}
+.leading-tight {
+  line-height: 1.25;
+}
+.tracking-\[0\.1em\] {
+  letter-spacing: 0.1em;
+}
+.tracking-\[0\.25em\] {
+  letter-spacing: 0.25em;
+}
+.tracking-\[0\.2em\] {
+  letter-spacing: 0.2em;
+}
+.tracking-\[0\.3em\] {
+  letter-spacing: 0.3em;
+}
+.tracking-tight {
+  letter-spacing: -0.025em;
+}
+.tracking-tighter {
+  letter-spacing: -0.05em;
+}
+.tracking-wide {
+  letter-spacing: 0.025em;
+}
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
+.tracking-widest {
+  letter-spacing: 0.1em;
+}
+.text-\[color\:var\(--accent\)\] {
+  color: var(--accent);
+}
+.text-\[color\:var\(--primary\)\] {
+  color: var(--primary);
+}
+.text-amber-200\/90 {
+  color: rgb(253 230 138 / 0.9);
+}
+.text-amber-400 {
+  --tw-text-opacity: 1;
+  color: rgb(251 191 36 / var(--tw-text-opacity, 1));
+}
+.text-amber-500 {
+  --tw-text-opacity: 1;
+  color: rgb(245 158 11 / var(--tw-text-opacity, 1));
+}
+.text-amber-600 {
+  --tw-text-opacity: 1;
+  color: rgb(217 119 6 / var(--tw-text-opacity, 1));
+}
+.text-amber-700 {
+  --tw-text-opacity: 1;
+  color: rgb(180 83 9 / var(--tw-text-opacity, 1));
+}
+.text-amber-800 {
+  --tw-text-opacity: 1;
+  color: rgb(146 64 14 / var(--tw-text-opacity, 1));
+}
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+.text-blue-400 {
+  --tw-text-opacity: 1;
+  color: rgb(96 165 250 / var(--tw-text-opacity, 1));
+}
+.text-blue-600 {
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
+}
+.text-blue-700 {
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity, 1));
+}
+.text-blue-800 {
+  --tw-text-opacity: 1;
+  color: rgb(30 64 175 / var(--tw-text-opacity, 1));
+}
+.text-blue-900 {
+  --tw-text-opacity: 1;
+  color: rgb(30 58 138 / var(--tw-text-opacity, 1));
+}
+.text-cyan-300 {
+  --tw-text-opacity: 1;
+  color: rgb(103 232 249 / var(--tw-text-opacity, 1));
+}
+.text-emerald-600 {
+  --tw-text-opacity: 1;
+  color: rgb(5 150 105 / var(--tw-text-opacity, 1));
+}
+.text-emerald-700 {
+  --tw-text-opacity: 1;
+  color: rgb(4 120 87 / var(--tw-text-opacity, 1));
+}
+.text-emerald-800 {
+  --tw-text-opacity: 1;
+  color: rgb(6 95 70 / var(--tw-text-opacity, 1));
+}
+.text-green-600 {
+  --tw-text-opacity: 1;
+  color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+}
+.text-green-700 {
+  --tw-text-opacity: 1;
+  color: rgb(21 128 61 / var(--tw-text-opacity, 1));
+}
+.text-indigo-600 {
+  --tw-text-opacity: 1;
+  color: rgb(79 70 229 / var(--tw-text-opacity, 1));
+}
+.text-indigo-700 {
+  --tw-text-opacity: 1;
+  color: rgb(67 56 202 / var(--tw-text-opacity, 1));
+}
+.text-pink-600 {
+  --tw-text-opacity: 1;
+  color: rgb(219 39 119 / var(--tw-text-opacity, 1));
+}
+.text-pink-700 {
+  --tw-text-opacity: 1;
+  color: rgb(190 24 93 / var(--tw-text-opacity, 1));
+}
+.text-purple-300 {
+  --tw-text-opacity: 1;
+  color: rgb(216 180 254 / var(--tw-text-opacity, 1));
+}
+.text-purple-400 {
+  --tw-text-opacity: 1;
+  color: rgb(192 132 252 / var(--tw-text-opacity, 1));
+}
+.text-purple-600 {
+  --tw-text-opacity: 1;
+  color: rgb(147 51 234 / var(--tw-text-opacity, 1));
+}
+.text-purple-700 {
+  --tw-text-opacity: 1;
+  color: rgb(126 34 206 / var(--tw-text-opacity, 1));
+}
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity, 1));
+}
+.text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+.text-red-700 {
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity, 1));
+}
+.text-rose-600 {
+  --tw-text-opacity: 1;
+  color: rgb(225 29 72 / var(--tw-text-opacity, 1));
+}
+.text-slate-200 {
+  --tw-text-opacity: 1;
+  color: rgb(226 232 240 / var(--tw-text-opacity, 1));
+}
+.text-slate-300 {
+  --tw-text-opacity: 1;
+  color: rgb(203 213 225 / var(--tw-text-opacity, 1));
+}
+.text-slate-400 {
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity, 1));
+}
+.text-slate-500 {
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity, 1));
+}
+.text-slate-600 {
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity, 1));
+}
+.text-slate-700 {
+  --tw-text-opacity: 1;
+  color: rgb(51 65 85 / var(--tw-text-opacity, 1));
+}
+.text-slate-800 {
+  --tw-text-opacity: 1;
+  color: rgb(30 41 59 / var(--tw-text-opacity, 1));
+}
+.text-slate-900 {
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity, 1));
+}
+.text-transparent {
+  color: transparent;
+}
+.text-violet-700 {
+  --tw-text-opacity: 1;
+  color: rgb(109 40 217 / var(--tw-text-opacity, 1));
+}
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+.text-white\/20 {
+  color: rgb(255 255 255 / 0.2);
+}
+.text-white\/25 {
+  color: rgb(255 255 255 / 0.25);
+}
+.text-white\/50 {
+  color: rgb(255 255 255 / 0.5);
+}
+.text-white\/60 {
+  color: rgb(255 255 255 / 0.6);
+}
+.text-white\/70 {
+  color: rgb(255 255 255 / 0.7);
+}
+.text-white\/80 {
+  color: rgb(255 255 255 / 0.8);
+}
+.line-through {
+  text-decoration-line: line-through;
+}
+.accent-amber-400 {
+  accent-color: #fbbf24;
+}
+.opacity-0 {
+  opacity: 0;
+}
+.opacity-30 {
+  opacity: 0.3;
+}
+.opacity-60 {
+  opacity: 0.6;
+}
+.opacity-75 {
+  opacity: 0.75;
+}
+.opacity-80 {
+  opacity: 0.8;
+}
+.opacity-90 {
+  opacity: 0.9;
+}
+.shadow {
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-2xl {
+  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-lg {
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-md {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-sm {
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-xl {
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-amber-400\/20 {
+  --tw-shadow-color: rgb(251 191 36 / 0.2);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+.shadow-blue-500\/25 {
+  --tw-shadow-color: rgb(59 130 246 / 0.25);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+.outline-none {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.ring {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+.ring-2 {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+.ring-4 {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+.ring-\[color\:var\(--accent\)\] {
+  --tw-ring-color: var(--accent);
+}
+.ring-\[color\:var\(--primary\)\] {
+  --tw-ring-color: var(--primary);
+}
+.ring-amber-400 {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(251 191 36 / var(--tw-ring-opacity, 1));
+}
+.ring-amber-400\/20 {
+  --tw-ring-color: rgb(251 191 36 / 0.2);
+}
+.blur {
+  --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.drop-shadow-md {
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.grayscale {
+  --tw-grayscale: grayscale(100%);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.backdrop-blur {
+  --tw-backdrop-blur: blur(8px);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.backdrop-blur-2xl {
+  --tw-backdrop-blur: blur(40px);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.backdrop-blur-lg {
+  --tw-backdrop-blur: blur(16px);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.backdrop-blur-md {
+  --tw-backdrop-blur: blur(12px);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.backdrop-blur-sm {
+  --tw-backdrop-blur: blur(4px);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.backdrop-blur-xl {
+  --tw-backdrop-blur: blur(24px);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.backdrop-filter {
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-shadow {
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.duration-200 {
+  transition-duration: 200ms;
+}
+.duration-300 {
+  transition-duration: 300ms;
+}
+.duration-500 {
+  transition-duration: 500ms;
+}
+.duration-700 {
+  transition-duration: 700ms;
+}
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ease-out {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+:root {
+  color-scheme: light;
+  --primary: #4A3728;
+  --accent: #D4AF37;
+  --spidey-red: #c54542;
+  --spidey-blue: #266598;
+  --spidey-dark: #0f141a;
+  --spidey-ink: #0b0f14;
+  --spidey-cream: #f7f3ee;
+  --spidey-glow: rgba(197, 69, 66, 0.35);
+}
+/* Dark Mode Styles */
+body.dark-mode {
+  color-scheme: dark;
+  --primary: #e8e8e8;
+  --accent: #D4AF37;
+  background-color: #0f141a;
+  color: #e5e5e5;
+}
+body.dark-mode,
+body.dark-mode #root {
+  background-color: #0f141a;
+  color: #e5e7eb;
+}
+body.dark-mode .spidey-panel {
+  background: #1a2330;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+body.dark-mode .spidey-card {
+  background: #1f2937;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background: #1f2937;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #e5e5e5;
+}
+body.dark-mode .bg-white {
+  background: #1f2937 !important;
+}
+body.dark-mode .text-slate-500,
+body.dark-mode .text-slate-600,
+body.dark-mode .text-slate-700,
+body.dark-mode .text-slate-800,
+body.dark-mode .text-slate-900,
+body.dark-mode .text-black,
+body.dark-mode .text-gray-700,
+body.dark-mode .text-gray-800,
+body.dark-mode .text-gray-900 {
+  color: #9ca3af !important;
+}
+body.dark-mode .text-white {
+  color: #f8fafc !important;
+}
+body.dark-mode .border-black\/5,
+body.dark-mode .border-black\/10 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+body.dark-mode .bg-slate-50,
+body.dark-mode .bg-slate-100,
+body.dark-mode .bg-slate-200 {
+  background: #1f2937 !important;
+}
+body.dark-mode [class*="bg-slate-50/"],
+body.dark-mode [class*="bg-slate-100/"],
+body.dark-mode [class*="bg-white/"] {
+  background: rgba(31, 41, 55, 0.9) !important;
+}
+body.dark-mode canvas {
+  filter: none;
+}
+body.dark-mode .spidey-panel h1,
+body.dark-mode .spidey-panel h2,
+body.dark-mode .spidey-panel h3,
+body.dark-mode .spidey-panel h4,
+body.dark-mode .spidey-panel p,
+body.dark-mode .spidey-panel label,
+body.dark-mode .spidey-panel span,
+body.dark-mode .spidey-panel div {
+  border-color: inherit;
+}
+body.dark-mode .bg-gradient-to-r,
+body.dark-mode .bg-gradient-to-t,
+body.dark-mode .bg-gradient-to-b {
+  opacity: 0.9;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #faf9f6;
+  margin: 0;
+  overflow-x: hidden;
+}
+.bg-aurora {
+  background: radial-gradient(circle at 10% 20%, rgba(197, 69, 66, 0.08), transparent 50%),
+    radial-gradient(circle at 85% 15%, rgba(38, 101, 152, 0.15), transparent 45%),
+    linear-gradient(180deg, #f7f3ee 0%, #f1ebe3 100%);
+}
+.bg-spidey {
+  background: radial-gradient(circle at 20% 20%, rgba(197, 69, 66, 0.15), transparent 55%),
+    radial-gradient(circle at 80% 10%, rgba(38, 101, 152, 0.25), transparent 50%),
+    linear-gradient(160deg, #0b0f14 0%, #111827 48%, #1b2330 100%);
+}
+h1,
+h2,
+h3,
+.serif {
+  font-family: "Playfair Display", serif;
+}
+model-viewer {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+.bg-grid {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+.animate-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.spidey-home {
+  min-height: 100vh;
+  position: relative;
+  color: #fff;
+  font-family: "Exo 2", sans-serif;
+  overflow: hidden;
+}
+.spidey-home::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(197, 69, 66, 0.35), transparent 55%);
+  opacity: 0.9;
+  z-index: 0;
+  pointer-events: none;
+}
+/* Ensure all content sections inside .spidey-home sit above the ::before pseudo-element */
+.spidey-home>div,
+.spidey-home>section {
+  position: relative;
+  z-index: 1;
+}
+.spidey-nav {
+  position: absolute;
+  width: 100%;
+  height: 110px;
+  z-index: 10;
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  gap: 24px;
+}
+.spidey-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.spidey-logo img {
+  height: 64px;
+  width: 64px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.spidey-logo .brand {
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.spidey-nav-links {
+  display: flex;
+  gap: 22px;
+  margin-left: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 600;
+}
+.spidey-nav-links button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px 6px;
+  opacity: 0.75;
+}
+.spidey-nav-links button.active,
+.spidey-nav-links button:hover {
+  opacity: 1;
+}
+.spidey-menu {
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+}
+.spidey-flag {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  opacity: 0.9;
+}
+.spidey-flag img {
+  height: 26px;
+  width: 26px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.spidey-search {
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 18px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  height: 38px;
+  width: 38px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.spidey-container {
+  position: relative;
+  height: 100vh;
+  z-index: 1;
+}
+.spidey-main-slider {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: var(--spidey-red);
+}
+.spidey-main-slider .swiper-slide {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: transparent;
+}
+.spidey-main-slider .swiper-slide img {
+  position: absolute;
+  bottom: 0;
+  right: 22%;
+  height: 82vh;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 32px 32px 0 0;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+.spidey-text {
+  position: absolute;
+  left: 16%;
+  bottom: 28%;
+  max-width: 360px;
+}
+.spidey-text h2 {
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 0.95;
+  color: #fff;
+  text-transform: uppercase;
+}
+.spidey-text p {
+  margin-top: 26px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+.spidey-emblem {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+  bottom: -20%;
+  right: -35%;
+  opacity: 0.6;
+}
+.spidey-emblem img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transform: scale(2.3);
+}
+.spidey-main-slider .swiper-button-next::after,
+.spidey-main-slider .swiper-button-prev::after {
+  display: none;
+}
+.spidey-main-slider .swiper-button-next,
+.spidey-main-slider .swiper-button-prev {
+  color: #fff;
+  font-size: 86px;
+}
+.spidey-main-slider .swiper-button-prev {
+  left: 32px;
+}
+.spidey-main-slider .swiper-button-next {
+  right: 32px;
+}
+.spidey-thumbs {
+  height: 28%;
+  width: 22%;
+  position: absolute;
+  z-index: 100;
+  bottom: 8%;
+  right: 24px;
+  padding: 16px 16px 16px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+}
+.spidey-thumbs .swiper-slide {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background: var(--spidey-blue);
+}
+.spidey-thumbs .swiper-slide:nth-child(2) {
+  background: #832e2c;
+}
+.spidey-thumbs img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.spidey-thumbs .thumb-label {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 4px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: capitalize;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  text-align: center;
+  backdrop-filter: blur(2px);
+}
+.spidey-socials {
+  position: absolute;
+  bottom: 9%;
+  z-index: 100;
+  left: 18%;
+  font-size: 12px;
+  display: flex;
+  gap: 16px;
+}
+.spidey-socials a {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  color: #fff;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+}
+.spidey-theme {
+  color: #f7f3ee;
+}
+.spidey-shell {
+  background: rgba(11, 15, 20, 0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+html {
+  scroll-padding-top: 6rem;
+}
+[data-action] {
+  scroll-margin-top: 6rem;
+}
+.spidey-shell-brand {
+  font-family: "Exo 2", sans-serif;
+}
+.spidey-nav-btn {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s ease;
+}
+.spidey-nav-btn.active,
+.spidey-nav-btn:hover {
+  color: #fff;
+}
+.spidey-shell-cta {
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #0b0f14;
+  background: #f7f3ee;
+  border: none;
+}
+.spidey-footer {
+  background: #0b0f14;
+}
+.spidey-theme .bg-white,
+.spidey-theme .bg-gray-50,
+.spidey-theme .bg-gray-100 {
+  background-color: #f7f3ee !important;
+}
+.spidey-theme .bg-slate-50,
+.spidey-theme .bg-slate-100,
+.spidey-theme .bg-slate-200 {
+  background-color: #efe8df !important;
+}
+.spidey-theme .text-gray-900,
+.spidey-theme .text-slate-900 {
+  color: #0b0f14 !important;
+}
+.spidey-theme .text-gray-600,
+.spidey-theme .text-slate-500 {
+  color: rgba(11, 15, 20, 0.72) !important;
+}
+.spidey-theme .text-slate-400,
+.spidey-theme .text-gray-400 {
+  color: rgba(11, 15, 20, 0.55) !important;
+}
+.spidey-theme .border-black\/5,
+.spidey-theme .border-gray-200,
+.spidey-theme .border-slate-100 {
+  border-color: rgba(11, 15, 20, 0.12) !important;
+}
+.spidey-theme .border-black\/10,
+.spidey-theme .border-slate-200 {
+  border-color: rgba(11, 15, 20, 0.2) !important;
+}
+.spidey-theme .bg-gray-900,
+.spidey-theme .bg-gray-950 {
+  background-color: #0f141a !important;
+}
+.spidey-theme .text-white {
+  color: #f7f3ee !important;
+}
+.spidey-theme input,
+.spidey-theme textarea,
+.spidey-theme select {
+  background-color: #f7f3ee;
+  border-color: rgba(11, 15, 20, 0.2);
+  color: #0b0f14;
+}
+.spidey-theme input:focus,
+.spidey-theme textarea:focus,
+.spidey-theme select:focus {
+  outline: 2px solid rgba(197, 69, 66, 0.45);
+  outline-offset: 2px;
+}
+.spidey-theme .rounded-2xl,
+.spidey-theme .rounded-3xl {
+  border-radius: 24px;
+}
+.spidey-theme .shadow-lg,
+.spidey-theme .shadow-xl,
+.spidey-theme .shadow-2xl {
+  box-shadow: 0 30px 60px rgba(11, 15, 20, 0.18) !important;
+}
+.spidey-page {
+  color: #f7f3ee;
+}
+.spidey-hero {
+  position: relative;
+  padding: 120px 24px 60px;
+  overflow: hidden;
+}
+.spidey-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(197, 69, 66, 0.2), transparent 55%),
+    radial-gradient(circle at 80% 30%, rgba(38, 101, 152, 0.25), transparent 50%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+.spidey-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 24px;
+}
+.spidey-kicker {
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(247, 243, 238, 0.7);
+}
+.spidey-title {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: "Exo 2", sans-serif;
+}
+.spidey-subtitle {
+  font-size: 16px;
+  color: rgba(247, 243, 238, 0.75);
+  max-width: 560px;
+}
+.spidey-panel {
+  background: rgba(247, 243, 238, 0.95);
+  color: #0b0f14;
+  border-radius: 28px;
+  border: 1px solid rgba(11, 15, 20, 0.12);
+  box-shadow: 0 20px 40px rgba(11, 15, 20, 0.12);
+}
+.spidey-panel-dark {
+  background: rgba(11, 15, 20, 0.85);
+  color: #f7f3ee;
+  border: 1px solid rgba(247, 243, 238, 0.15);
+}
+.spidey-chip {
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid rgba(11, 15, 20, 0.2);
+  background: rgba(247, 243, 238, 0.8);
+  color: #0b0f14;
+}
+.spidey-chip.active {
+  background: #0b0f14;
+  color: #f7f3ee;
+  border-color: #0b0f14;
+}
+.spidey-card {
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(11, 15, 20, 0.12);
+  background: #f7f3ee;
+  box-shadow: 0 20px 40px rgba(11, 15, 20, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.spidey-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 50px rgba(11, 15, 20, 0.2);
+}
+.model-fallback {
+  display: none;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.model-fallback.is-active {
+  display: block;
+}
+.model-viewer.is-hidden {
+  display: none;
+}
+.spidey-dialog {
+  border: none;
+  border-radius: 24px;
+  padding: 24px;
+  max-width: 640px;
+  width: min(90vw, 640px);
+  max-height: 90vh;
+  overflow: auto;
+  background: #ffffff;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.35);
+}
+.spidey-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(2px);
+}
+.spidey-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.spidey-pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: rgba(11, 15, 20, 0.08);
+  color: #0b0f14;
+}
+.spidey-cta {
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: #c54542;
+  color: #f7f3ee;
+  border: none;
+}
+.spidey-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  display: grid;
+  gap: 24px;
+}
+.admin-grid {
+  max-width: min(96vw, 1800px);
+  padding: 40px 32px 80px;
+}
+.admin-masonry-layout,
+.admin-masonry-item {
+  min-width: 0;
+}
+.admin-masonry-layout {
+  -moz-column-count: 1;
+       column-count: 1;
+  -moz-column-gap: 36px;
+       column-gap: 36px;
+}
+.admin-masonry-item {
+  -moz-column-break-inside: avoid;
+       break-inside: avoid;
+  margin-bottom: 36px;
+}
+.admin-masonry-item > .spidey-panel {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.admin-masonry-item > .spidey-panel:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+.admin-masonry-item h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.admin-masonry-item h2::first-letter {
+  font-size: 1.2em;
+}
+@media (min-width: 1200px) {
+  .admin-masonry-layout {
+    -moz-column-count: 2;
+         column-count: 2;
+    -moz-column-gap: 36px;
+         column-gap: 36px;
+  }
+
+  .admin-masonry-item {
+    margin-bottom: 36px;
+  }
+}
+@media (min-width: 1600px) {
+  .admin-masonry-layout {
+    -moz-column-count: 2;
+         column-count: 2;
+    -moz-column-gap: 40px;
+         column-gap: 40px;
+  }
+  
+  .admin-masonry-item {
+    margin-bottom: 40px;
+  }
+}
+.admin-masonry-item--full {
+  -moz-column-span: all;
+       column-span: all;
+}
+.admin-masonry-item--half {
+  -moz-column-span: 1;
+       column-span: 1;
+}
+.admin-masonry-item--customers {
+  margin-top: 20px;
+}
+@media (min-width: 1536px) {
+  .admin-grid {
+    max-width: min(97vw, 1840px);
+  }
+}
+@media (max-width: 1100px) {
+  .spidey-text {
+    left: 10%;
+  }
+
+  .spidey-thumbs {
+    width: 30%;
+  }
+
+  .spidey-main-slider .swiper-slide img {
+    right: 8%;
+  }
+}
+@media (max-width: 900px) {
+  .spidey-nav {
+    padding: 16px 20px;
+  }
+
+  .spidey-nav-links {
+    display: none;
+  }
+
+  .spidey-text {
+    left: 8%;
+    bottom: 34%;
+  }
+
+  .spidey-text h2 {
+    font-size: 46px;
+  }
+
+  .spidey-main-slider .swiper-slide img {
+    height: 60vh;
+    right: 4%;
+  }
+
+  .spidey-thumbs {
+    width: 42%;
+  }
+}
+@media (max-width: 640px) {
+  .spidey-text {
+    position: static;
+    padding: 120px 24px 24px;
+  }
+
+  .spidey-main-slider .swiper-slide img {
+    position: relative;
+    height: 46vh;
+    right: auto;
+    margin: 0 24px;
+  }
+
+  .spidey-thumbs {
+    position: static;
+    width: 100%;
+    height: 140px;
+    margin: 0 24px 24px;
+  }
+
+  .spidey-socials {
+    left: 24px;
+    bottom: 24px;
+  }
+}
+/* 3D Viewer Styles */
+.viewer-3d-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(11, 15, 20, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: fadeIn 0.3s ease-out;
+}
+.viewer-3d-container {
+  width: 100vw;
+  height: 100vh;
+  perspective: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  /* Prevent scroll chaining */
+  overscroll-behavior: contain;
+}
+.viewer-3d-container:active {
+  cursor: grabbing;
+}
+.viewer-3d-content {
+  position: relative;
+  width: 800px;
+  /* Base width */
+  height: 600px;
+  /* Base height */
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+  /* Smooth rotation */
+}
+.viewer-3d-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.viewer-3d-layer img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.5));
+}
+.viewer-3d-controls {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 100000;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+.viewer-3d-close {
+  background: white;
+  color: black;
+  padding: 12px 32px;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s, background-color 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.viewer-3d-close:hover {
+  transform: scale(1.05);
+  background-color: #f0f0f0;
+}
+@keyframes kenBurns {
+  0% {
+    transform: scale(1.0) translate(0%, 0%);
+  }
+
+  25% {
+    transform: scale(1.08) translate(-1.5%, -1%);
+  }
+
+  50% {
+    transform: scale(1.15) translate(-2.5%, 1.5%);
+  }
+
+  75% {
+    transform: scale(1.08) translate(1%, -0.5%);
+  }
+
+  100% {
+    transform: scale(1.0) translate(0%, 0%);
+  }
+}
+.motion-3d {
+  transition: transform 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+/* 3D Tilt Card — applied to non-overflow card containers */
+.has-3d-tilt {
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+  will-change: transform;
+  transform-origin: center center;
+}
+.motion-3d[data-motion3d="true"] {
+  animation: kenBurns 20s ease-in-out infinite alternate;
+  transform-origin: center center;
+}
+/* Customer Dashboard Design Modal Animation */
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-modal-in {
+  animation: modalIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+/* =============================================
+   KEN BURNS 3D MOTION SYSTEM
+   Auto-applied to admin-uploaded images
+   ============================================= */
+@keyframes kenBurns1 {
+  0% {
+    transform: scale(1.0) translate(0%, 0%);
+  }
+
+  50% {
+    transform: scale(1.12) translate(-2%, -1.5%);
+  }
+
+  100% {
+    transform: scale(1.0) translate(0%, 0%);
+  }
+}
+@keyframes kenBurns2 {
+  0% {
+    transform: scale(1.0) translate(0%, 0%);
+  }
+
+  50% {
+    transform: scale(1.1) translate(2%, 1%);
+  }
+
+  100% {
+    transform: scale(1.0) translate(0%, 0%);
+  }
+}
+@keyframes kenBurns3 {
+  0% {
+    transform: scale(1.08) translate(-1%, 1%);
+  }
+
+  50% {
+    transform: scale(1.0) translate(1.5%, -0.5%);
+  }
+
+  100% {
+    transform: scale(1.08) translate(-1%, 1%);
+  }
+}
+@keyframes kenBurnsDrift {
+  0% {
+    transform: scale(1.05) translateX(0px);
+  }
+
+  50% {
+    transform: scale(1.12) translateX(-20px);
+  }
+
+  100% {
+    transform: scale(1.05) translateX(0px);
+  }
+}
+/* Apply to any image with this class */
+.kb-motion {
+  animation: kenBurns1 16s ease-in-out infinite;
+  will-change: transform;
+}
+.kb-motion-2 {
+  animation: kenBurns2 20s ease-in-out infinite;
+  will-change: transform;
+}
+.kb-motion-3 {
+  animation: kenBurns3 18s ease-in-out infinite;
+  will-change: transform;
+}
+.kb-drift {
+  animation: kenBurnsDrift 22s ease-in-out infinite;
+  will-change: transform;
+}
+/* Container for Ken Burns — clips the scale-up overflow */
+.kb-container {
+  overflow: hidden;
+  position: relative;
+}
+.kb-container img,
+.kb-container video {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+/* Category card image with motion */
+.cat-img-motion {
+  overflow: hidden;
+}
+.cat-img-motion img {
+  animation: kenBurns1 18s ease-in-out infinite;
+  will-change: transform;
+  transform-origin: center center;
+}
+/* Design card image with motion */
+.design-img-motion {
+  overflow: hidden;
+}
+.design-img-motion img {
+  animation: kenBurns2 20s ease-in-out infinite;
+  will-change: transform;
+  transform-origin: center center;
+}
+/* Hover boost */
+.kb-container:hover img,
+.cat-img-motion:hover img,
+.design-img-motion:hover img {
+  animation-play-state: paused;
+  transform: scale(1.08);
+  transition: transform 0.5s ease;
+}
+.placeholder\:text-white\/60::-moz-placeholder {
+  color: rgb(255 255 255 / 0.6);
+}
+.placeholder\:text-white\/60::placeholder {
+  color: rgb(255 255 255 / 0.6);
+}
+.last\:border-b-0:last-child {
+  border-bottom-width: 0px;
+}
+.hover\:-translate-y-0\.5:hover {
+  --tw-translate-y: -0.125rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:-translate-y-1:hover {
+  --tw-translate-y: -0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:rotate-3:hover {
+  --tw-rotate: 3deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:rotate-90:hover {
+  --tw-rotate: 90deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:scale-105:hover {
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:scale-110:hover {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:scale-125:hover {
+  --tw-scale-x: 1.25;
+  --tw-scale-y: 1.25;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:scale-\[1\.02\]:hover {
+  --tw-scale-x: 1.02;
+  --tw-scale-y: 1.02;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:gap-3:hover {
+  gap: 0.75rem;
+}
+.hover\:border-\[color\:var\(--primary\)\]:hover {
+  border-color: var(--primary);
+}
+.hover\:border-amber-200:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(253 230 138 / var(--tw-border-opacity, 1));
+}
+.hover\:border-blue-500\/50:hover {
+  border-color: rgb(59 130 246 / 0.5);
+}
+.hover\:border-purple-400:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(192 132 252 / var(--tw-border-opacity, 1));
+}
+.hover\:border-purple-500\/50:hover {
+  border-color: rgb(168 85 247 / 0.5);
+}
+.hover\:border-slate-200:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
+}
+.hover\:border-slate-300:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(203 213 225 / var(--tw-border-opacity, 1));
+}
+.hover\:bg-amber-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 243 199 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-amber-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 158 11 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-amber-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(217 119 6 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-black\/10:hover {
+  background-color: rgb(0 0 0 / 0.1);
+}
+.hover\:bg-black\/40:hover {
+  background-color: rgb(0 0 0 / 0.4);
+}
+.hover\:bg-black\/80:hover {
+  background-color: rgb(0 0 0 / 0.8);
+}
+.hover\:bg-blue-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(191 219 254 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-emerald-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(4 120 87 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-green-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(187 247 208 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-green-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-purple-400\/10:hover {
+  background-color: rgb(192 132 252 / 0.1);
+}
+.hover\:bg-red-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-red-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 202 202 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-red-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-red-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-slate-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-slate-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-slate-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(203 213 225 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-slate-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-slate-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(51 65 85 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-slate-800:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 41 59 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-white:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-white\/10:hover {
+  background-color: rgb(255 255 255 / 0.1);
+}
+.hover\:bg-white\/20:hover {
+  background-color: rgb(255 255 255 / 0.2);
+}
+.hover\:bg-white\/25:hover {
+  background-color: rgb(255 255 255 / 0.25);
+}
+.hover\:from-purple-600\/40:hover {
+  --tw-gradient-from: rgb(147 51 234 / 0.4) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(147 51 234 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.hover\:to-blue-600\/40:hover {
+  --tw-gradient-to: rgb(37 99 235 / 0.4) var(--tw-gradient-to-position);
+}
+.hover\:text-\[color\:var\(--accent\)\]:hover {
+  color: var(--accent);
+}
+.hover\:text-\[color\:var\(--primary\)\]:hover {
+  color: var(--primary);
+}
+.hover\:text-amber-400:hover {
+  --tw-text-opacity: 1;
+  color: rgb(251 191 36 / var(--tw-text-opacity, 1));
+}
+.hover\:text-amber-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(217 119 6 / var(--tw-text-opacity, 1));
+}
+.hover\:text-slate-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity, 1));
+}
+.hover\:text-slate-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(51 65 85 / var(--tw-text-opacity, 1));
+}
+.hover\:text-white:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+.hover\:underline:hover {
+  text-decoration-line: underline;
+}
+.hover\:opacity-100:hover {
+  opacity: 1;
+}
+.hover\:opacity-80:hover {
+  opacity: 0.8;
+}
+.hover\:opacity-90:hover {
+  opacity: 0.9;
+}
+.hover\:shadow-2xl:hover {
+  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.hover\:shadow-lg:hover {
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.hover\:shadow-md:hover {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.hover\:shadow-xl:hover {
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.hover\:shadow-amber-400\/20:hover {
+  --tw-shadow-color: rgb(251 191 36 / 0.2);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+.focus\:border-amber-400:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(251 191 36 / var(--tw-border-opacity, 1));
+}
+.focus\:border-amber-500:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(245 158 11 / var(--tw-border-opacity, 1));
+}
+.focus\:bg-white:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.focus\:ring-2:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+.focus\:ring-\[color\:var\(--primary\)\]:focus {
+  --tw-ring-color: var(--primary);
+}
+.focus\:ring-amber-200:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(253 230 138 / var(--tw-ring-opacity, 1));
+}
+.focus\:ring-amber-500\/20:focus {
+  --tw-ring-color: rgb(245 158 11 / 0.2);
+}
+.focus\:ring-blue-500\/20:focus {
+  --tw-ring-color: rgb(59 130 246 / 0.2);
+}
+.focus\:ring-emerald-500\/20:focus {
+  --tw-ring-color: rgb(16 185 129 / 0.2);
+}
+.active\:scale-95:active {
+  --tw-scale-x: .95;
+  --tw-scale-y: .95;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.group:hover .group-hover\:pointer-events-auto {
+  pointer-events: auto;
+}
+.group:hover .group-hover\:translate-y-0 {
+  --tw-translate-y: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.group:hover .group-hover\:scale-105 {
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.group:hover .group-hover\:scale-110 {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.group:hover .group-hover\:scale-125 {
+  --tw-scale-x: 1.25;
+  --tw-scale-y: 1.25;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.group:hover .group-hover\:scale-x-100 {
+  --tw-scale-x: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.group:hover .group-hover\:border-\[color\:var\(--primary\)\] {
+  border-color: var(--primary);
+}
+.group:hover .group-hover\:border-slate-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(203 213 225 / var(--tw-border-opacity, 1));
+}
+.group:hover .group-hover\:bg-black\/20 {
+  background-color: rgb(0 0 0 / 0.2);
+}
+.group:hover .group-hover\:text-purple-300 {
+  --tw-text-opacity: 1;
+  color: rgb(216 180 254 / var(--tw-text-opacity, 1));
+}
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}
+.group:hover .group-hover\:shadow-md {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+@media (min-width: 640px) {
+
+  .sm\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (min-width: 768px) {
+
+  .md\:right-10 {
+    right: 2.5rem;
+  }
+
+  .md\:top-10 {
+    top: 2.5rem;
+  }
+
+  .md\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
+  .md\:col-span-3 {
+    grid-column: span 3 / span 3;
+  }
+
+  .md\:block {
+    display: block;
+  }
+
+  .md\:flex {
+    display: flex;
+  }
+
+  .md\:inline-flex {
+    display: inline-flex;
+  }
+
+  .md\:hidden {
+    display: none;
+  }
+
+  .md\:h-16 {
+    height: 4rem;
+  }
+
+  .md\:h-full {
+    height: 100%;
+  }
+
+  .md\:min-h-\[400px\] {
+    min-height: 400px;
+  }
+
+  .md\:w-16 {
+    width: 4rem;
+  }
+
+  .md\:w-64 {
+    width: 16rem;
+  }
+
+  .md\:w-auto {
+    width: auto;
+  }
+
+  .md\:flex-none {
+    flex: none;
+  }
+
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-\[0\.7fr_1fr\] {
+    grid-template-columns: 0.7fr 1fr;
+  }
+
+  .md\:grid-cols-\[1\.5fr_1fr\] {
+    grid-template-columns: 1.5fr 1fr;
+  }
+
+  .md\:flex-row {
+    flex-direction: row;
+  }
+
+  .md\:items-center {
+    align-items: center;
+  }
+
+  .md\:justify-between {
+    justify-content: space-between;
+  }
+
+  .md\:p-8 {
+    padding: 2rem;
+  }
+
+  .md\:text-left {
+    text-align: left;
+  }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .md\:text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .md\:text-7xl {
+    font-size: 4.5rem;
+    line-height: 1;
+  }
+
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}
+@media (min-width: 1024px) {
+
+  .lg\:col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+
+  .lg\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
+  .lg\:col-span-3 {
+    grid-column: span 3 / span 3;
+  }
+
+  .lg\:col-span-4 {
+    grid-column: span 4 / span 4;
+  }
+
+  .lg\:col-span-7 {
+    grid-column: span 7 / span 7;
+  }
+
+  .lg\:mx-0 {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .lg\:flex {
+    display: flex;
+  }
+
+  .lg\:grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-\[1\.2fr_1fr\] {
+    grid-template-columns: 1.2fr 1fr;
+  }
+
+  .lg\:grid-cols-\[1fr_1\.2fr\] {
+    grid-template-columns: 1fr 1.2fr;
+  }
+
+  .lg\:grid-cols-\[1fr_1\.4fr\] {
+    grid-template-columns: 1fr 1.4fr;
+  }
+
+  .lg\:grid-cols-\[1fr_1\.8fr\] {
+    grid-template-columns: 1fr 1.8fr;
+  }
+
+  .lg\:grid-cols-\[1fr_1fr\] {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .lg\:grid-cols-\[1fr_2fr\] {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .lg\:grid-cols-\[280px_1fr\] {
+    grid-template-columns: 280px 1fr;
+  }
+
+  .lg\:grid-cols-\[auto_1fr\] {
+    grid-template-columns: auto 1fr;
+  }
+
+  .lg\:p-10 {
+    padding: 2.5rem;
+  }
+
+  .lg\:text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+}
+@media (min-width: 1280px) {
+
+  .xl\:col-span-3 {
+    grid-column: span 3 / span 3;
+  }
+
+  .xl\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-\[220px_minmax\(0\2c 1fr\)\] {
+    grid-template-columns: 220px minmax(0,1fr);
+  }
+}
+@media (min-width: 1536px) {
+
+  .\32xl\:grid-cols-\[260px_minmax\(0\2c 1fr\)\] {
+    grid-template-columns: 260px minmax(0,1fr);
+  }
+}
+@media (prefers-color-scheme: dark) {
+
+  .dark\:inline {
+    display: inline;
+  }
+
+  .dark\:hidden {
+    display: none;
+  }
+
+  .dark\:bg-slate-700 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(51 65 85 / var(--tw-bg-opacity, 1));
+  }
+
+  .dark\:text-white {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  }
+}</style><style id="aria-chatbot-style">
+      @keyframes chatSlideIn {
+        from { opacity: 0; transform: scale(0.85) translateY(20px); transform-origin: bottom right; }
+        to   { opacity: 1; transform: scale(1) translateY(0); }
+      }
+      @keyframes bounce {
+        0%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-6px); }
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      #aria-messages::-webkit-scrollbar { width: 4px; }
+      #aria-messages::-webkit-scrollbar-track { background: transparent; }
+      #aria-messages::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 4px; }
+      #aria-chat-input { field-sizing: content; }
+    </style></head>
+  <body>
+    <div id="root">
+    <div class="min-h-screen spidey-theme bg-aurora text-slate-900">
+      
+      <header class="fixed top-0 left-0 right-0 z-50 spidey-shell">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+          <button data-action="nav" data-tab="home" class="flex items-center gap-3 spidey-shell-brand">
+            <span class="w-9 h-9 rounded-xl bg-[color:var(--accent)] text-white font-bold flex items-center justify-center">A</span>
+            <span class="text-lg md:text-xl font-display font-bold tracking-[0.3em] text-white uppercase">AR Interia</span>
+          </button>
+          <nav class="hidden lg:flex items-center gap-6">
+            
+              <button data-action="nav" data-tab="home" class="spidey-nav-btn ">
+                Home
+                
+              </button>
+              <button data-action="nav" data-tab="gallery" class="spidey-nav-btn ">
+                Gallery
+                
+              </button>
+              <button data-action="nav" data-tab="categories" class="spidey-nav-btn ">
+                Categories
+                
+              </button>
+              <button data-action="nav" data-tab="portfolio" class="spidey-nav-btn ">
+                Portfolio
+                
+              </button>
+              <button data-action="nav" data-tab="services" class="spidey-nav-btn ">
+                Services
+                
+              </button>
+              <button data-action="nav" data-tab="showroom" class="spidey-nav-btn active">
+                Luxury Showroom
+                
+              </button>
+              <button data-action="nav" data-tab="ai-studio" class="spidey-nav-btn ">
+                Design Studio
+                
+              </button>
+              <button data-action="nav" data-tab="admin" class="spidey-nav-btn ">
+                Admin
+                
+              </button>
+            <button data-action="open-calculator" class="px-4 py-2 rounded-full bg-amber-400 text-slate-900 font-bold text-xs hover:bg-amber-500 transition shadow-lg active:scale-95">Price Calculator</button>
+          </nav>
+          <div class="flex items-center gap-3">
+            
+              <div class="hidden md:flex flex-col items-end">
+                <span class="text-xs font-bold text-white">Administrator</span>
+                <span class="text-[10px] uppercase tracking-[0.25em] text-white/60 font-semibold">admin</span>
+              </div>
+              <button data-action="logout" class="spidey-shell-cta">Logout</button>
+            
+            <button data-action="toggle-menu" class="md:hidden p-2 text-white">
+              ☰
+            </button>
+          </div>
+        </div>
+      </header>
+
+      
+      
+
+      <main class="pt-28">
+        
+    <style>
+      .showroom-page { background: #0b0b14; min-height: 100vh; color: white; }
+      .showroom-room-btn {
+        display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 16px;
+        border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+        color: rgba(255,255,255,0.7); font-size: 14px; cursor: pointer; transition: all 0.2s; text-align: left;
+      }
+      .showroom-room-btn:hover { background: rgba(255,255,255,0.08); color: white; }
+      .showroom-room-btn.active { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.5); color: #fbbf24; }
+      .showroom-video-card {
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px; overflow: hidden; padding: 24px;
+      }
+      .showroom-video-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+      .showroom-video-frame {
+        position: relative; width: 100%; padding-bottom: 56.25%; background: #111827;
+        border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
+      }
+      .showroom-video-frame iframe, .showroom-video-frame img {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px; object-fit: cover;
+      }
+      .showroom-design-card {
+        background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px; overflow: hidden; transition: transform 0.2s;
+      }
+      .showroom-design-card:hover { transform: translateY(-4px); }
+      .showroom-design-img-wrap { position: relative; height: 180px; overflow: hidden; }
+      .showroom-design-overlay {
+        position: absolute; inset: 0; background: rgba(0,0,0,0.5);
+        display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s;
+      }
+      .showroom-design-card:hover .showroom-design-overlay { opacity: 1; }
+      .showroom-design-body { padding: 14px; }
+      .showroom-overlay-btn {
+        padding: 8px 16px; background: rgba(255,255,255,0.9); color: #111;
+        border-radius: 8px; font-weight: 700; font-size: 13px; border: none; cursor: pointer;
+      }
+      .showroom-card-btn {
+        padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; transition: opacity 0.2s;
+      }
+      .showroom-card-btn.primary { background: #f59e0b; color: #000; }
+      .showroom-card-btn.secondary { background: rgba(255,255,255,0.1); color: white; }
+      .showroom-btn-primary {
+        padding: 10px 22px; background: #f59e0b; color: #000;
+        border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; border: none; transition: opacity 0.2s;
+      }
+      .showroom-btn-primary:hover { opacity: 0.85; }
+      .showroom-btn-secondary {
+        padding: 10px 22px; background: rgba(255,255,255,0.1); color: white;
+        border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); transition: opacity 0.2s;
+      }
+      .showroom-cta-banner {
+        margin-top: 40px; padding: 40px; text-align: center;
+        background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(245,158,11,0.1));
+        border: 1px solid rgba(124,58,237,0.3); border-radius: 20px;
+      }
+      .showroom-cta-btn-primary {
+        padding: 14px 28px; background: linear-gradient(135deg, #7c3aed, #f59e0b);
+        color: white; border-radius: 12px; font-weight: 700; font-size: 15px; border: none; cursor: pointer;
+      }
+      .showroom-cta-btn-outline {
+        padding: 14px 28px; background: transparent; color: white;
+        border: 2px solid rgba(255,255,255,0.3); border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer;
+      }
+      .showroom-video-thumb {
+        background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px; padding: 12px; cursor: pointer; transition: all 0.2s; display: block; width: 100%;
+      }
+      .showroom-video-thumb:hover { background: rgba(255,255,255,0.08); }
+    </style>
+    <div class="showroom-page" style="background:#0b0b14;min-height:100vh;">
+      <!-- Hero banner -->
+      <section class="relative pt-28 pb-16 px-6 text-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-purple-900/30 via-transparent to-[#0b0b14] pointer-events-none"></div>
+        <div class="relative z-10 max-w-4xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-purple-500/40 bg-purple-500/10 backdrop-blur mb-6 text-sm font-bold text-purple-300 uppercase tracking-widest">
+            ✨ Luxury Showroom
+          </div>
+          <h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-5 leading-tight">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-pink-400">Immersive</span>
+            Spaces
+          </h1>
+          <p class="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
+            Explore every room with real video walkthroughs, curated designs, and instant quotes.
+          </p>
+          <!-- Property type selector -->
+          <div class="inline-flex rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-1.5 gap-1">
+            <button data-action="select-property" data-property="house" class="px-7 py-3 rounded-xl font-bold text-sm transition-all bg-amber-500 text-black shadow-lg">
+              🏡 Luxury Villa
+            </button>
+            <button data-action="select-property" data-property="apartment" class="px-7 py-3 rounded-xl font-bold text-sm transition-all text-white/70 hover:text-white">
+              🏢 Penthouse Apt
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Showroom Layout -->
+      <section class="max-w-7xl mx-auto px-4 pb-24 grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
+
+        <!-- Room List Sidebar -->
+        <aside class="flex flex-col gap-2">
+          <div class="text-xs uppercase tracking-widest text-slate-500 font-bold px-2 mb-2">Rooms &amp; Spaces</div>
+          
+            <button data-action="select-showroom-room" data-room-id="room-001" class="showroom-room-btn active">
+              <span class="text-2xl">📍</span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">Master Bedroom</div>
+                
+              </div>
+            </button>
+          
+            <button data-action="select-showroom-room" data-room-id="room-002" class="showroom-room-btn ">
+              <span class="text-2xl">📍</span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">Kids Bedroom</div>
+                
+              </div>
+            </button>
+          
+            <button data-action="select-showroom-room" data-room-id="room-003" class="showroom-room-btn ">
+              <span class="text-2xl">📍</span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">Modern Kitchen</div>
+                <div class="text-xs opacity-60">Kitchen</div>
+              </div>
+            </button>
+          
+            <button data-action="select-showroom-room" data-room-id="room-004" class="showroom-room-btn ">
+              <span class="text-2xl">📍</span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">Living Room</div>
+                
+              </div>
+            </button>
+          
+            <button data-action="select-showroom-room" data-room-id="room-005" class="showroom-room-btn ">
+              <span class="text-2xl">📍</span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">Dining Area</div>
+                
+              </div>
+            </button>
+          
+            <button data-action="select-showroom-room" data-room-id="room-006" class="showroom-room-btn ">
+              <span class="text-2xl">📍</span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">Luxury Bathroom</div>
+                <div class="text-xs opacity-60">Bathroom</div>
+              </div>
+            </button>
+          
+            <button data-action="select-showroom-room" data-room-id="room-007" class="showroom-room-btn ">
+              <span class="text-2xl">📍</span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">Home Gym</div>
+                <div class="text-xs opacity-60">Gym</div>
+              </div>
+            </button>
+          
+            <button data-action="select-showroom-room" data-room-id="room-008" class="showroom-room-btn ">
+              <span class="text-2xl">📍</span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">Home Theatre</div>
+                
+              </div>
+            </button>
+          
+            <button data-action="select-showroom-room" data-room-id="room-009" class="showroom-room-btn ">
+              <span class="text-2xl">📍</span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">Pooja Room</div>
+                
+              </div>
+            </button>
+          
+            <button data-action="select-showroom-room" data-room-id="room-010" class="showroom-room-btn ">
+              <span class="text-2xl">📍</span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">Garden &amp; Outdoor</div>
+                <div class="text-xs opacity-60">Garden</div>
+              </div>
+            </button>
+          
+            <button data-action="select-showroom-room" data-room-id="room-011" class="showroom-room-btn ">
+              <span class="text-2xl">📍</span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">Terrace</div>
+                
+              </div>
+            </button>
+          
+            <button data-action="select-showroom-room" data-room-id="room-012" class="showroom-room-btn ">
+              <span class="text-2xl">📍</span>
+              <div class="text-left">
+                <div class="font-semibold text-sm">Balcony</div>
+                
+              </div>
+            </button>
+          
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex flex-col gap-8">
+          
+
+          <!-- ===== VIDEO SECTION ===== -->
+          <div class="showroom-video-card">
+            <div class="showroom-video-header">
+              <div>
+                <div class="text-xs uppercase tracking-widest text-amber-400 font-bold mb-1">Master Bedroom</div>
+                <h2 class="text-3xl font-display font-bold text-white">Master Bedroom</h2>
+                <p class="text-slate-400 mt-2 text-sm max-w-xl">Luxurious master bedroom with king-size bed, walk-in closet, and spa-like ensuite.</p>
+              </div>
+              <div class="flex gap-3 flex-wrap">
+                <button data-action="nav" data-tab="contact" class="showroom-btn-primary">💬 Get Quote</button>
+                <button data-action="nav" data-tab="contact" class="showroom-btn-secondary">📅 Book Design</button>
+              </div>
+            </div>
+
+            <!-- Video embed -->
+            
+              <div class="showroom-video-frame">
+                <video src="/videos/room_masterbedroom.mp4" poster="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&amp;fit=crop&amp;q=80&amp;w=800" title="Master Bedroom — Interior Video Tour" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;background:black;" controls="" playsinline="" preload="metadata"></video>
+              </div>
+              
+          </div>
+
+          <!-- ===== DESIGNS SECTION ===== -->
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <h3 class="text-xl font-bold text-white">
+                🖼️ Related Designs — <span class="text-amber-400">Master Bedroom</span>
+              </h3>
+              
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              
+                <div class="showroom-design-card group">
+                  <div class="showroom-design-img-wrap overflow-hidden">
+                    <img src="/category/Master Bedroom/master-bedroom1.jpg" alt="Four Poster Canopy Suite" class="motion-3d w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" data-motion3d="true" loading="lazy">
+                    <div class="showroom-design-overlay">
+                      <button data-action="open-3d-room" data-image-url="/category/Master Bedroom/master-bedroom1.jpg" data-room-name="Four Poster Canopy Suite" class="showroom-overlay-btn">🏠 View 3D</button>
+                    </div>
+                  </div>
+                  <div class="showroom-design-body">
+                    <div class="text-xs text-amber-400 font-semibold uppercase tracking-wider mb-1">Master Bedroom</div>
+                    <h4 class="font-bold text-white text-sm mb-3 line-clamp-2">Four Poster Canopy Suite</h4>
+                    <div class="flex gap-2">
+                      <button data-action="nav" data-tab="contact" class="showroom-card-btn primary">💬 Quote</button>
+                           <button data-action="nav" data-tab="contact" class="showroom-card-btn secondary">📅 Book</button>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="showroom-design-card group">
+                  <div class="showroom-design-img-wrap overflow-hidden">
+                    <img src="/category/Master Bedroom/master-bedroom2.jpg" alt="Golden Amber Dusk Suite" class="motion-3d w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" data-motion3d="true" loading="lazy">
+                    <div class="showroom-design-overlay">
+                      <button data-action="open-3d-room" data-image-url="/category/Master Bedroom/master-bedroom2.jpg" data-room-name="Golden Amber Dusk Suite" class="showroom-overlay-btn">🏠 View 3D</button>
+                    </div>
+                  </div>
+                  <div class="showroom-design-body">
+                    <div class="text-xs text-amber-400 font-semibold uppercase tracking-wider mb-1">Master Bedroom</div>
+                    <h4 class="font-bold text-white text-sm mb-3 line-clamp-2">Golden Amber Dusk Suite</h4>
+                    <div class="flex gap-2">
+                      <button data-action="nav" data-tab="contact" class="showroom-card-btn primary">💬 Quote</button>
+                           <button data-action="nav" data-tab="contact" class="showroom-card-btn secondary">📅 Book</button>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="showroom-design-card group">
+                  <div class="showroom-design-img-wrap overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&amp;fit=crop&amp;q=80&amp;w=400" alt="Bedroom Design &amp; Styling Tips (Video Reference)" class="motion-3d w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" data-motion3d="true" loading="lazy">
+                    <div class="showroom-design-overlay">
+                      <button data-action="open-3d-room" data-image-url="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&amp;fit=crop&amp;q=80&amp;w=400" data-room-name="Bedroom Design &amp; Styling Tips (Video Reference)" class="showroom-overlay-btn">🏠 View 3D</button>
+                    </div>
+                  </div>
+                  <div class="showroom-design-body">
+                    <div class="text-xs text-amber-400 font-semibold uppercase tracking-wider mb-1">Video Design Reference</div>
+                    <h4 class="font-bold text-white text-sm mb-3 line-clamp-2">Bedroom Design &amp; Styling Tips (Video Reference)</h4>
+                    <div class="flex gap-2">
+                      <button data-action="nav" data-tab="contact" class="showroom-card-btn primary">💬 Quote</button>
+                           <button data-action="nav" data-tab="contact" class="showroom-card-btn secondary">📅 Book</button>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="showroom-design-card group">
+                  <div class="showroom-design-img-wrap overflow-hidden">
+                    <img src="/api/category-images/Master Bedroom/master-bedroom1.jpg" alt="Four Poster Canopy Suite - Bedroom" class="motion-3d w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" data-motion3d="true" loading="lazy">
+                    <div class="showroom-design-overlay">
+                      <button data-action="open-3d-room" data-image-url="/api/category-images/Master Bedroom/master-bedroom1.jpg" data-room-name="Four Poster Canopy Suite - Bedroom" class="showroom-overlay-btn">🏠 View 3D</button>
+                    </div>
+                  </div>
+                  <div class="showroom-design-body">
+                    <div class="text-xs text-amber-400 font-semibold uppercase tracking-wider mb-1">Bedroom</div>
+                    <h4 class="font-bold text-white text-sm mb-3 line-clamp-2">Four Poster Canopy Suite - Bedroom</h4>
+                    <div class="flex gap-2">
+                      <button data-action="nav" data-tab="contact" class="showroom-card-btn primary">💬 Quote</button>
+                           <button data-action="nav" data-tab="contact" class="showroom-card-btn secondary">📅 Book</button>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="showroom-design-card group">
+                  <div class="showroom-design-img-wrap overflow-hidden">
+                    <img src="/api/category-images/Master Bedroom/master-bedroom10.jpg" alt="Ocean Mist - Bedroom" class="motion-3d w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" data-motion3d="true" loading="lazy">
+                    <div class="showroom-design-overlay">
+                      <button data-action="open-3d-room" data-image-url="/api/category-images/Master Bedroom/master-bedroom10.jpg" data-room-name="Ocean Mist - Bedroom" class="showroom-overlay-btn">🏠 View 3D</button>
+                    </div>
+                  </div>
+                  <div class="showroom-design-body">
+                    <div class="text-xs text-amber-400 font-semibold uppercase tracking-wider mb-1">Bedroom</div>
+                    <h4 class="font-bold text-white text-sm mb-3 line-clamp-2">Ocean Mist - Bedroom</h4>
+                    <div class="flex gap-2">
+                      <button data-action="nav" data-tab="contact" class="showroom-card-btn primary">💬 Quote</button>
+                           <button data-action="nav" data-tab="contact" class="showroom-card-btn secondary">📅 Book</button>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="showroom-design-card group">
+                  <div class="showroom-design-img-wrap overflow-hidden">
+                    <img src="/api/category-images/Master Bedroom/master-bedroom2.jpg" alt="Golden Amber Dusk Suite - Bedroom" class="motion-3d w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" data-motion3d="true" loading="lazy">
+                    <div class="showroom-design-overlay">
+                      <button data-action="open-3d-room" data-image-url="/api/category-images/Master Bedroom/master-bedroom2.jpg" data-room-name="Golden Amber Dusk Suite - Bedroom" class="showroom-overlay-btn">🏠 View 3D</button>
+                    </div>
+                  </div>
+                  <div class="showroom-design-body">
+                    <div class="text-xs text-amber-400 font-semibold uppercase tracking-wider mb-1">Bedroom</div>
+                    <h4 class="font-bold text-white text-sm mb-3 line-clamp-2">Golden Amber Dusk Suite - Bedroom</h4>
+                    <div class="flex gap-2">
+                      <button data-action="nav" data-tab="contact" class="showroom-card-btn primary">💬 Quote</button>
+                           <button data-action="nav" data-tab="contact" class="showroom-card-btn secondary">📅 Book</button>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="showroom-design-card group">
+                  <div class="showroom-design-img-wrap overflow-hidden">
+                    <img src="/api/category-images/Master Bedroom/master-bedroom3.jpg" alt="Platinum Walk In Retreat - Bedroom" class="motion-3d w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" data-motion3d="true" loading="lazy">
+                    <div class="showroom-design-overlay">
+                      <button data-action="open-3d-room" data-image-url="/api/category-images/Master Bedroom/master-bedroom3.jpg" data-room-name="Platinum Walk In Retreat - Bedroom" class="showroom-overlay-btn">🏠 View 3D</button>
+                    </div>
+                  </div>
+                  <div class="showroom-design-body">
+                    <div class="text-xs text-amber-400 font-semibold uppercase tracking-wider mb-1">Bedroom</div>
+                    <h4 class="font-bold text-white text-sm mb-3 line-clamp-2">Platinum Walk In Retreat - Bedroom</h4>
+                    <div class="flex gap-2">
+                      <button data-action="nav" data-tab="contact" class="showroom-card-btn primary">💬 Quote</button>
+                           <button data-action="nav" data-tab="contact" class="showroom-card-btn secondary">📅 Book</button>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="showroom-design-card group">
+                  <div class="showroom-design-img-wrap overflow-hidden">
+                    <img src="/api/category-images/Kids-bedroom/kids-bedroom1.jpg" alt="Pastel Carousel Suite - Kids Bedroom" class="motion-3d w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" data-motion3d="true" loading="lazy">
+                    <div class="showroom-design-overlay">
+                      <button data-action="open-3d-room" data-image-url="/api/category-images/Kids-bedroom/kids-bedroom1.jpg" data-room-name="Pastel Carousel Suite - Kids Bedroom" class="showroom-overlay-btn">🏠 View 3D</button>
+                    </div>
+                  </div>
+                  <div class="showroom-design-body">
+                    <div class="text-xs text-amber-400 font-semibold uppercase tracking-wider mb-1">Kids Bedroom</div>
+                    <h4 class="font-bold text-white text-sm mb-3 line-clamp-2">Pastel Carousel Suite - Kids Bedroom</h4>
+                    <div class="flex gap-2">
+                      <button data-action="nav" data-tab="contact" class="showroom-card-btn primary">💬 Quote</button>
+                           <button data-action="nav" data-tab="contact" class="showroom-card-btn secondary">📅 Book</button>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="showroom-design-card group">
+                  <div class="showroom-design-img-wrap overflow-hidden">
+                    <img src="/api/category-images/Kids-bedroom/kids-bedroom10.jpg" alt="Little Royal Prince Suite - Kids Bedroom" class="motion-3d w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" data-motion3d="true" loading="lazy">
+                    <div class="showroom-design-overlay">
+                      <button data-action="open-3d-room" data-image-url="/api/category-images/Kids-bedroom/kids-bedroom10.jpg" data-room-name="Little Royal Prince Suite - Kids Bedroom" class="showroom-overlay-btn">🏠 View 3D</button>
+                    </div>
+                  </div>
+                  <div class="showroom-design-body">
+                    <div class="text-xs text-amber-400 font-semibold uppercase tracking-wider mb-1">Kids Bedroom</div>
+                    <h4 class="font-bold text-white text-sm mb-3 line-clamp-2">Little Royal Prince Suite - Kids Bedroom</h4>
+                    <div class="flex gap-2">
+                      <button data-action="nav" data-tab="contact" class="showroom-card-btn primary">💬 Quote</button>
+                           <button data-action="nav" data-tab="contact" class="showroom-card-btn secondary">📅 Book</button>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="showroom-design-card group">
+                  <div class="showroom-design-img-wrap overflow-hidden">
+                    <img src="/api/category-images/Kids-bedroom/kids-bedroom2.jpg" alt="Adventurer Bunk Cabin - Kids Bedroom" class="motion-3d w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" data-motion3d="true" loading="lazy">
+                    <div class="showroom-design-overlay">
+                      <button data-action="open-3d-room" data-image-url="/api/category-images/Kids-bedroom/kids-bedroom2.jpg" data-room-name="Adventurer Bunk Cabin - Kids Bedroom" class="showroom-overlay-btn">🏠 View 3D</button>
+                    </div>
+                  </div>
+                  <div class="showroom-design-body">
+                    <div class="text-xs text-amber-400 font-semibold uppercase tracking-wider mb-1">Kids Bedroom</div>
+                    <h4 class="font-bold text-white text-sm mb-3 line-clamp-2">Adventurer Bunk Cabin - Kids Bedroom</h4>
+                    <div class="flex gap-2">
+                      <button data-action="nav" data-tab="contact" class="showroom-card-btn primary">💬 Quote</button>
+                           <button data-action="nav" data-tab="contact" class="showroom-card-btn secondary">📅 Book</button>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="showroom-design-card group">
+                  <div class="showroom-design-img-wrap overflow-hidden">
+                    <img src="/api/category-images/Kids-bedroom/kids-bedroom3.jpg" alt="Storybook Attic Nook - Kids Bedroom" class="motion-3d w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" data-motion3d="true" loading="lazy">
+                    <div class="showroom-design-overlay">
+                      <button data-action="open-3d-room" data-image-url="/api/category-images/Kids-bedroom/kids-bedroom3.jpg" data-room-name="Storybook Attic Nook - Kids Bedroom" class="showroom-overlay-btn">🏠 View 3D</button>
+                    </div>
+                  </div>
+                  <div class="showroom-design-body">
+                    <div class="text-xs text-amber-400 font-semibold uppercase tracking-wider mb-1">Kids Bedroom</div>
+                    <h4 class="font-bold text-white text-sm mb-3 line-clamp-2">Storybook Attic Nook - Kids Bedroom</h4>
+                    <div class="flex gap-2">
+                      <button data-action="nav" data-tab="contact" class="showroom-card-btn primary">💬 Quote</button>
+                           <button data-action="nav" data-tab="contact" class="showroom-card-btn secondary">📅 Book</button>
+                    </div>
+                  </div>
+                </div>
+              
+            </div>
+          </div>
+
+          <!-- ===== OTHER VIDEOS IN THIS PROPERTY ===== -->
+          <div>
+            <h3 class="text-xl font-bold text-white mb-5">🎬 All Room Tour Videos</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              
+                <button data-action="select-showroom-room" data-room-id="room-001" class="showroom-video-thumb group text-left ring-2 ring-amber-400">
+                  <div class="relative h-40 overflow-hidden rounded-xl bg-slate-800">
+                    <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Master Bedroom" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                        <span class="text-white text-2xl">▶</span>
+                      </div>
+                    </div>
+                    <div class="absolute top-2 left-2 bg-amber-400 text-black text-xs font-bold px-2 py-0.5 rounded-full">Now Playing</div>
+                  </div>
+                  <div class="mt-3">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">📍 Master Bedroom</div>
+                    <div class="font-bold text-white mt-0.5">Master Bedroom</div>
+                  </div>
+                </button>
+              
+                <button data-action="select-showroom-room" data-room-id="room-002" class="showroom-video-thumb group text-left ">
+                  <div class="relative h-40 overflow-hidden rounded-xl bg-slate-800">
+                    <img src="https://images.unsplash.com/photo-1577720643272-265a5b0db076?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Kids Bedroom" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                        <span class="text-white text-2xl">▶</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="mt-3">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">📍 Kids Bedroom</div>
+                    <div class="font-bold text-white mt-0.5">Kids Bedroom</div>
+                  </div>
+                </button>
+              
+                <button data-action="select-showroom-room" data-room-id="room-003" class="showroom-video-thumb group text-left ">
+                  <div class="relative h-40 overflow-hidden rounded-xl bg-slate-800">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Modern Kitchen" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                        <span class="text-white text-2xl">▶</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="mt-3">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">📍 Kitchen</div>
+                    <div class="font-bold text-white mt-0.5">Modern Kitchen</div>
+                  </div>
+                </button>
+              
+                <button data-action="select-showroom-room" data-room-id="room-004" class="showroom-video-thumb group text-left ">
+                  <div class="relative h-40 overflow-hidden rounded-xl bg-slate-800">
+                    <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Living Room" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                        <span class="text-white text-2xl">▶</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="mt-3">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">📍 Living Room</div>
+                    <div class="font-bold text-white mt-0.5">Living Room</div>
+                  </div>
+                </button>
+              
+                <button data-action="select-showroom-room" data-room-id="room-005" class="showroom-video-thumb group text-left ">
+                  <div class="relative h-40 overflow-hidden rounded-xl bg-slate-800">
+                    <img src="https://images.unsplash.com/photo-1559007615-cd4d8f55c80a?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Dining Area" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                        <span class="text-white text-2xl">▶</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="mt-3">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">📍 Dining Area</div>
+                    <div class="font-bold text-white mt-0.5">Dining Area</div>
+                  </div>
+                </button>
+              
+                <button data-action="select-showroom-room" data-room-id="room-006" class="showroom-video-thumb group text-left ">
+                  <div class="relative h-40 overflow-hidden rounded-xl bg-slate-800">
+                    <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Luxury Bathroom" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                        <span class="text-white text-2xl">▶</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="mt-3">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">📍 Bathroom</div>
+                    <div class="font-bold text-white mt-0.5">Luxury Bathroom</div>
+                  </div>
+                </button>
+              
+                <button data-action="select-showroom-room" data-room-id="room-007" class="showroom-video-thumb group text-left ">
+                  <div class="relative h-40 overflow-hidden rounded-xl bg-slate-800">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Home Gym" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                        <span class="text-white text-2xl">▶</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="mt-3">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">📍 Gym</div>
+                    <div class="font-bold text-white mt-0.5">Home Gym</div>
+                  </div>
+                </button>
+              
+                <button data-action="select-showroom-room" data-room-id="room-008" class="showroom-video-thumb group text-left ">
+                  <div class="relative h-40 overflow-hidden rounded-xl bg-slate-800">
+                    <img src="https://images.unsplash.com/photo-1598231772097-8b74394b95c6?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Home Theatre" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                        <span class="text-white text-2xl">▶</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="mt-3">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">📍 Home Theatre</div>
+                    <div class="font-bold text-white mt-0.5">Home Theatre</div>
+                  </div>
+                </button>
+              
+                <button data-action="select-showroom-room" data-room-id="room-009" class="showroom-video-thumb group text-left ">
+                  <div class="relative h-40 overflow-hidden rounded-xl bg-slate-800">
+                    <img src="https://images.unsplash.com/photo-1604579844949-562574152319?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Pooja Room" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                        <span class="text-white text-2xl">▶</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="mt-3">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">📍 Pooja Room</div>
+                    <div class="font-bold text-white mt-0.5">Pooja Room</div>
+                  </div>
+                </button>
+              
+                <button data-action="select-showroom-room" data-room-id="room-010" class="showroom-video-thumb group text-left ">
+                  <div class="relative h-40 overflow-hidden rounded-xl bg-slate-800">
+                    <img src="https://images.unsplash.com/photo-1585320806876-9f0a49b58b17?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Garden &amp; Outdoor" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                        <span class="text-white text-2xl">▶</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="mt-3">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">📍 Garden</div>
+                    <div class="font-bold text-white mt-0.5">Garden &amp; Outdoor</div>
+                  </div>
+                </button>
+              
+                <button data-action="select-showroom-room" data-room-id="room-011" class="showroom-video-thumb group text-left ">
+                  <div class="relative h-40 overflow-hidden rounded-xl bg-slate-800">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Terrace" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                        <span class="text-white text-2xl">▶</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="mt-3">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">📍 Terrace</div>
+                    <div class="font-bold text-white mt-0.5">Terrace</div>
+                  </div>
+                </button>
+              
+                <button data-action="select-showroom-room" data-room-id="room-012" class="showroom-video-thumb group text-left ">
+                  <div class="relative h-40 overflow-hidden rounded-xl bg-slate-800">
+                    <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Balcony" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                        <span class="text-white text-2xl">▶</span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="mt-3">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider">📍 Balcony</div>
+                    <div class="font-bold text-white mt-0.5">Balcony</div>
+                  </div>
+                </button>
+              
+            </div>
+          </div>
+
+          
+
+          <!-- ===== CTA ===== -->
+          <div class="showroom-cta-banner">
+            <h2 class="text-3xl font-display font-bold text-white mb-3">Ready to Transform Your Space?</h2>
+            <p class="text-slate-300 mb-8 max-w-2xl mx-auto">
+              Our expert designers will bring your dream home to life with cutting-edge 3D, AR, and smart planning tools.
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+              <button data-action="nav" data-tab="contact" class="showroom-cta-btn-primary">📅 Book a Consultation</button>
+                   <button data-action="nav" data-tab="gallery" class="showroom-cta-btn-outline">🖼️ Explore Gallery</button>
+            </div>
+          </div>
+        </main>
+      </section>
+      <style>
+        @keyframes kenBurns { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
+        .motion-3d[data-motion3d="true"] { animation: kenBurns 20s ease-in-out infinite alternate; transform-origin: center center; }
+      </style>
+    </div>
+  
+      </main>
+
+      
+
+      
+
+
+      <footer class="mt-16 spidey-footer text-white">
+        <div class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div class="md:col-span-2">
+            <h3 class="text-2xl font-display font-bold mb-4">AR Interia</h3>
+            <p class="text-white/70 max-w-md">Bringing premium craftsmanship into the modern digital era with high-fidelity AR experiences and AI design intelligence.</p>
+          </div>
+          <div>
+            <h4 class="font-bold mb-4">Quick Links</h4>
+            <ul class="space-y-2 text-white/70 text-sm">
+              <li><button data-action="nav" data-tab="home" class="hover:text-[color:var(--accent)]">Home</button></li>
+              <li><button data-action="nav" data-tab="gallery" class="hover:text-[color:var(--accent)]">Gallery</button></li>
+              <li><button data-action="nav" data-tab="services" class="hover:text-[color:var(--accent)]">Services</button></li>
+              <li><button data-action="nav" data-tab="showroom" class="hover:text-[color:var(--accent)]">Luxury Showroom</button></li>
+              <li><button data-action="nav" data-tab="contact" class="hover:text-[color:var(--accent)]">Contact Us</button></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-bold mb-4">Contact</h4>
+            <ul class="space-y-2 text-white/70 text-sm">
+              <li>support@arinteria.com</li>
+              <li>+91 8904712858</li>
+              <li>Main Rd, Indiranagar, Bengaluru</li>
+            </ul>
+          </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 py-6 border-t border-white/10 text-center text-xs text-white/50">
+          © 2026 AR Interia Interiors. All rights reserved.
+        </div>
+      </footer>
+
+      
+    </div>
+  </div>
+<div id="aria-chatbot-widget">
+    <div id="aria-chat-bubble" data-action="toggle-chat" title="Chat with Aria" style="
+      position:fixed; bottom:24px; right:24px; z-index:9999;
+      width:60px; height:60px; border-radius:50%;
+      background:linear-gradient(135deg,#c54542,#8b2a2a);
+      box-shadow:0 8px 32px rgba(197,69,66,0.5);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:transform 0.2s, box-shadow 0.2s;
+      border:2px solid rgba(255,255,255,0.2);
+    " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      <span style="position:absolute;top:-4px;right:-4px;background:#22c55e;width:14px;height:14px;border-radius:50%;border:2px solid white;"></span>
+    </div>
+
+    
+  </div></body></html>

@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Category Loader - AR Interia</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+        sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 800px;
+      width: 100%;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #2d3748;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    .subtitle {
+      color: #718096;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    .section-title {
+      color: #2d3748;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .tab-button {
+      padding: 10px 20px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #718096;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.3s ease;
+    }
+
+    .tab-button.active {
+      color: #667eea;
+      border-bottom-color: #667eea;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .upload-area {
+      border: 2px dashed #cbd5e0;
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #f7fafc;
+    }
+
+    .upload-area:hover {
+      border-color: #667eea;
+      background: #edf2f7;
+    }
+
+    .upload-area.dragover {
+      border-color: #667eea;
+      background: #edf2f7;
+    }
+
+    .upload-icon {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .upload-text {
+      color: #2d3748;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .upload-subtext {
+      color: #718096;
+      font-size: 13px;
+    }
+
+    input[type='file'] {
+      display: none;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #2d3748;
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e0;
+    }
+
+    .btn-small {
+      padding: 8px 16px;
+      font-size: 13px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 200px;
+      padding: 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 13px;
+      resize: vertical;
+      transition: all 0.3s ease;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .alert {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .alert.show {
+      display: block;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .alert-success {
+      background: #c6f6d5;
+      color: #22543d;
+      border: 1px solid #9ae6b4;
+    }
+
+    .alert-error {
+      background: #fed7d7;
+      color: #742a2a;
+      border: 1px solid #fc8181;
+    }
+
+    .alert-info {
+      background: #bee3f8;
+      color: #2c5282;
+      border: 1px solid #90cdf4;
+    }
+
+    .preview-list {
+      background: #f7fafc;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 15px;
+    }
+
+    .preview-item {
+      padding: 12px;
+      background: white;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      border-left: 4px solid #667eea;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .preview-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .preview-item-title {
+      font-weight: 600;
+      color: #2d3748;
+    }
+
+    .preview-item-desc {
+      font-size: 13px;
+      color: #718096;
+      margin-top: 2px;
+    }
+
+    .preview-item-count {
+      background: #667eea;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .code-block {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+
+    .help-text {
+      background: #edf2f7;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 15px;
+      font-size: 13px;
+      color: #2d3748;
+      line-height: 1.6;
+    }
+
+    .help-text strong {
+      color: #667eea;
+    }
+
+    .file-info {
+      color: #718096;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .stat-box {
+      background: #edf2f7;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: #667eea;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #718096;
+      margin-top: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📁 Category Manager</h1>
+    <p class="subtitle">Upload and manage your AR Interia categories</p>
+
+    <div class="alert alert-info" id="infoAlert">
+      <strong>ℹ️ Info:</strong> You can upload categories as JSON or CSV files. Download sample files to see the required format.
+    </div>
+
+    <!-- Alert Messages -->
+    <div class="alert alert-success" id="successAlert"></div>
+    <div class="alert alert-error" id="errorAlert"></div>
+
+    <!-- Section 1: Upload Categories -->
+    <div class="section">
+      <h2 class="section-title">📤 Upload Categories</h2>
+
+      <div class="tabs">
+        <button class="tab-button active" onclick="switchTab('json-upload')">JSON Upload</button>
+        <button class="tab-button" onclick="switchTab('csv-upload')">CSV Upload</button>
+        <button class="tab-button" onclick="switchTab('paste-data')">Paste Data</button>
+      </div>
+
+      <!-- JSON Upload Tab -->
+      <div class="tab-content active" id="json-upload">
+        <div class="upload-area" id="jsonUploadArea" onclick="document.getElementById('jsonFile').click()">
+          <div class="upload-icon">📄</div>
+          <div class="upload-text">Click to upload JSON file</div>
+          <div class="upload-subtext">or drag and drop (Max 5MB)</div>
+          <input type="file" id="jsonFile" accept=".json" />
+        </div>
+        <div class="button-group">
+          <button class="btn-primary btn-small" onclick="downloadSampleJSON()">📥 Download Sample JSON</button>
+          <button class="btn-secondary btn-small" onclick="viewSampleJSON()">👁️ View Sample</button>
+        </div>
+      </div>
+
+      <!-- CSV Upload Tab -->
+      <div class="tab-content" id="csv-upload">
+        <div class="upload-area" id="csvUploadArea" onclick="document.getElementById('csvFile').click()">
+          <div class="upload-icon">📊</div>
+          <div class="upload-text">Click to upload CSV file</div>
+          <div class="upload-subtext">or drag and drop (Max 5MB)</div>
+          <input type="file" id="csvFile" accept=".csv" />
+        </div>
+        <div class="button-group">
+          <button class="btn-primary btn-small" onclick="downloadSampleCSV()">📥 Download Sample CSV</button>
+          <button class="btn-secondary btn-small" onclick="viewSampleCSV()">👁️ View Sample</button>
+        </div>
+        <div class="help-text">
+          <strong>CSV Format:</strong> Title, Description, Icon, Color, Image, Status<br />
+          Example: Living Room, Modern designs, 🛋️, #3B82F6, image-url, active
+        </div>
+      </div>
+
+      <!-- Paste Data Tab -->
+      <div class="tab-content" id="paste-data">
+        <textarea id="pasteTextarea" placeholder="Paste your JSON or CSV data here..."></textarea>
+        <div class="button-group">
+          <button class="btn-primary" onclick="processPastedJSON()">📥 Process JSON</button>
+          <button class="btn-primary" onclick="processPastedCSV()">📊 Process CSV</button>
+          <button class="btn-secondary" onclick="clearPaste()">🗑️ Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Preview -->
+    <div class="section">
+      <h2 class="section-title">👁️ Preview</h2>
+      <div id="previewArea">
+        <div class="help-text">Upload a file to preview the categories here</div>
+      </div>
+    </div>
+
+    <!-- Section 3: Integration Instructions -->
+    <div class="section">
+      <h2 class="section-title">🔗 Integration Instructions</h2>
+      <div class="help-text">
+        <p><strong>After uploading:</strong></p>
+        <p>1. The categories will be displayed in the preview above</p>
+        <p>2. Copy the JSON from "View Complete JSON" button</p>
+        <p>3. Paste into your application or send to backend API</p>
+        <p><strong>API Endpoint:</strong> POST /api/categories</p>
+      </div>
+      <div class="button-group" style="margin-top: 15px">
+        <button class="btn-primary" id="copyJsonBtn" style="display: none" onclick="copyToClipboard()">
+          💾 Copy JSON to Clipboard
+        </button>
+        <button class="btn-primary" id="submitBtn" style="display: none" onclick="submitCategories()">
+          ✅ Submit to Backend
+        </button>
+        <button class="btn-secondary" onclick="resetAll()">🔄 Reset All</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentCategories = [];
+
+    // Tab switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach((el) => el.classList.remove('active'));
+      document.querySelectorAll('.tab-button').forEach((el) => el.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Alert functions
+    function showAlert(message, type = 'info') {
+      const alert = document.getElementById(`${type}Alert`);
+      alert.textContent = message;
+      alert.classList.add('show');
+      setTimeout(() => alert.classList.remove('show'), 5000);
+    }
+
+    // File upload handlers
+    document.getElementById('jsonFile').addEventListener('change', (e) => processFile(e, 'json'));
+    document.getElementById('csvFile').addEventListener('change', (e) => processFile(e, 'csv'));
+
+    // Drag and drop
+    ['jsonUploadArea', 'csvUploadArea'].forEach((id) => {
+      const area = document.getElementById(id);
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((event) => {
+        area.addEventListener(event, preventDefaults, false);
+      });
+
+      ['dragenter', 'dragover'].forEach((event) => {
+        area.addEventListener(event, () => area.classList.add('dragover'), false);
+      });
+
+      ['dragleave', 'drop'].forEach((event) => {
+        area.addEventListener(
+          event,
+          () => area.classList.remove('dragover'),
+          false
+        );
+      });
+
+      area.addEventListener('drop', (e) => handleDroppedFiles(e, id), false);
+    });
+
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    function handleDroppedFiles(e, areaId) {
+      const data = e.dataTransfer;
+      const files = data.files;
+      const file = files[0];
+      const type = areaId.includes('json') ? 'json' : 'csv';
+      processFileObject(file, type);
+    }
+
+    function processFile(e, type) {
+      const file = e.target.files[0];
+      processFileObject(file, type);
+    }
+
+    function processFileObject(file, type) {
+      if (!file) return;
+
+      if (file.size > 5 * 1024 * 1024) {
+        showAlert('File size exceeds 5MB limit!', 'error');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const content = e.target.result;
+          if (type === 'json') {
+            currentCategories = JSON.parse(content);
+          } else {
+            currentCategories = parseCSV(content);
+          }
+
+          if (!Array.isArray(currentCategories)) {
+            currentCategories = [currentCategories];
+          }
+
+          if (currentCategories.length === 0) {
+            showAlert('No valid categories found in file!', 'error');
+            return;
+          }
+
+          displayPreview();
+          showAlert(`✅ Successfully loaded ${currentCategories.length} categories!`, 'success');
+        } catch (err) {
+          showAlert(`Failed to parse file: ${err.message}`, 'error');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function parseCSV(csv) {
+      const lines = csv.trim().split('\n');
+      if (lines.length < 2) return [];
+
+      const headers = lines[0].split(',').map((h) => h.trim().toLowerCase());
+      const categories = [];
+
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',').map((v) => v.trim());
+        if (values.length < 2 || !values[0]) continue;
+
+        categories.push({
+          id: `cat-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          title: values[0] || '',
+          description: values[1] || '',
+          icon: values[2] || '',
+          color: values[3] || '#667eea',
+          image: values[4] || '',
+          status: values[5] || 'active'
+        });
+      }
+
+      return categories;
+    }
+
+    function processPastedJSON() {
+      const text = document.getElementById('pasteTextarea').value;
+      if (!text.trim()) {
+        showAlert('Please paste JSON data', 'error');
+        return;
+      }
+
+      try {
+        currentCategories = JSON.parse(text);
+        if (!Array.isArray(currentCategories)) currentCategories = [currentCategories];
+        displayPreview();
+        showAlert(`✅ Successfully processed ${currentCategories.length} categories!`, 'success');
+      } catch (err) {
+        showAlert(`Invalid JSON: ${err.message}`, 'error');
+      }
+    }
+
+    function processPastedCSV() {
+      const text = document.getElementById('pasteTextarea').value;
+      if (!text.trim()) {
+        showAlert('Please paste CSV data', 'error');
+        return;
+      }
+
+      try {
+        currentCategories = parseCSV(text);
+        displayPreview();
+        showAlert(`✅ Successfully processed ${currentCategories.length} categories!`, 'success');
+      } catch (err) {
+        showAlert(`Invalid CSV: ${err.message}`, 'error');
+      }
+    }
+
+    function clearPaste() {
+      document.getElementById('pasteTextarea').value = '';
+    }
+
+    function displayPreview() {
+      if (currentCategories.length === 0) {
+        document.getElementById('previewArea').innerHTML =
+          '<div class="help-text">No categories to display</div>';
+        document.getElementById('copyJsonBtn').style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'none';
+        return;
+      }
+
+      const stats = `
+        <div class="stats">
+          <div class="stat-box">
+            <div class="stat-number">${currentCategories.length}</div>
+            <div class="stat-label">Categories</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">${currentCategories.filter((c) => c.status === 'active').length}</div>
+            <div class="stat-label">Active</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">${currentCategories.filter((c) => c.image).length}</div>
+            <div class="stat-label">With Images</div>
+          </div>
+        </div>
+      `;
+
+      const items = currentCategories
+        .map(
+          (cat) => `
+        <div class="preview-item">
+          <div>
+            <div class="preview-item-title">${cat.icon || '📁'} ${cat.title}</div>
+            <div class="preview-item-desc">${cat.description}</div>
+          </div>
+          <div class="preview-item-count">${cat.status === 'active' ? '✓ Active' : '✗ Inactive'}</div>
+        </div>
+      `
+        )
+        .join('');
+
+      document.getElementById('previewArea').innerHTML = `
+        ${stats}
+        <div class="preview-list" style="margin-top: 20px;">
+          ${items}
+        </div>
+      `;
+
+      document.getElementById('copyJsonBtn').style.display = 'inline-block';
+      document.getElementById('submitBtn').style.display = 'inline-block';
+    }
+
+    function copyToClipboard() {
+      const json = JSON.stringify(currentCategories, null, 2);
+      navigator.clipboard.writeText(json);
+      showAlert('✅ JSON copied to clipboard!', 'success');
+    }
+
+    function downloadSampleJSON() {
+      const sample = [
+        {
+          id: 'cat-living-room',
+          title: 'Living Room',
+          description: 'Modern living room designs',
+          icon: '🛋️',
+          color: '#3B82F6',
+          image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80',
+          status: 'active'
+        },
+        {
+          id: 'cat-bedroom',
+          title: 'Bedroom',
+          description: 'Luxurious bedroom designs',
+          icon: '🛏️',
+          color: '#EC4899',
+          image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80',
+          status: 'active'
+        }
+      ];
+
+      downloadFile(JSON.stringify(sample, null, 2), 'categories-sample.json', 'application/json');
+    }
+
+    function downloadSampleCSV() {
+      const csv =
+        'Title,Description,Icon,Color,Image,Status\nLiving Room,Modern living room designs,🛋️,#3B82F6,https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80,active\nBedroom,Luxurious bedroom designs,🛏️,#EC4899,https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80,active';
+
+      downloadFile(csv, 'categories-sample.csv', 'text/csv');
+    }
+
+    function viewSampleJSON() {
+      const sample = [
+        {
+          id: 'cat-living-room',
+          title: 'Living Room',
+          description: 'Modern living room designs',
+          icon: '🛋️'
+        }
+      ];
+      alert(JSON.stringify(sample, null, 2));
+    }
+
+    function viewSampleCSV() {
+      alert(
+        'CSV Format:\nTitle,Description,Icon,Color,Image,Status\nLiving Room,Modern designs,🛋️,#3B82F6,image-url,active'
+      );
+    }
+
+    function downloadFile(content, filename, type) {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function submitCategories() {
+      try {
+        const response = await fetch('http://localhost:5174/api/categories', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ categories: currentCategories })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          showAlert(`✅ ${currentCategories.length} categories submitted successfully!`, 'success');
+        } else {
+          showAlert(`Error: ${data.message || 'Failed to submit'}`, 'error');
+        }
+      } catch (error) {
+        showAlert(`Connection error: ${error.message}`, 'error');
+      }
+    }
+
+    function resetAll() {
+      currentCategories = [];
+      document.getElementById('jsonFile').value = '';
+      document.getElementById('csvFile').value = '';
+      document.getElementById('pasteTextarea').value = '';
+      document.getElementById('previewArea').innerHTML =
+        '<div class="help-text">Upload a file to preview the categories here</div>';
+      document.getElementById('copyJsonBtn').style.display = 'none';
+      document.getElementById('submitBtn').style.display = 'none';
+      showAlert('🔄 All data cleared', 'info');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+Balcony:
+  balcony (1).jpg
+  balcony (10).jpg
+  balcony (11).jpg
+  balcony (2).jpg
+  balcony (3).jpg
+  balcony (4).jpg
+  balcony (5).jpg
+  balcony (6).jpg
+  balcony (7).jpg
+  balcony (8).jpg
+  balcony (9).jpg
+
+Bathroom:
+  bathroom1.jpg
+  bathroom10.jpg
+  bathroom2.jpg
+  bathroom3.jpg
+  bathroom4.jpg
+  bathroom5.jpg
+  bathroom6.jpg
+  bathroom7.jpg
+  bathroom8.jpg
+  bathroom9.jpg
+
+Classroom:
+  classroom.jpg
+  classroom1.jpg
+  classroom10.jpg
+  classroom11.jpg
+  classroom12.jpg
+  classroom13.jpg
+  classroom2.jpg
+  classroom3.jpg
+  classroom4.jpg
+  classroom5.jpg
+  classroom6.jpg
+  classroom7.jpg
+
+Diningroom:
+  dining-room1.jpg
+  dining-room10.jpg
+  dining-room2.jpg
+  dining-room3.jpg
+  dining-room4.jpg
+  dining-room5.jpg
+  dining-room6.jpg
+  dining-room7.jpg
+  dining-room8.jpg
+  dining-room9.jpg
+
+Garden:
+  garden (1).avif
+  garden (1).jpg
+  garden (10).jpg
+  garden (11).jpg
+  garden (2).jpg
+  garden (3).jpg
+  garden (4).jpg
+  garden (5).jpg
+  garden (6).jpg
+  garden (7).jpg
+  garden (8).jpg
+  garden (9).jpg
+
+Guest room:
+  guest room  (1).avif
+  guest room  (1).jpg
+  guest room  (2).jpg
+  guest room (10).jpg
+  guest room (11).jpg
+  guest room (12).jpg
+  guest room (2).jpg
+  guest room (3).jpg
+  guest room (4).jpg
+  guest room (5).jpg
+  guest room (6).jpg
+  guest room (7).jpg
+
+Gym:
+  gym (1).jpg
+  gym (10).jpg
+  gym (11).jpg
+  gym (12).jpg
+  gym (13).jpg
+  gym (14).jpg
+  gym (15).jpg
+  gym (2).jpg
+  gym (3).jpg
+  gym (4).jpg
+  gym (5).jpg
+  gym (6).jpg
+
+Home theatre:
+  home theatre (1).jpg
+  home theatre (10).jpg
+  home theatre (11).jpg
+  home theatre (2).jpg
+  home theatre (3).jpg
+  home theatre (4).jpg
+  home theatre (5).jpg
+  home theatre (6).jpg
+  home theatre (7).jpg
+  home theatre (8).jpg
+  home theatre (9).jpg
+  hometheatre (1).jpg
+
+Kids-bedroom:
+  kids-bedroom1.jpg
+  kids-bedroom10.jpg
+  kids-bedroom2.jpg
+  kids-bedroom3.jpg
+  kids-bedroom4.jpg
+  kids-bedroom5.jpg
+  kids-bedroom6.jpg
+  kids-bedroom7.jpg
+  kids-bedroom8.jpg
+  kids-bedroom9.jpg
+
+Kitchen:
+  kitchen1.jpg
+  kitchen10.jpg
+  kitchen2.jpg
+  kitchen3.jpg
+  kitchen4.jpg
+  kitchen5.jpg
+  kitchen6.jpg
+  kitchen7.jpg
+  kitchen8.jpg
+  kitchen9.jpg
+
+Living room:
+  living1.jpg
+  living10.jpg
+  living2.jpg
+  living3.jpg
+  living4.jpg
+  living5.jpg
+  living6.jpg
+  living7.jpg
+  living8.jpg
+  living9.jpg
+
+Master Bedroom:
+  Balcony
+  Classroom
+  Garden
+  Guest room
+  master-bedroom1.jpg
+  master-bedroom10.jpg
+  master-bedroom2.jpg
+  master-bedroom3.jpg
+  master-bedroom4.jpg
+  master-bedroom5.jpg
+  master-bedroom6.jpg
+  master-bedroom7.jpg
+
+Meeting room:
+  istockphoto-1972371210-640x640.avif
+  meeting room (1).avif
+  meeting room (1).jpg
+  meeting room (10).jpg
+  meeting room (11).jpg
+  meeting room (12).jpg
+  meeting room (13).jpg
+  meeting room (14).jpg
+  meeting room (2).jpg
+  meeting room (3).jpg
+  meeting room (4).jpg
+  meeting room (5).jpg
+
+Office interior:
+  office interior (1).jpg
+  office interior (10).jpg
+  office interior (11).jpg
+  office interior (12).jpg
+  office interior (13).jpg
+  office interior (14).jpg
+  office interior (15).jpg
+  office interior (16).jpg
+  office interior (17).jpg
+  office interior (18).jpg
+  office interior (2).jpg
+  office interior (3).jpg
+
+Pooja room:
+  pooja-room1.jpg
+  pooja-room10.jpg
+  pooja-room2.jpg
+  pooja-room3.jpg
+  pooja-room4.jpg
+  pooja-room5.jpg
+  pooja-room6.jpg
+  pooja-room7.jpg
+  pooja-room8.jpg
+  pooja-room9.jpg
+
+Spa:
+  istockphoto-518954770-612x612.jpg
+  spa room (1).avif
+  spa room (1).jpg
+  spa room (10).jpg
+  spa room (2).avif
+  spa room (2).jpg
+  spa room (3).avif
+  spa room (3).jpg
+  spa room (4).avif
+  spa room (4).jpg
+  spa room (5).jpg
+  spa room (6).jpg
+
+Swimming pool:
+  swimming pool.jpg
+  swimmingpool1 - Copy.jpg
+  swimmingpool10 - Copy.jpg
+  swimmingpool11 - Copy.jpg
+  swimmingpool12 - Copy.jpg
+  swimmingpool2 - Copy.jpg
+  swimmingpool3 - Copy.jpg
+  swimmingpool4 - Copy.jpg
+  swimmingpool5 - Copy.jpg
+  swimmingpool6 - Copy.jpg
+  swimmingpool7 - Copy.jpg
+  swimmingpool8 - Copy.jpg
+
+Terrace:
+  terrace (1).jpg
+  terrace (2).jpg
+  terrace (3).jpg
+  terrace (4).jpg
+  terrace (5).jpg
+  terrace (6).jpg
+  terrace (7).jpg
+
+wardrobe:
+  wardrobe1.jpg
+  wardrobe10.jpg
+  wardrobe2.jpg
+  wardrobe3.jpg
+  wardrobe4.jpg
+  wardrobe5.jpg
+  wardrobe6.jpg
+  wardrobe7.jpg
+  wardrobe8.jpg
+  wardrobe9.jpg

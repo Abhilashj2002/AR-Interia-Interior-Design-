@@ -1,0 +1,174 @@
+design-bathroom-001 | White Travertine Retreat
+design-bathroom-002 | Monsoon Rainfall Bath
+design-bathroom-003 | Onyx Noir Sanctuary
+design-bathroom-004 | Ivory Cascade Spa Bath
+design-bathroom-005 | Cobalt Mosaic Retreat
+design-bathroom-006 | Zen Pebble Wellness Room
+design-bathroom-007 | Rose Gold Luxe Bath
+design-bathroom-008 | Slate Charcoal Master Bath
+design-bathroom-009 | Teak Warmth Wetroom
+design-bathroom-010 | Crystal Frosted Spa Lounge
+design-living-001 | Heritage Brass Drawing Room
+design-living-002 | Ivory Boucle Parlour
+design-living-003 | Walnut Panel Grand Hall
+design-living-004 | Silver Oak Minimalist Lounge
+design-living-005 | Emerald Velvet Royale
+design-living-006 | Crystal Chandelier Parlour
+design-living-007 | Mahogany Gentleman\
+design-living-008 | Japandi Stone Living
+design-living-009 | Terracotta Jali Gallery Hall
+design-living-010 | Sunlit Atrium Courtyard
+design-bedroom-001 | Pastel Carousel Suite
+design-bedroom-002 | Adventurer Bunk Cabin
+design-bedroom-003 | Storybook Attic Nook
+design-bedroom-004 | Sunshine Yellow Playroom
+design-bedroom-005 | Galaxy Star Loft
+design-bedroom-006 | Candy Pop Mint Room
+design-bedroom-007 | Cloud Nine Canopy Bed
+design-bedroom-008 | Rainbow Mural Loft Bed
+design-bedroom-009 | Forest Treehouse Room
+design-bedroom-010 | Little Royal Prince Suite
+design-masterbedroom-001 | Four-Poster Canopy Suite
+design-masterbedroom-002 | Golden Amber Dusk Suite
+design-masterbedroom-003 | Platinum Walk-In Retreat
+design-masterbedroom-004 | Vaulted Cathedral Suite
+design-masterbedroom-005 | Moonlit Japandi Haven
+design-kitchen-001 | Chef\
+design-kitchen-002 | Stainless Pro Cook Hall
+design-kitchen-003 | Granite Island Gourmet
+design-kitchen-004 | Warm Brass Artisan Kitchen
+design-kitchen-005 | Midnight Lacquer Modular
+design-kitchen-006 | Rustic Farmhouse Pantry
+design-kitchen-007 | Scandinavian Light Kitchen
+design-kitchen-008 | Compact Smart Galley
+design-kitchen-009 | Coastal Seafoam Kitchen
+design-kitchen-010 | Italian Calacatta Kitchen
+design-dining-001 | Grand Ebony Feast Hall
+design-dining-002 | Crystal Pendant Banquet
+design-dining-003 | Carrara Marble Supper Club
+design-dining-004 | Tuscan Ochre Trattoria
+design-dining-005 | Art Deco Lacquer Banquet
+design-dining-006 | Candlelit Intimate Nook
+design-dining-007 | Rosewood Family Feast
+design-dining-008 | Nordic Birch Bright Diner
+design-dining-009 | Mughal Arch Darbar Dining
+design-dining-010 | Open Villa Terrace Dining
+design-pooja-001 | Tulsi Courtyard Mandir
+design-pooja-002 | Gold Leaf Temple Alcove
+design-pooja-003 | Sandalwood Carved Shrine
+design-pooja-004 | Diya Glow Meditation Corner
+design-pooja-005 | White Lotus Zen Sanctum
+design-pooja-006 | Teak Jali Carved Mandir
+design-pooja-007 | White Marble Puja Hall
+design-pooja-008 | Rajasthani Jharokha Shrine
+design-pooja-009 | Temple Bell Tower Sanctum
+design-pooja-010 | Copper Diya Niche Room
+design-gym-001 | Dark Knight Powerhouse
+design-gym-002 | Industrial Steel Forge Gym
+design-gym-003 | White Minimalist Wellness Studio
+design-gym-004 | Powerlifter\
+design-gym-005 | Tropical Open Air Gym
+design-gym-006 | Champion Elite Training Room
+design-gym-007 | Champion\
+design-gym-008 | Holistic Yoga Zen Studio
+design-gym-009 | Scandinavian Light Fitness Room
+design-gym-010 | VIP Mirror Box Gym
+design-spa-001 | Himalayan Salt Stone Spa
+design-spa-002 | Bamboo Leaf Serenity Room
+design-spa-003 | White Cocoon Flotation Suite
+design-spa-004 | Ayurvedic Teak Abhyanga Room
+design-spa-005 | Nordic Ice Plunge Sauna
+design-spa-006 | Jade Stone Couple\
+design-spa-007 | Dark Forest Relaxation Room
+design-spa-008 | Moroccan Hammam Suite
+design-spa-009 | Sakura Blossom Wellness Room
+design-spa-010 | Crystal Quartz Healing Studio
+design-classroom-001 | Smart Flex Learning Hub
+design-classroom-002 | Heritage Oak Study Hall
+design-classroom-003 | Bright STEM Discovery Room
+design-classroom-004 | Collaborative Creative Studio
+design-classroom-005 | Montessori Nature Classroom
+design-classroom-006 | Amphitheatre Lecture Hall
+design-classroom-007 | Digital Innovation Lab
+design-classroom-008 | Waldorf Warm Learning Room
+design-classroom-009 | Daylight Bright Study Space
+design-classroom-010 | Global Culture Seminar Room
+design-pool-001 | Infinity Sky Pool Deck
+design-pool-002 | Turquoise Villa Plunge Pool
+design-pool-003 | Roman Colonnade Lap Pool
+design-pool-004 | Tropical Lagoon Pool Garden
+design-pool-005 | Glass-Wall Indoor Pool Suite
+design-pool-006 | Midnight Starlight Pool
+design-pool-007 | Bali Pavilion Resort Pool
+design-pool-008 | Olympic Blue Lane Pool
+design-pool-009 | Emerald Rooftop Pool Terrace
+design-pool-010 | Cascading Waterfall Pool
+design-terrace-001 | Skyline Rooftop Lounge
+design-terrace-002 | Jungle Canopy Terrace
+design-terrace-003 | Pergola Shade Dining Deck
+design-terrace-004 | Zen Pebble Meditation Deck
+design-terrace-005 | Bonfire Campfire Deck
+design-terrace-006 | Coastal Sundowner Deck
+design-terrace-007 | Evening Cocktail Rooftop
+design-terrace-008 | Bohemian Macram├⌐ Terrace
+design-terrace-009 | Glass Fence Infinity Deck
+design-terrace-010 | Monsoon Rain Shelter Terrace
+design-garden-001 | English Cottage Rose Garden
+design-garden-002 | Zen Rock Sand Garden
+design-garden-003 | Mughal Char Bagh Garden
+design-garden-004 | Tropical Botanical Garden
+design-garden-005 | Wildflower Meadow Garden
+design-garden-006 | Herb Kitchen Garden
+design-garden-007 | Modern Geometric Garden
+design-garden-008 | Bamboo Privacy Garden
+design-garden-009 | Lotus Pond Water Garden
+design-garden-010 | Bougainvillea Pergola Garden
+design-meeting-001 | Boardroom Executive Suite
+design-meeting-002 | Walnut Prestige Council Room
+design-meeting-003 | Glass Agile Huddle Room
+design-meeting-004 | Creative Breakout Lounge
+design-meeting-005 | Acoustically Lined Quiet Room
+design-meeting-006 | Stone Arch Conference Hall
+design-meeting-007 | Navy Blue Strategy Room
+design-meeting-008 | Biophilic Green Meeting Space
+design-meeting-009 | Industrial Loft Meeting Room
+design-meeting-010 | Panoramic Corner Suite
+design-theatre-001 | Midnight Velvet Cinema Room
+design-theatre-002 | Burgundy Plush Screening Den
+design-theatre-003 | Leather Club Movie Lounge
+design-theatre-004 | Stadium Seating Home Cinema
+design-theatre-005 | Acoustic Timber Media Room
+design-theatre-006 | Jewel-Tone Luxe Screening
+design-theatre-007 | Moonlight Dome Theatre
+design-theatre-008 | Retro Drive-In Den
+design-theatre-009 | Dolby Vision Gaming Theatre
+design-theatre-010 | Hammam-Inspired Lounge Cinema
+design-office-001 | Ivory Executive Corner Office
+design-office-002 | Mid-Century Walnut Workspace
+design-office-003 | Dark Academia Study Office
+design-office-004 | Industrial Loft Coworking
+design-office-005 | Biophilic Green Workspace
+design-office-006 | Minimalist Zen Home Office
+design-office-007 | Navy Captain\
+design-office-008 | Glasstop Open Plan Office
+design-office-009 | Terracotta Creative Studio
+design-office-010 | High-Tech Command Centre
+cat-bathroom | Bathroom
+cat-living | Living Room
+cat-bedroom | Bedroom
+cat-masterbedroom | Master Bedroom
+cat-kitchen | Kitchen
+cat-dining | Dining Area
+cat-pooja | Pooja / Meditation
+cat-gym | Gym
+cat-spa | Spa
+cat-classroom | Classroom / Training
+cat-pool | Swimming Pool
+cat-terrace | Terrace
+cat-balcony | Balcony
+cat-garden | Garden / Landscape
+cat-meeting | Meeting Room
+cat-theatre | Home Theatre
+cat-office | Office Interior
+cat-wardrobe | Wardrobe
+cat-guestroom | Guest Room

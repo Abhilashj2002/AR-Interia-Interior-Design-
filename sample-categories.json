@@ -1,0 +1,74 @@
+[
+  {
+    "id": "cat-living-room",
+    "title": "Living Room",
+    "description": "Modern and stylish living room designs with comfortable seating and ambient lighting",
+    "icon": "🛋️",
+    "color": "#3B82F6",
+    "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=600",
+    "status": "active"
+  },
+  {
+    "id": "cat-bedroom",
+    "title": "Bedroom",
+    "description": "Luxurious bedroom designs for ultimate comfort and relaxation",
+    "icon": "🛏️",
+    "color": "#EC4899",
+    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=600",
+    "status": "active"
+  },
+  {
+    "id": "cat-kitchen",
+    "title": "Kitchen",
+    "description": "Contemporary kitchen designs with modern appliances and functional layouts",
+    "icon": "👨‍🍳",
+    "color": "#F59E0B",
+    "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&q=80&w=600",
+    "status": "active"
+  },
+  {
+    "id": "cat-bathroom",
+    "title": "Bathroom",
+    "description": "Modern bathroom designs with spa-like features and luxurious finishes",
+    "icon": "🚿",
+    "color": "#10B981",
+    "image": "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&q=80&w=600",
+    "status": "active"
+  },
+  {
+    "id": "cat-office",
+    "title": "Office",
+    "description": "Professional office designs optimized for productivity and creativity",
+    "icon": "💼",
+    "color": "#8B5CF6",
+    "image": "https://images.unsplash.com/photo-1497493292307-31c376b6d5a6?auto=format&fit=crop&q=80&w=600",
+    "status": "active"
+  },
+  {
+    "id": "cat-dining",
+    "title": "Dining Room",
+    "description": "Elegant dining room designs perfect for entertaining guests",
+    "icon": "🍽️",
+    "color": "#06B6D4",
+    "image": "https://images.unsplash.com/photo-1584622747915-c3400ca199e7?auto=format&fit=crop&q=80&w=600",
+    "status": "active"
+  },
+  {
+    "id": "cat-entryway",
+    "title": "Entryway",
+    "description": "Stylish entryway designs that make a great first impression",
+    "icon": "🚪",
+    "color": "#F97316",
+    "image": "https://images.unsplash.com/photo-1556228541-8f8a0511e3e8?auto=format&fit=crop&q=80&w=600",
+    "status": "active"
+  },
+  {
+    "id": "cat-outdoor",
+    "title": "Outdoor Space",
+    "description": "Beautiful outdoor designs for patios, gardens, and terraces",
+    "icon": "🌳",
+    "color": "#22C55E",
+    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600",
+    "status": "active"
+  }
+]

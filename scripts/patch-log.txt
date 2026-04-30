@@ -1,0 +1,4 @@
+≡ƒöº Applying curated AI design names to dataStore.ts...
+
+Γ£à Patched: 0 | Skipped (not found): 185
+≡ƒÄë Done! Restart dev server to see updated design names.

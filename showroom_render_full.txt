@@ -1,0 +1,54 @@
+
+> main.ts:11259:const renderAdminShowroomsSection = () => {
+  main.ts:11260:  const showroomForm = (state.admin.showroomForm || {}) as any;
+  main.ts:11261:  const isEditingShowroom = Boolean(showroomForm.id);
+  main.ts:11262:  return `
+  main.ts:11263:    <section class="spidey-panel p-6">
+  main.ts:11264:        <div class="flex items-center justify-between mb-4">
+  main.ts:11265:            <h2 class="text-xl font-display font-bold text-[color:var(--primary)]">✨ Showrooms</h2>
+  main.ts:11266:            <span class="text-xs text-slate-400">${state.showrooms.length} locations</span>
+  main.ts:11267:        </div>
+  main.ts:11268:    <form data-action="${isEditingShowroom ? 'admin-update-showroom' : 'admin-add-showroom'}" data-id="${escapeHtml(showroomForm.id || '')}" class="mb-5 grid grid-cols-1 md:grid-cols-2 gap-3 p-4 rounded-xl bg-slate-50 border border-black/5">
+  main.ts:11269:      <input name="name" value="${escapeHtml(showroomForm.name || '')}" class="px-3 py-2 rounded-xl border border-black/10" placeholder="Showroom Name" required />
+  main.ts:11270:      <input name="city" value="${escapeHtml(showroomForm.city || '')}" class="px-3 py-2 rounded-xl border border-black/10" placeholder="City" required />
+  main.ts:11271:      <input name="area" value="${escapeHtml(showroomForm.area || '')}" class="px-3 py-2 rounded-xl border border-black/10" placeholder="Area" required />
+  main.ts:11272:      <input name="phone" value="${escapeHtml(showroomForm.phone || '')}" class="px-3 py-2 rounded-xl border border-black/10" placeholder="Phone" required />
+  main.ts:11273:      <input name="videoUrl" value="${escapeHtml(showroomForm.videoUrl || '')}" class="md:col-span-2 px-3 py-2 rounded-xl border border-black/10" placeholder="Video URL (optional)" />
+  main.ts:11274:      <input name="mediaFile" type="file" accept="image/*,video/*" class="md:col-span-2 px-3 py-2 rounded-xl border border-black/10" />
+  main.ts:11275:      ${showroomForm.videoUrl ? `${renderVideoLauncher(showroomForm.videoUrl, 'md:col-span-2 w-full h-36 rounded-xl border border-black/5 bg-black', showroomForm.name || 'Showroom Video', showroomForm.imageUrl || '')}` : ''}
+  main.ts:11276:      ${showroomForm.imageUrl ? `<img src="${escapeHtml(showroomForm.imageUrl)}" alt="Showroom" class="md:col-span-2 w-full h-36 object-cover rounded-xl border border-black/5" />` : ''}
+  main.ts:11277:      <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
+  main.ts:11278:        <button type="submit" class="py-2.5 rounded-xl bg-[color:var(--primary)] text-white text-sm font-semibold">${isEditingShowroom ? 'Update Showroom' : 'Add Showroom'}</button>
+  main.ts:11279:        ${isEditingShowroom ? '<button type="button" data-action="admin-cancel-showroom-edit" class="py-2.5 rounded-xl border border-black/10 text-sm font-semibold text-slate-600">Cancel Edit</button>' : ''}
+  main.ts:11280:      </div>
+  main.ts:11281:    </form>
+  main.ts:11282:        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  main.ts:11283:            ${state.showrooms.map(sr => `
+  main.ts:11284:                <div class="p-4 rounded-xl border border-black/5 bg-white shadow-sm">
+  main.ts:11285:                    <div class="font-semibold text-[color:var(--primary)]">${escapeHtml(sr.name)}</div>
+  main.ts:11286:                    <div class="text-xs text-slate-500">${escapeHtml(sr.city)} - ${escapeHtml(sr.locations[0]?.area || '')}</div>
+  main.ts:11287:          ${sr.imageUrl ? `<img src="${escapeHtml(sr.imageUrl)}" alt="${escapeHtml(sr.name)}" class="mt-3 w-full h-28 object-cover rounded-lg border border-black/5" />` : ''}
+  main.ts:11288:          <div class="mt-2 flex items-center gap-3">
+  main.ts:11289:            <button data-action="admin-edit-showroom" data-id="${escapeHtml(sr.id)}" class="text-xs text-blue-600">Edit</button>
+  main.ts:11290:            <button data-action="admin-delete-showroom" data-id="${escapeHtml(sr.id)}" class="text-xs text-red-500">Delete</button>
+  main.ts:11291:            <label class="text-xs text-slate-600 cursor-pointer">Upload Local
+  main.ts:11292:              <input data-action="upload-showroom-media" data-id="${escapeHtml(sr.id)}" type="file" accept="image/*,video/*" class="hidden" />
+  main.ts:11293:            </label>
+  main.ts:11294:          </div>
+  main.ts:11295:                </div>
+  main.ts:11296:            `).join('')}
+  main.ts:11297:        </div>
+  main.ts:11298:    </section>
+  main.ts:11299:    `;
+  main.ts:11300:};
+  main.ts:11301:
+  main.ts:11302:const renderAdminLuxuryEditorSection = () => {
+  main.ts:11303:  const propertyType = state.showroomPropertyType || 'house';
+  main.ts:11304:  const store = getLuxuryShowroomStore();
+  main.ts:11305:  const rooms = store[propertyType].rooms || [];
+  main.ts:11306:  const selectedRoomId = state.selectedShowroomRoom || rooms[0]?.id || '';
+  main.ts:11307:  const selectedRoom = rooms.find((room) => room.id === selectedRoomId) || null;
+  main.ts:11308:  const relatedImages = selectedRoom ? getRoomRelatedImages(selectedRoom as any) : [];
+  main.ts:11309:  const allDesigns = state.customer.designs && state.customer.designs.length > 0 ? state.customer.designs : getDesigns();
+
+

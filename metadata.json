@@ -1,0 +1,7 @@
+{
+  "name": "AR Interia",
+  "description": "A premium AR interior design platform blending traditional aesthetics with modern 3D visualization and AI-driven room suggestions.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Start - Category Loader</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .header h1 {
+      color: #2d3748;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: #718096;
+      font-size: 16px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .step {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .step-number {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0 auto 15px;
+    }
+
+    .step-title {
+      color: #2d3748;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .step-description {
+      color: #718096;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .content-section {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+      color: #2d3748;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .sample-data {
+      background: #f7fafc;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-family: 'Monaco', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    a.button,
+    button {
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .button-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+    }
+
+    .button-secondary {
+      background: #e2e8f0;
+      color: #2d3748;
+    }
+
+    .button-secondary:hover {
+      background: #cbd5e0;
+    }
+
+    .file-list {
+      list-style: none;
+    }
+
+    .file-list li {
+      padding: 12px;
+      background: #f7fafc;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      border-left: 3px solid #667eea;
+      font-size: 14px;
+    }
+
+    .file-list li strong {
+      color: #667eea;
+    }
+
+    .warning {
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      border-left: 4px solid #f59e0b;
+      padding: 15px;
+      border-radius: 6px;
+      color: #92400e;
+      margin-bottom: 15px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .success {
+      background: #d1fae5;
+      border: 1px solid #a7f3d0;
+      border-left: 4px solid #10b981;
+      padding: 15px;
+      border-radius: 6px;
+      color: #065f46;
+      margin-bottom: 15px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1 {
+        font-size: 24px;
+      }
+    }
+
+    code {
+      background: #edf2f7;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: 'Monaco', monospace;
+      font-size: 12px;
+      color: #667eea;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>📁 Category Loader Quick Start</h1>
+      <p>Upload and manage categories for AR Interia in 5 easy steps</p>
+    </div>
+
+    <!-- Step-by-Step Guide -->
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1️⃣</div>
+        <div class="step-title">Open Category Loader</div>
+        <div class="step-description">Open the category-loader.html file in your browser</div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2️⃣</div>
+        <div class="step-title">Download or Create File</div>
+        <div class="step-description">Download a sample JSON/CSV file or create your own</div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3️⃣</div>
+        <div class="step-title">Edit Categories</div>
+        <div class="step-description">Add or modify your category data</div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4️⃣</div>
+        <div class="step-title">Upload File</div>
+        <div class="step-description">Upload the file to the Category Loader</div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">5️⃣</div>
+        <div class="step-title">Submit to Backend</div>
+        <div class="step-description">Click Submit button to save to database</div>
+      </div>
+    </div>
+
+    <!-- Files Section -->
+    <div class="content-section">
+      <h2 class="section-title">📦 Created Files</h2>
+
+      <div class="success">
+        ✅ All files have been created and are ready to use!
+      </div>
+
+      <ul class="file-list">
+        <li>
+          <strong>📄 category-loader.html</strong> - Main interface for uploading categories
+        </li>
+        <li>
+          <strong>📜 services/categoryLoader.ts</strong> - TypeScript service for parsing data
+        </li>
+        <li>
+          <strong>📋 sample-categories.json</strong> - Sample JSON data (8 categories)
+        </li>
+        <li>
+          <strong>📊 sample-categories.csv</strong> - Sample CSV data (8 categories)
+        </li>
+        <li>
+          <strong>📖 CATEGORY_LOADER_GUIDE.md</strong> - Complete documentation
+        </li>
+      </ul>
+    </div>
+
+    <!-- Category Format Section -->
+    <div class="content-section">
+      <h2 class="section-title">📋 Category Format</h2>
+
+      <div class="grid-2">
+        <div>
+          <h3 style="color: #2d3748; margin-bottom: 10px">JSON Format</h3>
+          <div class="sample-data">
+{
+  "id": "cat-living-room",
+  "title": "Living Room",
+  "description": "Modern designs",
+  "icon": "🛋️",
+  "color": "#3B82F6",
+  "image": "https://url.jpg",
+  "status": "active"
+}
+          </div>
+        </div>
+
+        <div>
+          <h3 style="color: #2d3748; margin-bottom: 10px">CSV Format</h3>
+          <div class="sample-data">
+Title,Description,Icon,Color,Image,Status
+Living Room,Modern designs,🛋️,#3B82F6,https://url.jpg,active
+Bedroom,Luxury designs,🛏️,#EC4899,https://url2.jpg,active
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 20px">
+        <h3 style="color: #2d3748; margin-bottom: 10px">Required Fields</h3>
+        <ul class="file-list" style="margin: 0">
+          <li>
+            <strong>title</strong> - Category name (required)
+          </li>
+          <li>
+            <strong>description</strong> - Category description (required)
+          </li>
+          <li>
+            <strong>icon</strong> - Emoji icon (optional, e.g., 🛋️)
+          </li>
+          <li>
+            <strong>color</strong> - Hex color code (optional, e.g., #3B82F6)
+          </li>
+          <li>
+            <strong>image</strong> - Image URL (optional)
+          </li>
+          <li>
+            <strong>status</strong> - "active" or "inactive" (optional, default: active)
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Sample Data Section -->
+    <div class="content-section">
+      <h2 class="section-title">📋 Sample Categories Included</h2>
+
+      <div class="warning">
+        💡 The sample files already include 8 pre-configured categories. You can use them directly
+        or as a template!
+      </div>
+
+      <div class="sample-data">
+1. Living Room - 🛋️ - Modern and stylish living room designs
+2. Bedroom - 🛏️ - Luxurious bedroom designs
+3. Kitchen - 👨‍🍳 - Contemporary kitchen designs
+4. Bathroom - 🚿 - Modern bathroom designs
+5. Office - 💼 - Professional office designs
+6. Dining Room - 🍽️ - Elegant dining room designs
+7. Entryway - 🚪 - Stylish entryway designs
+8. Outdoor Space - 🌳 - Beautiful outdoor designs
+      </div>
+    </div>
+
+    <!-- Instructions Section -->
+    <div class="content-section">
+      <h2 class="section-title">🚀 Getting Started</h2>
+
+      <h3 style="color: #2d3748; margin: 20px 0 10px 0; font-size: 16px">Step 1: Download Sample File</h3>
+      <p style="color: #718096; margin-bottom: 15px">Open the Category Loader and download either JSON or CSV sample file</p>
+
+      <h3 style="color: #2d3748; margin: 20px 0 10px 0; font-size: 16px">Step 2: Edit the File</h3>
+      <p style="color: #718096; margin-bottom: 15px">Open in Excel (CSV) or any text editor (JSON) and add your categories</p>
+
+      <h3 style="color: #2d3748; margin: 20px 0 10px 0; font-size: 16px">Step 3: Upload File</h3>
+      <p style="color: #718096; margin-bottom: 15px">Use the Category Loader UI to upload your edited file</p>
+
+      <h3 style="color: #2d3748; margin: 20px 0 10px 0; font-size: 16px">Step 4: Preview & Submit</h3>
+      <p style="color: #718096; margin-bottom: 15px">
+        Review the preview and click "Submit to Backend" to save to database
+      </p>
+
+      <div class="success">
+        ✅ Your categories will now appear on the website!
+      </div>
+    </div>
+
+    <!-- Backend Info Section -->
+    <div class="content-section">
+      <h2 class="section-title">🔌 Backend Integration</h2>
+
+      <p style="color: #718096; margin-bottom: 15px">
+        The categories are automatically submitted to the backend API. The endpoint expects:
+      </p>
+
+      <div class="sample-data">
+POST http://localhost:5174/api/categories
+
+Request Body:
+{
+  "categories": [
+    {
+      "title": "Living Room",
+      "description": "Modern designs",
+      "icon": "🛋️",
+      "color": "#3B82F6",
+      "image": "https://image.jpg",
+      "status": "active"
+    }
+  ]
+}
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align: center; margin-top: 40px; padding: 20px; color: white">
+      <p>✨ Category Loader System Ready to Use!</p>
+      <p style="font-size: 12px; opacity: 0.8">
+        For detailed documentation, see CATEGORY_LOADER_GUIDE.md
+      </p>
+    </div>
+  </div>
+</body>
+</html>
