@@ -409,6 +409,14 @@ export interface AdminState {
   };
   selectedInvoice?: any | null;
   bookings: Booking[];
+  bookingSummary?: {
+    total: number;
+    paid: number;
+    pending: number;
+    failed: number;
+    approved: number;
+    paidDesigns: number;
+  };
   aiDesigns: AIDesignRecord[];
   loadedCategory?: { id?: string; title?: string; images: Array<{ url: string; name?: string; categoryId?: string; categoryName?: string; index?: number; motion3d?: boolean }> };
   catalogFilter: string;

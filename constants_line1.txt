@@ -1,1 +1,0 @@
-import { DesignModel, RoomType, StyleType, ServiceItem, ServiceShowcase, Showroom } from './types.ts';

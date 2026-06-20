@@ -1,4 +1,4 @@
-﻿// --- Frontend page layer: Portfolio -----------------------------------------
+// --- Frontend page layer: Portfolio -----------------------------------------
 const renderPortfolio = () => {
   ensurePortfolioFeedbackSeeded();
   const categories = getCustomerVisibleCategories(state.customer.categories && state.customer.categories.length > 0
@@ -744,16 +744,6 @@ ${scopedThreeDShowcase.length
             description: 'Flexible guest room with foldaway workspace and premium storage.',
             previewImage: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800',
             price: 980000,
-            motion3d: true
-          },
-          {
-            id: 'sample-epoxy-1',
-            title: 'Epoxy Luxe Flooring',
-            category: 'Epoxy',
-            categoryId: 'cat-epoxy',
-            description: 'High-gloss epoxy treatment with marble swirl finish for premium interiors.',
-            previewImage: 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?w=800',
-            price: 760000,
             motion3d: true
           }
         ];
@@ -1636,7 +1626,7 @@ const renderLogin = () => {
                 </h2>
                 <p class="mt-1 text-sm text-slate-600">
                   ${isSetupMode
-      ? 'Set up the first administrator account (default: admin954809@gmail.com / Admin@1234)'
+      ? 'Set up the first administrator account (default: admin@gmail.com / Admin@1234)'
       : state.loginForm.isSignup
         ? 'Start your design journey today'
         : 'Enter your credentials to continue'}

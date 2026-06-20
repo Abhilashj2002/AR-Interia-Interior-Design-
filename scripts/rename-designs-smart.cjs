@@ -9,7 +9,10 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
-const PRO_ENGINE_KEY = 'REDACTED_API_KEY';
+const PRO_ENGINE_KEY = process.env.PRO_ENGINE_KEY;
+if (!PRO_ENGINE_KEY) {
+    throw new Error('Missing PRO_ENGINE_KEY environment variable.');
+}
 const MODEL = 'smartEngine-2.0-flash';
 const PUBLIC_DIR = path.resolve(__dirname, '..', 'public');
 const DATASTORE_PATH = path.resolve(__dirname, '..', 'services', 'dataStore.ts');

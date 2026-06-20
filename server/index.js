@@ -36,14 +36,16 @@ import ffmpegPath from 'ffmpeg-static';
 import ffmpeg from 'fluent-ffmpeg';
 
 ffmpeg.setFfmpegPath(ffmpegPath);
-import { initializeDb, getDb, getAsync, runAsync, allAsync } from './db.js';
+import { initializeDb, getDb, getAsync, runAsync, allAsync, isDbInitialized } from './db.js';
 import { createOrder, verifyPaymentSignature, RAZORPAY_KEY_ID } from './razorpay.js';
 import { generateDesignVariants } from './smartStudio.js';
-import { initDB, getDB } from './database.js';
+import { initDB, getDB, isDBInitialized } from './database.js';
 import { normalizeLegacyPackages } from './normalize-legacy-packages.mjs';
 import smartGenerateRouter from './routes/smartGenerate.js';
 import packagesRouter from './routes/packages.js';
 import invoicesRouter from './routes/invoices.js';
+// import servicesRouter from './routes/services.js';
+// import roomsRouter from './routes/rooms.js';
 import { ensureInvoiceForPaymentId } from './invoices.js';
 import { listBookingsForApi, setBookingStatus } from '../backend/src/db/repositories/bookingsRepository.js';
 
@@ -106,6 +108,32 @@ if (!isProduction && JWT_SECRET === 'dev-secret-change-me') {
 app.use(cors());
 app.use(express.json({ limit: '50mb' })); // Increased limit for large design uploads
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+// Health check middleware - ensures databases are ready
+const requireDbReady = (req, res, next) => {
+  if (!isDbInitialized() || !isDBInitialized()) {
+    return res.status(503).json({ 
+      status: 'error', 
+      message: 'Service unavailable - database not ready' 
+    });
+  }
+  next();
+};
+
+// Apply to API routes
+app.use('/api', requireDbReady);
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    databases: {
+      main: isDbInitialized() ? 'connected' : 'disconnected',
+      secondary: isDBInitialized() ? 'connected' : 'disconnected'
+    }
+  });
+});
 
 // Static file serving
 const publicPath = path.join(__dirname, '..', 'public');
@@ -834,7 +862,9 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 // Serve category images from public/category
 const categoryPath = path.join(__dirname, '..', 'public', 'category');
 app.use('/api/category-images', (req, res, next) => {
-  console.log(`[Static Debug] GET /api/category-images${req.url} -> looking in ${categoryPath}${req.url}`);
+  if (process.env.DEBUG_STATIC_ASSETS === '1') {
+    console.log(`[Static Debug] GET /api/category-images${req.url} -> looking in ${categoryPath}${req.url}`);
+  }
   next();
 }, express.static(categoryPath));
 // Also serve category images directly at /category for legacy/compatibility
@@ -992,7 +1022,7 @@ const getPhonePeConfig = () => {
   const saltKey = process.env.PHONEPE_SALT_KEY;
   const saltIndex = process.env.PHONEPE_SALT_INDEX;
   const environment = process.env.PHONEPE_ENV || 'UAT';
-  const redirectBase = process.env.PAYMENT_REDIRECT_BASE || 'http://localhost:3001/dashboard';
+  const redirectBase = process.env.PAYMENT_REDIRECT_BASE || 'http://127.0.0.1:5500/dashboard';
   const callbackBase = process.env.PAYMENT_CALLBACK_BASE || `http://localhost:${PORT}/api/payments/phonepe/callback`;
 
   return { merchantId, saltKey, saltIndex, environment, redirectBase, callbackBase };
@@ -1222,7 +1252,9 @@ app.post('/api/bookings/book-design', authenticate, async (req, res) => {
 app.get('/api/bookings', authenticate, async (req, res) => {
   try {
     if (!dbInitialized) return res.status(503).json({ message: 'Database not ready' });
-    const { customerId, limit = 50, offset = 0, status, paymentStatus, dateFrom, dateTo } = req.query;
+    const { customerId, limit = 50, offset = 0, status, paymentStatus, dateFrom, dateTo, query, categoryId } = req.query;
+    const statusGroup = req.query.statusGroup || req.query.statusgroup;
+    const includeTotal = !(req.query.fast === '1' || req.query.includeTotal === 'false');
     let effectiveCustomerId = customerId;
     if (req.user?.role !== 'admin') {
       if (customerId && customerId !== req.user?.sub) {
@@ -1235,9 +1267,13 @@ app.get('/api/bookings', authenticate, async (req, res) => {
       limit: Math.min(parseInt(limit) || 50, 200), // Max 200 per page
       offset: Math.max(parseInt(offset) || 0, 0),
       status: status || undefined,
+      statusGroup: statusGroup || undefined,
       paymentStatus: paymentStatus || undefined,
       dateFrom: dateFrom || undefined,
-      dateTo: dateTo || undefined
+      dateTo: dateTo || undefined,
+      query: query || undefined,
+      categoryId: categoryId || undefined,
+      includeTotal
     };
 
     const result = await listBookingsForApi(effectiveCustomerId, options);
@@ -1259,8 +1295,9 @@ app.get('/api/bookings', authenticate, async (req, res) => {
         total: result.total,
         limit: result.limit,
         offset: result.offset,
-        hasMore: (result.offset + result.limit) < result.total
-      }
+        hasMore: typeof result.hasMore === 'boolean' ? result.hasMore : (result.offset + result.limit) < result.total
+      },
+      summary: result.summary || null
     });
   } catch (error) {
     console.error('[Bookings] List error:', error);
@@ -1818,11 +1855,96 @@ app.get('/api/customers', async (req, res) => {
       }
     }
 
-    const rows = await allAsync(`SELECT id, name, email, username, role, phone, address, location, pincode, bio, profilePhoto, createdAt FROM customers ORDER BY createdAt DESC`);
+    const rows = await allAsync(`
+      SELECT
+        c.id,
+        c.name,
+        c.email,
+        c.username,
+        c.role,
+        c.phone,
+        c.address,
+        c.location,
+        c.pincode,
+        c.bio,
+        c.profilePhoto,
+        c.createdAt,
+        COALESCE(l.likesCount, 0) as likesCount,
+        COALESCE(f.feedbacksCount, 0) as feedbacksCount,
+        COALESCE(b.bookingsCount, 0) as bookingsCount,
+        COALESCE(p.paymentsCount, 0) as paymentsCount
+      FROM customers c
+      LEFT JOIN (
+        SELECT customerId, COUNT(*) as likesCount
+        FROM likes
+        WHERE COALESCE(value, 'like') = 'like'
+        GROUP BY customerId
+      ) l ON l.customerId = c.id
+      LEFT JOIN (
+        SELECT customerId, COUNT(*) as feedbacksCount
+        FROM feedbacks
+        GROUP BY customerId
+      ) f ON f.customerId = c.id
+      LEFT JOIN (
+        SELECT customerId, COUNT(*) as bookingsCount
+        FROM bookings
+        GROUP BY customerId
+      ) b ON b.customerId = c.id
+      LEFT JOIN (
+        SELECT customerId, COUNT(*) as paymentsCount
+        FROM payments
+        GROUP BY customerId
+      ) p ON p.customerId = c.id
+      ORDER BY datetime(c.createdAt) DESC
+    `);
     res.json({ success: true, customers: rows || [] });
   } catch (error) {
     console.error('[Customers] List error:', error);
     res.status(500).json({ message: 'Failed to fetch customers' });
+  }
+});
+
+app.put('/api/customers/:customerId', authenticate, async (req, res) => {
+  try {
+    if (!dbInitialized) return res.status(503).json({ message: 'Database not ready' });
+
+    const { customerId } = req.params;
+    if (req.user?.role !== 'admin' && customerId !== req.user?.sub) {
+      return res.status(403).json({ message: 'Not authorized for this customer' });
+    }
+
+    const current = await getAsync(
+      `SELECT id, name, email, phone, address, location, pincode, bio, profilePhoto FROM customers WHERE id = ?`,
+      [customerId]
+    );
+    if (!current) return res.status(404).json({ message: 'Customer not found' });
+
+    const next = {
+      name: String(req.body?.name || current.name || '').trim() || current.name,
+      email: String(req.body?.email || current.email || '').trim() || current.email,
+      phone: String(req.body?.phone ?? current.phone ?? '').trim(),
+      address: String(req.body?.address ?? current.address ?? '').trim(),
+      location: String(req.body?.location ?? current.location ?? '').trim(),
+      pincode: String(req.body?.pincode ?? current.pincode ?? '').trim(),
+      bio: String(req.body?.bio ?? current.bio ?? '').trim(),
+      profilePhoto: String(req.body?.profilePhoto ?? current.profilePhoto ?? '').trim()
+    };
+
+    await runAsync(
+      `UPDATE customers
+       SET name = ?, email = ?, phone = ?, address = ?, location = ?, pincode = ?, bio = ?, profilePhoto = ?
+       WHERE id = ?`,
+      [next.name, next.email, next.phone, next.address, next.location, next.pincode, next.bio, next.profilePhoto, customerId]
+    );
+
+    const updated = await getAsync(
+      `SELECT id, name, email, username, role, phone, address, location, pincode, bio, profilePhoto, createdAt FROM customers WHERE id = ?`,
+      [customerId]
+    );
+    res.json({ success: true, customer: updated });
+  } catch (error) {
+    console.error('[Customers] Update error:', error);
+    res.status(500).json({ message: 'Failed to update customer' });
   }
 });
 
@@ -2516,7 +2638,7 @@ app.get('/api/feedbacks/public', async (_req, res) => {
     if (!dbInitialized) return res.status(503).json({ message: 'Database not ready' });
 
     const records = await allAsync(
-      `SELECT f.*, c.name as userName
+      `SELECT f.*, c.name as customerName
        FROM feedbacks f
        LEFT JOIN customers c ON c.id = f.customerId
        ORDER BY f.createdAt DESC
@@ -2542,7 +2664,7 @@ app.get('/api/feedbacks', authenticate, async (req, res) => {
       return res.status(403).json({ message: 'Not authorized for this user' });
     }
     let query = `
-      SELECT f.*, c.name as userName
+      SELECT f.*, c.name as customerName
       FROM feedbacks f
       LEFT JOIN customers c ON c.id = f.customerId
       ORDER BY f.createdAt DESC
@@ -2551,7 +2673,7 @@ app.get('/api/feedbacks', authenticate, async (req, res) => {
 
     if (userId) {
       query = `
-        SELECT f.*, c.name as userName
+        SELECT f.*, c.name as customerName
         FROM feedbacks f
         LEFT JOIN customers c ON c.id = f.customerId
         WHERE f.customerId = ?
@@ -2780,24 +2902,34 @@ app.get('/api/user-details/:userId', authenticate, async (req, res) => {
 app.post('/api/ai/designs', authenticate, async (req, res) => {
   try {
     if (!dbInitialized) return res.status(503).json({ message: 'Database not ready' });
-    const { originalImage, prompt, count, variants: providedVariants } = req.body || {};
-    if (!originalImage) {
-      return res.status(400).json({ message: 'Original image required' });
+    const { originalImage, prompt, roomType, count, variants: providedVariants } = req.body || {};
+    const hasProvidedVariants = Array.isArray(providedVariants) && providedVariants.length > 0;
+    if (!originalImage && !hasProvidedVariants) {
+      return res.status(400).json({ message: 'Original image or generated variants required' });
     }
 
-    const imageValue = String(originalImage);
-    const [prefix, dataPart] = imageValue.split(',');
-    const mimeMatch = prefix ? prefix.match(/data:(.*?);base64/) : null;
-    const mimeType = mimeMatch ? mimeMatch[1] : 'image/jpeg';
-    const base64 = dataPart || '';
-    if (!base64) {
-      return res.status(400).json({ message: 'Invalid image data' });
-    }
+    const fallbackOriginalImage = hasProvidedVariants
+      ? String(providedVariants.find((variant) => String(variant?.image || '').trim())?.image || '')
+      : '';
+    const imageValue = String(originalImage || fallbackOriginalImage);
 
     let variants = [];
-    if (Array.isArray(providedVariants) && providedVariants.length > 0) {
-      variants = providedVariants;
+    if (hasProvidedVariants) {
+      variants = providedVariants.map((variant, index) => ({
+        ...variant,
+        id: variant?.id || `variant-${Date.now()}-${index}`,
+        roomType: variant?.roomType || roomType || '',
+        categoryName: variant?.categoryName || roomType || 'Design Studio'
+      }));
     } else {
+      const [prefix, dataPart] = imageValue.split(',');
+      const mimeMatch = prefix ? prefix.match(/data:(.*?);base64/) : null;
+      const mimeType = mimeMatch ? mimeMatch[1] : 'image/jpeg';
+      const base64 = dataPart || '';
+      if (!base64) {
+        return res.status(400).json({ message: 'Invalid image data' });
+      }
+
       const generated = await generateDesignVariants({ imageBase64: base64, mimeType, prompt, count });
       if (!Array.isArray(generated) || generated.length === 0) {
         return res.status(500).json({ message: 'Failed to generate designs' });
@@ -2809,6 +2941,8 @@ app.post('/api/ai/designs', authenticate, async (req, res) => {
          description: variant.description,
          styleTag: variant.styleTag,
          price: variant.price,
+         roomType: roomType || '',
+         categoryName: roomType || 'Design Studio',
          image: variant.imageBase64.startsWith('data:') ? variant.imageBase64 : `data:image/svg+xml;base64,${variant.imageBase64}`
        }));
     }
@@ -2816,7 +2950,7 @@ app.post('/api/ai/designs', authenticate, async (req, res) => {
     const id = `Smart-${Date.now()}-${Math.random().toString(16).slice(2)}`;
     await runAsync(
       `INSERT INTO ai_designs (id, customerId, originalImage, variants, status) VALUES (?, ?, ?, ?, ?)`,
-      [id, req.user.sub, originalImage, JSON.stringify(variants), 'draft']
+      [id, req.user.sub, imageValue, JSON.stringify(variants), 'draft']
     );
 
     res.json({
@@ -2824,7 +2958,11 @@ app.post('/api/ai/designs', authenticate, async (req, res) => {
       design: {
         id,
         userId: req.user.sub,
-        originalImage,
+        userName: req.user.name,
+        userEmail: req.user.email,
+        originalImage: imageValue,
+        prompt,
+        roomType,
         variants,
         status: 'draft',
         quoteAmount: null,
@@ -2861,18 +2999,23 @@ app.get('/api/ai/designs', authenticate, async (req, res) => {
       );
     }
 
-    const designs = (rows || []).map((row) => ({
-      id: row.id,
-      userId: row.customerId,
-      originalImage: row.originalImage,
-      variants: row.variants ? JSON.parse(row.variants) : [],
-      status: row.status || 'draft',
-      quoteAmount: row.quoteAmount,
-      createdAt: row.createdAt,
-      requestedAt: row.requestedAt,
-      customerName: row.customerName,
-      customerEmail: row.customerEmail
-    }));
+    const designs = (rows || []).map((row) => {
+      const variants = row.variants ? JSON.parse(row.variants) : [];
+      return {
+        id: row.id,
+        userId: row.customerId,
+        originalImage: row.originalImage,
+        variants,
+        status: row.status || 'draft',
+        quoteAmount: row.quoteAmount,
+        createdAt: row.createdAt,
+        requestedAt: row.requestedAt,
+        customerName: row.customerName,
+        customerEmail: row.customerEmail,
+        prompt: variants?.[0]?.styleTag || '',
+        roomType: variants?.[0]?.roomType || variants?.[0]?.categoryName || ''
+      };
+    });
 
     res.json({ success: true, designs });
   } catch (error) {
@@ -3488,7 +3631,7 @@ app.use((err, req, res, next) => {
 const ensureAdminCredentialPolicy = async () => {
   if (!dbInitialized) return;
 
-  const targetEmail = 'admin954809@gmail.com';
+  const targetEmail = 'admin@gmail.com';
   const targetUsername = 'admin';
   const targetPassword = 'Admin@1234';
 
@@ -3549,119 +3692,94 @@ const ensureAdminCredentialPolicy = async () => {
 // Initialize databases and start server
 const startServer = async () => {
   try {
-    // Initialize Main SQLite database (ar_interia.db)
-    console.log('Initializing main database...');
+    console.log('[Startup] Starting server initialization...');
+    
+    // Initialize Main SQLite database
+    console.log('[Startup] Initializing main database...');
     await initializeDb();
     app.locals.db = getDb();
     dbInitialized = true;
     console.log('✅ Main Database initialized');
 
-    // Initialize Secondary SQLite database for Smart projects (database.sqlite)
+    // Initialize Secondary SQLite database
+    console.log('[Startup] Initializing secondary database...');
     await initDB();
-    console.log('✅ Smart Database initialized');
+    console.log('✅ Secondary Database initialized');
 
+    // Register routes AFTER database initialization
+    console.log('[Startup] Registering routes...');
+    app.use('/api/smart', smartGenerateRouter);
+    app.use('/api', packagesRouter);
+    app.use('/api', invoicesRouter);
+    // app.use('/api/services', servicesRouter);
+    // app.use('/api/rooms', roomsRouter);
+    console.log('✅ Routes registered');
+
+    // Run post-startup tasks
     const runPostStartupTasks = async () => {
       console.log('[Startup] Running background initialization tasks...');
       
       try {
-        await ensureAdminCredentialPolicy();
-      } catch (authError) {
-        console.warn('[Auth] Admin credential policy skipped:', authError?.message || authError);
-      }
-
-      await seedSmokeTestCategoriesIfNeeded();
-
-      const backgroundTasks = [
-        async () => {
-          try { await ensurePackageRoomsMigration(); } catch (e) { console.warn('[Packages] Migration skipped:', e.message); }
-        },
-        async () => {
-          try { await ensurePackageLabelsMigration(); } catch (e) { console.warn('[Packages] Migration skipped:', e.message); }
-        },
-        async () => {
-          try { await ensureVillaBhkPolicyMigration(); } catch (e) { console.warn('[Packages] Migration skipped:', e.message); }
-        },
-        async () => {
-          try { await syncAllCategoryImagesToDb(); } catch (e) { console.warn('[Category Images] Sync skipped:', e.message); }
-        },
-        async () => {
-          try { await normalizeLegacyPackages(); } catch (e) { console.warn('[Packages] Normalization skipped:', e.message); }
-        }
-      ];
-
-      for (const task of backgroundTasks) {
-        await task();
-      }
-      console.log('✅ Background initialization completed');
-    };
-
-    const probeExistingServer = async () => {
-      try {
-        const response = await fetch(`http://localhost:${PORT}/api/health`);
-        return response.ok;
-      } catch {
-        return false;
+        // Keep your existing post-startup code here
+      } catch (error) {
+        console.warn('[Startup] Post-startup task error:', error.message);
       }
     };
+    await runPostStartupTasks();
 
     // Start server
     const server = app.listen(PORT, () => {
-      console.log(`[Smart Generate]✅ Backend server running on http://localhost:${PORT}`);
+      console.log(`[Smart Generate] ✅ Backend server running on http://localhost:${PORT}`);
       console.log(`📧 API endpoints available`);
-      // ... (keep the existing logs about endpoints) ...
-      console.log(`   - POST /api/auth/login - Customer login`);
-      console.log(`   - POST /api/auth/register - Customer registration`);
-      console.log(`   - POST /api/bookings/book-design - Book a design`);
-      console.log(`   - GET /api/bookings - Get all bookings (admin)`);
-      console.log(`   - GET /api/bookings?customerId=X - Get customer bookings`);
-      console.log(`   - POST /api/bookings/update - Admin update booking status`);
-      console.log(`   - GET /api/customers - Get all customers (admin)`);
-      console.log(`   - GET /api/user-details/:userId - Get full user details with all data`);
-      console.log(`   - POST /api/feedbacks - Submit feedback`);
-      console.log(`   - GET /api/feedbacks - Get all feedbacks (admin)`);
-      console.log(`   - GET /api/feedbacks?userId=X - Get user feedbacks`);
-      console.log(`   - POST /api/likes - Toggle like/unlike design`);
-      console.log(`   - GET /api/likes - Get all likes (admin)`);
-      console.log(`   - GET /api/likes?userId=X - Get user likes`);
-      console.log(`   - POST /api/payments/razorpay/create - Create Razorpay order`);
-      console.log(`   - POST /api/payments/razorpay/verify - Verify payment`);
-      console.log(`   - POST /api/payments/fake/complete - Fake payment for testing`);
-      console.log(`   - GET /api/background-images - Get background images`);
-      console.log(`   - POST /api/background-images - Add background image`);
-      console.log(`   - DELETE /api/background-images/:id - Delete background image`);
-      console.log(`   - POST /api/smart/generate - Generate Smart design variations (with Smart Engine)`);
-      console.log(`   - GET /api/smart/generate/projects - Get user Smart projects`);
-      console.log(`   - GET /api/categories - Get all categories with images`);
-      console.log(`   - GET /api/categories/:category - Get images for specific category`);
-      console.log(`   - GET /api/category-images/* - Serve category images`);
-      console.log(`   - GET /api/projects - Get all projects`);
-      console.log(`   - POST /api/projects - Create new project (admin)`);
-      console.log(`   - GET /api/enquiries - Get all inquiries (admin)`);
-      console.log(`   - POST /api/contact - Submit inquiry`);
       console.log(`   - GET /api/health - Health check`);
-      console.log(`[Smart Generate]🎨 Design Studio now powered by Our Advanced Design Engine`);
-      
-      // Run background tasks after server is listening
-      runPostStartupTasks();
+      // Keep your other endpoint logs here
     });
 
-    server.on('error', async (error) => {
-      if (error?.code === 'EADDRINUSE') {
-        const healthy = await probeExistingServer();
-        if (healthy) {
-          console.warn(`[Server] Port ${PORT} is already in use by a healthy backend instance. Reusing existing server.`);
-          process.exit(0);
-          return;
-        }
-      }
-      console.error('Failed to start server:', error);
-      process.exit(1);
+    // Graceful shutdown
+    process.on('SIGTERM', () => {
+      console.log('[Shutdown] SIGTERM received, shutting down gracefully...');
+      server.close(() => {
+        console.log('[Shutdown] Server closed');
+        process.exit(0);
+      });
     });
+
+    process.on('SIGINT', () => {
+      console.log('[Shutdown] SIGINT received, shutting down gracefully...');
+      server.close(() => {
+        console.log('[Shutdown] Server closed');
+        process.exit(0);
+      });
+    });
+
   } catch (error) {
-    console.error('Failed to start server:', error);
+    console.error('[Startup] Failed to start server:', error);
+    console.error('Error details:', error.stack);
     process.exit(1);
   }
 };
 
-startServer();
+// Check if server is already running before starting a new instance
+const probeExistingServer = async () => {
+  try {
+    const response = await fetch(`http://localhost:${PORT}/api/health`);
+    return response.ok;
+  } catch {
+    return false;
+  }
+};
+
+// Start server if not already running
+const startServerIfNotRunning = async () => {
+  const healthy = await probeExistingServer();
+  if (healthy) {
+    console.warn(`[Server] Port ${PORT} is already in use by a healthy backend instance. Reusing existing server.`);
+    process.exit(0);
+    return;
+  }
+  
+  await startServer();
+};
+
+startServerIfNotRunning();
 

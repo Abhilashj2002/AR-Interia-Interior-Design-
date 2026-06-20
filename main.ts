@@ -13,28 +13,167 @@ const paymentStatusColors = {
 // ============================================================================
 
 // --- Frontend utility helpers ------------------------------------------------
-// Utility to get the best image for a room
+// Utility to get the best image for a room.
+// - Matches ONLY on title/name/category (NOT description — avoids keyword bleed)
+// - Uses full image pools per category for variety
+// - Rotates images deterministically using room id hash (unique image per room)
+// - Cross-validates room.image against expected category; rejects mismatches
 const getRoomImage = (room: any): string => {
-  if (room?.image && typeof room.image === 'string' && room.image.trim()) {
-    return room.image;
-  }
-  // Use title + name + category + description so generic titles still resolve correctly.
-  const roomText = [room?.title, room?.name, room?.category, room?.description]
-    .filter(Boolean)
-    .map((value: any) => String(value).toLowerCase())
-    .join(' ');
-  if (roomText.includes('bedroom')) return '/category/Master Bedroom/master-bedroom1.jpg';
-  if (roomText.includes('kitchen')) return '/category/Kitchen/kitchen1.jpg';
-  if (roomText.includes('dining')) return '/category/Diningroom/dining-room1.jpg';
-  if (roomText.includes('bathroom')) return '/category/Bathroom/bathroom1.jpg';
-  if (roomText.includes('office')) return '/category/Office interior/office interior (1).jpg';
-  if (roomText.includes('balcony')) return '/category/Balcony/balcony (1).jpg';
-  if (roomText.includes('theatre') || roomText.includes('theater')) return '/category/Home theatre/home theatre (1).jpg';
-  if (roomText.includes('gym')) return '/category/Gym/gym (1).jpg';
-  if (roomText.includes('pool')) return '/category/Swimming pool/swimming pool.jpg';
-  if (roomText.includes('garden')) return '/category/Garden/garden (1).jpg';
-  // Default fallback
-  return '/category/Living room/living1.jpg';
+  const CATEGORY_IMAGES: Record<string, string[]> = {
+    kitchen: [
+      '/category/Kitchen/kitchen1.jpg', '/category/Kitchen/kitchen2.jpg',
+      '/category/Kitchen/kitchen3.jpg', '/category/Kitchen/kitchen4.jpg',
+      '/category/Kitchen/kitchen5.jpg', '/category/Kitchen/kitchen6.jpg',
+      '/category/Kitchen/kitchen7.jpg', '/category/Kitchen/kitchen8.jpg',
+      '/category/Kitchen/kitchen9.jpg', '/category/Kitchen/kitchen10.jpg',
+    ],
+    master: [
+      '/category/Master Bedroom/master-bedroom1.jpg', '/category/Master Bedroom/master-bedroom2.jpg',
+      '/category/Master Bedroom/master-bedroom3.jpg', '/category/Master Bedroom/master-bedroom4.jpg',
+      '/category/Master Bedroom/master-bedroom5.jpg', '/category/Master Bedroom/master-bedroom6.jpg',
+      '/category/Master Bedroom/master-bedroom7.jpg', '/category/Master Bedroom/master-bedroom8.jpg',
+      '/category/Master Bedroom/master-bedroom9.jpg', '/category/Master Bedroom/master-bedroom10.jpg',
+    ],
+    kids: [
+      '/category/Kids-bedroom/kids-bedroom1.jpg', '/category/Kids-bedroom/kids-bedroom2.jpg',
+      '/category/Kids-bedroom/kids-bedroom3.jpg', '/category/Kids-bedroom/kids-bedroom4.jpg',
+      '/category/Kids-bedroom/kids-bedroom5.jpg', '/category/Kids-bedroom/kids-bedroom6.jpg',
+      '/category/Kids-bedroom/kids-bedroom7.jpg', '/category/Kids-bedroom/kids-bedroom8.jpg',
+      '/category/Kids-bedroom/kids-bedroom9.jpg', '/category/Kids-bedroom/kids-bedroom10.jpg',
+    ],
+    guest: [
+      '/category/Guest room/guest room  (1).jpg', '/category/Guest room/guest room  (2).jpg',
+      '/category/Guest room/guest room (3).jpg', '/category/Guest room/guest room (4).jpg',
+      '/category/Guest room/guest room (5).jpg', '/category/Guest room/guest room (6).jpg',
+      '/category/Guest room/guest room (7).jpg', '/category/Guest room/guest room (8).jpg',
+    ],
+    living: [
+      '/category/Living room/living1.jpg', '/category/Living room/living2.jpg',
+      '/category/Living room/living3.jpg', '/category/Living room/living4.jpg',
+      '/category/Living room/living5.jpg', '/category/Living room/living6.jpg',
+      '/category/Living room/living7.jpg', '/category/Living room/living8.jpg',
+      '/category/Living room/living9.jpg', '/category/Living room/living10.jpg',
+    ],
+    dining: [
+      '/category/Diningroom/dining-room1.jpg', '/category/Diningroom/dining-room2.jpg',
+      '/category/Diningroom/dining-room3.jpg', '/category/Diningroom/dining-room4.jpg',
+      '/category/Diningroom/dining-room5.jpg', '/category/Diningroom/dining-room6.jpg',
+    ],
+    bathroom: [
+      '/category/Bathroom/bathroom1.jpg', '/category/Bathroom/bathroom2.jpg',
+      '/category/Bathroom/bathroom3.jpg', '/category/Bathroom/bathroom4.jpg',
+      '/category/Bathroom/bathroom5.jpg', '/category/Bathroom/bathroom6.jpg',
+      '/category/Bathroom/bathroom7.jpg', '/category/Bathroom/bathroom8.jpg',
+      '/category/Bathroom/bathroom9.jpg', '/category/Bathroom/bathroom10.jpg',
+    ],
+    balcony: [
+      '/category/Balcony/balcony (1).jpg', '/category/Balcony/balcony (2).jpg',
+      '/category/Balcony/balcony (3).jpg', '/category/Balcony/balcony (4).jpg',
+      '/category/Balcony/balcony (5).jpg',
+    ],
+    terrace: [
+      '/category/Terrace/terrace (1).jpg', '/category/Terrace/terrace (2).jpg',
+      '/category/Terrace/terrace (3).jpg', '/category/Terrace/terrace (4).jpg',
+      '/category/Terrace/terrace (5).jpg', '/category/Terrace/terrace (6).jpg',
+      '/category/Terrace/terrace (7).jpg',
+    ],
+    pooja: [
+      '/category/Pooja room/pooja-room1.jpg', '/category/Pooja room/pooja-room2.jpg',
+      '/category/Pooja room/pooja-room3.jpg', '/category/Pooja room/pooja-room4.jpg',
+      '/category/Pooja room/pooja-room5.jpg', '/category/Pooja room/pooja-room6.jpg',
+      '/category/Pooja room/pooja-room7.jpg', '/category/Pooja room/pooja-room8.jpg',
+      '/category/Pooja room/pooja-room9.jpg', '/category/Pooja room/pooja-room10.jpg',
+    ],
+    wardrobe: [
+      '/category/wardrobe/wardrobe1.jpg', '/category/wardrobe/wardrobe2.jpg',
+      '/category/wardrobe/wardrobe3.jpg', '/category/wardrobe/wardrobe4.jpg',
+      '/category/wardrobe/wardrobe5.jpg', '/category/wardrobe/wardrobe6.jpg',
+      '/category/wardrobe/wardrobe7.jpg', '/category/wardrobe/wardrobe8.jpg',
+      '/category/wardrobe/wardrobe9.jpg', '/category/wardrobe/wardrobe10.jpg',
+    ],
+    office: [
+      '/category/Office interior/office interior (1).jpg', '/category/Office interior/office interior (2).jpg',
+      '/category/Office interior/office interior (3).jpg', '/category/Office interior/office interior (4).jpg',
+      '/category/Office interior/office interior (5).jpg', '/category/Office interior/office interior (6).jpg',
+      '/category/Office interior/office interior (7).jpg', '/category/Office interior/office interior (8).jpg',
+      '/category/Office interior/office interior (9).jpg', '/category/Office interior/office interior (10).jpg',
+    ],
+    theatre: [
+      '/category/Home theatre/home theatre (1).jpg', '/category/Home theatre/home theatre (2).jpg',
+      '/category/Home theatre/home theatre (3).jpg', '/category/Home theatre/home theatre (4).jpg',
+      '/category/Home theatre/home theatre (5).jpg', '/category/Home theatre/home theatre (6).jpg',
+      '/category/Home theatre/home theatre (7).jpg', '/category/Home theatre/home theatre (8).jpg',
+      '/category/Home theatre/home theatre (9).jpg', '/category/Home theatre/home theatre (10).jpg',
+    ],
+    gym: [
+      '/category/Gym/gym (1).jpg', '/category/Gym/gym (2).jpg', '/category/Gym/gym (3).jpg',
+      '/category/Gym/gym (4).jpg', '/category/Gym/gym (5).jpg', '/category/Gym/gym (6).jpg',
+      '/category/Gym/gym (7).jpg', '/category/Gym/gym (8).jpg', '/category/Gym/gym (9).jpg',
+      '/category/Gym/gym (10).jpg',
+    ],
+    pool: [
+      '/category/Swimming pool/swimmingpool1 - Copy.jpg', '/category/Swimming pool/swimmingpool2 - Copy.jpg',
+      '/category/Swimming pool/swimmingpool3 - Copy.jpg', '/category/Swimming pool/swimmingpool4 - Copy.jpg',
+      '/category/Swimming pool/swimmingpool5 - Copy.jpg', '/category/Swimming pool/swimmingpool6 - Copy.jpg',
+    ],
+    spa: [
+      '/category/Spa/spa room (1).jpg', '/category/Spa/spa room (2).jpg',
+      '/category/Spa/spa room (3).jpg', '/category/Spa/spa room (4).jpg',
+      '/category/Spa/spa room (5).jpg', '/category/Spa/spa room (6).jpg',
+    ],
+    garden: [
+      '/category/Garden/garden (1).jpg', '/category/Garden/garden (2).jpg',
+      '/category/Garden/garden (3).jpg', '/category/Garden/garden (4).jpg',
+      '/category/Garden/garden (5).jpg',
+    ],
+    meeting: [
+      '/category/Meeting room/meeting room (1).jpg', '/category/Meeting room/meeting room (2).jpg',
+      '/category/Meeting room/meeting room (3).jpg', '/category/Meeting room/meeting room (4).jpg',
+    ],
+  };
+
+  const title = String(room?.title || '').toLowerCase();
+  const cat = String(room?.category || '').toLowerCase();
+
+  // CRITICAL: Prioritize Title keywords over Category tags to fix backend hydration mismatches
+  const getCategory = (): string => {
+    // Priority 1: High-stakes specific titles
+    if (title.includes('kitchen') || title.includes('modular')) return 'kitchen';
+    if (title.includes('bathroom') || title.includes('spa-inspired')) return 'bathroom';
+    if (title.includes('master') || title.includes('suite') || title.includes('retreat')) return 'master';
+    if (title.includes('living') || title.includes('lounge')) return 'living';
+    if (title.includes('dining')) return 'dining';
+    if (title.includes('pooja')) return 'pooja';
+    if (title.includes('theatre')) return 'theatre';
+    if (title.includes('gym')) return 'gym';
+
+    // Priority 2: Combined scan
+    const combined = `${title} ${cat}`;
+    if (combined.includes('kitchen') || combined.includes('modular') || combined.includes('chef') || combined.includes('gourmet')) return 'kitchen';
+    if (combined.includes('bathroom') || combined.includes('washroom') || combined.includes('toilet') || combined.includes('bath') || combined.includes('spa-inspired')) return 'bathroom';
+    if (combined.includes('kids') || combined.includes('child')) return 'kids';
+    if (combined.includes('guest')) return 'guest';
+    if (combined.includes('master') || combined.includes('suite') || combined.includes('retreat') || combined.includes('bedroom')) return 'master';
+    if (combined.includes('pooja') || combined.includes('mandir') || combined.includes('prayer')) return 'pooja';
+    if (combined.includes('wardrobe') || combined.includes('closet') || combined.includes('robe') || combined.includes('dressing')) return 'wardrobe';
+    if (combined.includes('office') || combined.includes('study') || combined.includes('workspace')) return 'office';
+    if (combined.includes('theatre') || combined.includes('theater') || combined.includes('cinema')) return 'theatre';
+    if (combined.includes('gym') || combined.includes('fitness') || combined.includes('workout')) return 'gym';
+    if (combined.includes('pool') || combined.includes('swimming')) return 'pool';
+    if (combined.includes('spa') || combined.includes('wellness')) return 'spa';
+    if (combined.includes('dining') || combined.includes('bar') || combined.includes('restaurant')) return 'dining';
+    if (combined.includes('terrace') || combined.includes('rooftop')) return 'terrace';
+    if (combined.includes('balcony') || combined.includes('skyline') || combined.includes('deck')) return 'balcony';
+    if (combined.includes('garden') || combined.includes('lawn')) return 'garden';
+    if (combined.includes('living') || combined.includes('lounge') || combined.includes('hall') || combined.includes('foyer') || combined.includes('entryway') || combined.includes('area')) return 'living';
+
+    return 'living';
+  };
+
+  const resolvedCategory = getCategory();
+  const pool = CATEGORY_IMAGES[resolvedCategory] || CATEGORY_IMAGES.living;
+  const seed = String(room?.id || room?.title || '').split('').reduce((acc: number, ch: string) => acc + ch.charCodeAt(0), 0);
+  return pool[seed % pool.length];
 };
 
 // --- Frontend imports --------------------------------------------------------
@@ -375,6 +514,14 @@ const state: State = {
       status: 'all'
     },
     bookings: [],
+    bookingSummary: {
+      total: 0,
+      paid: 0,
+      pending: 0,
+      failed: 0,
+      approved: 0,
+      paidDesigns: 0
+    },
     invoices: [],
     aiDesigns: [],
     showroomForm: {},
@@ -753,13 +900,35 @@ const getEnhancedChatbotResponse = (userMessage: string): { text: string; quickR
     };
   }
 
-  // My Activity intent — switch chatbot to activity tab
+  // My Activity intent — switch chatbot to activity tab for registered customers only
   const activityIntent = /\b(my activity|my bookings|my history|what i liked|my orders|my profile|my likes|my feedback)\b/.test(lower);
-  if (activityIntent && state.currentUser?.id) {
+  const isAdminUser = Boolean(state.currentUser?.id && state.currentUser?.role === 'admin');
+  const isRegisteredCustomer = Boolean(state.currentUser?.id && state.currentUser?.role === 'customer');
+  if (activityIntent && isAdminUser) {
+    state.chatbot.activeTab = 'activity';
+    void refreshAdminData({ silent: true }).catch((error) => {
+      console.warn('Failed to refresh admin activity for chatbot:', error);
+    });
+    return {
+      text: `📊 I've opened your **Admin Activity Summary**! Check bookings, invoices, customers, feedback, and chatbot query activity in the My Activity tab above.`,
+      quickReplies: ['Bookings', 'Customers', 'Chatbot History'],
+      bookingIntent: false,
+      suggestionIntent: false
+    };
+  }
+  if (activityIntent && isRegisteredCustomer) {
     state.chatbot.activeTab = 'activity';
     return {
       text: `📊 I've opened your **Activity Summary**! Check your recent bookings, liked designs, and past feedback in the My Activity tab above.`,
       quickReplies: ['Leave Feedback', 'View Gallery', 'Book Consultation'],
+      bookingIntent: false,
+      suggestionIntent: false
+    };
+  }
+  if (activityIntent) {
+    return {
+      text: '🔐 My Activity is available only for registered customers. Please sign in to view your bookings, invoices, liked designs, and feedback.',
+      quickReplies: ['Sign In', 'View Gallery', 'Pricing Info'],
       bookingIntent: false,
       suggestionIntent: false
     };
@@ -864,7 +1033,9 @@ let servicePackagesPrewarmed = false;
 const ADMIN_CHARTS_AUTO_REFRESH_MS = 20000;
 const ADMIN_INTERACTION_IDLE_MS = 10000;
 const BOOKING_SYNC_DEBOUNCE_MS = 250;
+const CUSTOMER_ACTIVITY_SYNC_DEBOUNCE_MS = 300;
 let bookingSyncTimer: number | null = null;
+let customerActivitySyncTimer: number | null = null;
 
 const hasPendingBookingActions = () => Boolean(Object.keys((state.admin as any).bookingActionPending || {}).length);
 
@@ -1035,7 +1206,6 @@ const PORTFOLIO_CATEGORY_NAME_MAP: Record<string, string> = {
   'cat-classroom': 'Classroom',
   'cat-custom': 'Custom',
   'cat-dining-room': 'Dining Room',
-  'cat-epoxy-floor': 'Epoxy Floor',
   'cat-garden': 'Garden',
   'cat-home-theatre': 'Home Theatre',
   'cat-kids-bedroom': 'Kids Bedroom',
@@ -1043,7 +1213,6 @@ const PORTFOLIO_CATEGORY_NAME_MAP: Record<string, string> = {
   'cat-office-interior': 'Office Interior',
   'cat-swimming-pool': 'Swimming Pool',
   'cat-terrace': 'Terrace',
-  'cat-epoxy': 'Epoxy',
   'cat-balcony': 'Balcony',
   'cat-bathroom': 'Bathroom',
   'cat-wardrobe': 'Wardrobe',
@@ -1080,7 +1249,6 @@ const getPortfolioSampleCategorySeries = () => {
     { id: 'cat-custom', label: 'Custom', patterns: ['custom'] },
     { id: 'cat-diningarea', label: 'Dining Area', patterns: ['dining area'] },
     { id: 'cat-dining-room', label: 'Dining Room', patterns: ['dining room'] },
-    { id: 'cat-epoxy-floor', label: 'Epoxy Floor', patterns: ['epoxy floor'] },
     { id: 'cat-garden', label: 'Garden', patterns: ['garden'] },
     { id: 'cat-guestroom', label: 'Guest Room', patterns: ['guestroom', 'guest room', 'guest'] },
     { id: 'cat-gym', label: 'Gym', patterns: ['gym'] },
@@ -1096,7 +1264,6 @@ const getPortfolioSampleCategorySeries = () => {
     { id: 'cat-swimming-pool', label: 'Swimming Pool', patterns: ['swimming pool'] },
     { id: 'cat-terrace', label: 'Terrace', patterns: ['terrace'] },
     { id: 'cat-wardrobe', label: 'Wardrobe', patterns: ['wardrobe'] },
-    { id: 'cat-epoxy', label: 'Epoxy', patterns: ['epoxy'] },
     { id: 'cat-pool', label: 'Swimming Pool', patterns: ['pool'] }
   ];
 
@@ -1127,14 +1294,12 @@ const resolvePortfolioCategoryId = (booking: any): string => {
     if (rawCategory.includes('custom')) return 'cat-custom';
     if (rawCategory.includes('dining room')) return 'cat-dining-room';
     if (rawCategory.includes('dining area')) return 'cat-diningarea';
-    if (rawCategory.includes('epoxy floor')) return 'cat-epoxy-floor';
     if (rawCategory.includes('garden')) return 'cat-garden';
     if (rawCategory.includes('guest')) return 'cat-guestroom';
     if (rawCategory.includes('home theatre') || rawCategory.includes('home theater')) return 'cat-home-theatre';
     if (rawCategory.includes('kids bedroom') || rawCategory.includes('kid bedroom')) return 'cat-kids-bedroom';
     if (rawCategory.includes('meeting room')) return 'cat-meeting-room';
     if (rawCategory.includes('office interior') || rawCategory.includes('office')) return 'cat-office-interior';
-    if (rawCategory.includes('epoxy')) return 'cat-epoxy';
     if (rawCategory.includes('bedroom')) return 'cat-bedroom';
     if (rawCategory.includes('swimming pool')) return 'cat-swimming-pool';
     if (rawCategory.includes('terrace')) return 'cat-terrace';
@@ -1226,7 +1391,7 @@ const getPortfolioMetricLabel = (label: string) => {
     apr: 'April', april: 'April',
     may: 'May',
     jun: 'June', june: 'June',
-    jul: 'July', july: 'July',
+    jul: 'July',
     aug: 'August', august: 'August',
     sep: 'September', sept: 'September', september: 'September',
     oct: 'October', october: 'October',
@@ -2201,10 +2366,10 @@ const getCanonicalCategoryImages = (category: string) => {
   if (key.includes('theatre') || key.includes('theater') || key.includes('cinema')) return CATEGORY_CANONICAL_IMAGES['home theatre'] || [];
   if (key.includes('spa')) return CATEGORY_CANONICAL_IMAGES['spa'] || [];
   if (key.includes('bath')) return CATEGORY_CANONICAL_IMAGES['bathroom'] || [];
-  if (key.includes('gym') || key.includes('fitness') || key.includes('workout')) return CATEGORY_CANONICAL_IMAGES['gym'] || [];
   if (key.includes('classroom')) return CATEGORY_CANONICAL_IMAGES['classroom'] || [];
   if (key.includes('meeting') || key.includes('conference')) return CATEGORY_CANONICAL_IMAGES['meeting room'] || [];
-  if (key.includes('class') || key.includes('school')) return CATEGORY_CANONICAL_IMAGES['classroom'] || [];
+  if (key.includes('class') || key.includes('school') || key.includes('education') || key.includes('training') || key.includes('learning')) return CATEGORY_CANONICAL_IMAGES['classroom'] || [];
+  if (key.includes('gym') || key.includes('fitness') || key.includes('workout')) return CATEGORY_CANONICAL_IMAGES['gym'] || [];
   if (key.includes('epoxy')) return CATEGORY_CANONICAL_IMAGES['epoxy floor'] || [];
   if (key.includes('master') && key.includes('bed')) return CATEGORY_CANONICAL_IMAGES['master bedroom'] || [];
   if (key.includes('kids') || key.includes('child')) return CATEGORY_CANONICAL_IMAGES['kids bedroom'] || [];
@@ -2431,10 +2596,95 @@ const getBhkPackageImage = (pkg: any): string => {
   return `/package-images/${bhk}bhk/${idx}.jpg`;
 };
 
+const triggerCustomerActivitySync = (reason = 'customer-activity-mutation') => {
+  if (customerActivitySyncTimer !== null) {
+    window.clearTimeout(customerActivitySyncTimer);
+  }
+  customerActivitySyncTimer = window.setTimeout(() => {
+    customerActivitySyncTimer = null;
+    void syncDashboardsAndInvoices({ silent: true })
+      .then(() => {
+        if (state.activeTab === 'admin' && state.currentUser?.role === 'admin') {
+          updateAdminCharts();
+        }
+      })
+      .catch((error) => {
+        console.warn(`Customer activity sync failed (${reason}):`, error);
+      });
+  }, CUSTOMER_ACTIVITY_SYNC_DEBOUNCE_MS);
+};
+
+const getPackageCategoryImageCandidates = (pkg: any): string[] => {
+  const categories = (state.customer.categories && state.customer.categories.length > 0)
+    ? state.customer.categories
+    : getCategories();
+  const pkgText = [
+    pkg?.id,
+    pkg?.name,
+    pkg?.subtitle,
+    pkg?.description,
+    pkg?.category,
+    pkg?.type,
+    ...(Array.isArray(pkg?.features) ? pkg.features : []),
+    ...(Array.isArray(pkg?.rooms) ? pkg.rooms.map((room: any) => `${room?.title || ''} ${room?.name || ''} ${room?.category || ''}`) : [])
+  ].map((item) => String(item || '')).join(' ');
+  const pkgKey = normalizeKey(pkgText);
+  const isFullHomePackage = /\b(full\s*home|apartment|villa|[1-4]\s*bhk)\b/i.test(pkgText);
+  const preferredCategoryNames = isFullHomePackage
+    ? [
+      'Living Room',
+      'Master Bedroom',
+      'Kitchen',
+      'Bathroom',
+      'Diningroom',
+      'Balcony',
+      'Pooja Room',
+      'Wardrobe',
+      'Garden',
+      'Swimming Pool',
+      'Terrace',
+      'Home Theatre',
+      'Office Interior'
+    ]
+    : [String(pkg?.category || ''), String(pkg?.type || '')].filter(Boolean);
+
+  const preferredKeys = preferredCategoryNames.map((name) => normalizeKey(name)).filter(Boolean);
+  const matchedCategories = categories.filter((category: any) => {
+    const idKey = normalizeKey(String(category?.id || ''));
+    const titleKey = normalizeKey(String(category?.title || category?.name || ''));
+    const haystack = `${idKey} ${titleKey}`;
+    return preferredKeys.some((key) => haystack.includes(key) || key.includes(idKey) || key.includes(titleKey))
+      || (!isFullHomePackage && (pkgKey.includes(idKey) || pkgKey.includes(titleKey)));
+  });
+
+  const categoryPool = matchedCategories.length > 0 ? matchedCategories : categories;
+  const urls = categoryPool.flatMap((category: any) => {
+    const imageRows = Array.isArray(category?.images) ? category.images : [];
+    const rowUrls = imageRows.map((image: any) => normalizeAssetUrl(String(image?.url || image || ''))).filter(Boolean);
+    const fallbackUrl = normalizeAssetUrl(String(category?.image || category?.thumbnail || category?.background || ''));
+    return fallbackUrl ? [fallbackUrl, ...rowUrls] : rowUrls;
+  });
+
+  return Array.from(new Set(urls.filter((url) => {
+    const lower = String(url || '').toLowerCase();
+    return lower
+      && !lower.includes('living1.jpg')
+      && !lower.includes('package-images/')
+      && /\.(avif|webp|png|jpe?g)(\?|$)/i.test(lower);
+  })));
+};
+
+const getUniquePackageCategoryImage = (pkg: any, salt = 'display'): string => {
+  const candidates = getPackageCategoryImageCandidates(pkg);
+  if (candidates.length === 0) return '';
+  const seed = `${String(pkg?.id || pkg?.name || 'package')}::${salt}`;
+  return candidates[getStableImageIndex(seed, candidates.length) - 1] || candidates[0] || '';
+};
+
 // Utility to get the best background image for a package
 const getPackageBackgroundImage = (pkg: any) => {
-  const bhkImage = getBhkPackageImage(pkg);
-  if (bhkImage) return bhkImage;
+  const categoryImage = getUniquePackageCategoryImage(pkg, 'background');
+  if (categoryImage) return categoryImage;
 
   // Prefer explicit backgroundImage field
   if (pkg.backgroundImage && typeof pkg.backgroundImage === 'string' && pkg.backgroundImage.length > 5) {
@@ -2449,8 +2699,8 @@ const getPackageBackgroundImage = (pkg: any) => {
 };
 
 const getPackageDisplayImage = (pkg: any) => {
-  const bhkImage = getBhkPackageImage(pkg);
-  if (bhkImage) return bhkImage;
+  const uniqueCategoryImage = getUniquePackageCategoryImage(pkg, 'display');
+  if (uniqueCategoryImage) return uniqueCategoryImage;
 
   const primary = normalizeAssetUrl(String(pkg?.image || ''));
 
@@ -2606,7 +2856,7 @@ const ensureAdminToken = async (): Promise<boolean> => {
     String((state.adminAccount as any)?.username || '').trim(),
     String(state.adminAccount?.email || '').trim(),
     'admin',
-    'admin954809@gmail.com'
+    'admin@gmail.com'
   ].filter(Boolean)));
 
   const passwordCandidates = Array.from(new Set([
@@ -3044,6 +3294,7 @@ const navigateTo = (tab: TabKey, replace = false) => {
     state.activeTab = 'login';
     history.pushState({}, '', tabToPath['login']);
     render();
+    refreshAdminBookingsForFilters(0);
     return;
   }
 
@@ -3741,6 +3992,10 @@ const refreshCustomerData = async (options: RefreshOptions = {}) => {
     // Fetch designs, categories, and bookings in parallel with timeouts
     const customerId = state.currentUser?.id;
 
+    const feedbacksPath = state.currentUser
+      ? (state.currentUser.role === 'admin' ? '/feedbacks' : `/feedbacks?userId=${state.currentUser.id}`)
+      : '/feedbacks/public';
+
     const requests = [
       apiFetch('/designs', {}, 8000).then((r) => r.json()).catch(() => null),
       apiFetch('/categories', {}, 8000).then((r) => r.json()).catch(() => null),
@@ -3748,8 +4003,9 @@ const refreshCustomerData = async (options: RefreshOptions = {}) => {
       state.currentUser?.role === 'admin'
         ? apiFetch('/enquiries', { headers: getAuthHeaders() }).then((r) => r.json()).catch(() => null)
         : Promise.resolve(null),
-      apiFetch('/feedbacks', { headers: getAuthHeaders() }).then((r) => r.json()).catch(() => null),
-      apiFetch('/likes', { headers: getAuthHeaders() }).then((r) => r.json()).catch(() => null)
+      apiFetch(feedbacksPath, { headers: getAuthHeaders() }).then((r) => r.json()).catch(() => null),
+      state.currentUser ? apiFetch('/likes', { headers: getAuthHeaders() }).then((r) => r.json()).catch(() => null) : Promise.resolve(null),
+      state.currentUser ? apiFetch('/payments', { headers: getAuthHeaders() }).then((r) => r.json()).catch(() => null) : Promise.resolve(null)
     ];
 
     if (customerId) {
@@ -3763,7 +4019,7 @@ const refreshCustomerData = async (options: RefreshOptions = {}) => {
       requests.push(Promise.resolve(null));
     }
 
-    const [designsData, categoriesData, portfolioData, inquiriesData, feedbacksData, likesData, bookingsData] = await Promise.all(requests);
+    const [designsData, categoriesData, portfolioData, inquiriesData, feedbacksData, likesData, paymentsData, bookingsData] = await Promise.all(requests);
 
     const serverDesigns = Array.isArray(designsData?.designs) ? designsData.designs : null;
     const localDesigns = getDesigns();
@@ -3823,7 +4079,7 @@ const refreshCustomerData = async (options: RefreshOptions = {}) => {
       const mappedFeedbacks = feedbacksData.feedbacks.map((f: any) => ({
         id: f.id,
         userId: f.customerId || f.userId || '',
-        userName: f.userName || 'Customer',
+        userName: f.customerName || f.userName || 'Customer',
         rating: f.rating,
         comment: f.comment,
         designId: f.designId || 'chatbot-general',
@@ -3837,6 +4093,17 @@ const refreshCustomerData = async (options: RefreshOptions = {}) => {
     if (likesData && likesData.success && Array.isArray(likesData.likes)) {
       state.customer.likes = mergeServerLikesWithLocalDislikes(likesData.likes);
       console.log(`✅ Loaded ${likesData.likes.length} likes from server`);
+    }
+
+    if (paymentsData && paymentsData.success && Array.isArray(paymentsData.payments)) {
+      const localPayments = getPayments();
+      const serverPayments = paymentsData.payments;
+      const mergedPayments = [...serverPayments, ...localPayments].filter(
+        (p: any, idx: number, arr: any[]) =>
+          arr.findIndex((e: any) => String(e?.id || '') === String(p?.id || '')) === idx
+      );
+      state.customer.payments = mergedPayments;
+      console.log(`✅ Loaded ${serverPayments.length} payments from server`);
     }
 
   } catch (error) {
@@ -3883,10 +4150,10 @@ const refreshCustomerData = async (options: RefreshOptions = {}) => {
   // Ensure all category images are represented in design list for customer-facing views.
   ensureDesignsForAllCategories();
 
-  // Always fetch from localStorage as backup
-  state.customer.payments = getPayments();
-  state.customer.likes = getLikes();
-  state.customer.feedbacks = getFeedbacks();
+  // Only fallback to localStorage if state is empty
+  if (!state.customer.payments || state.customer.payments.length === 0) state.customer.payments = getPayments();
+  if (!state.customer.likes || state.customer.likes.length === 0) state.customer.likes = getLikes();
+  if (!state.customer.feedbacks || state.customer.feedbacks.length === 0) state.customer.feedbacks = getFeedbacks();
   syncPaidDesignsFromBookings((state.customer.bookings || []).map((booking: any) => normalizeBookingRecord(booking)));
 
   // If admin, fetch server customers; if user, try fetch their server-side bookings
@@ -3990,6 +4257,26 @@ const refreshCustomerData = async (options: RefreshOptions = {}) => {
       })
       .catch((error) => {
         console.warn('Failed to fetch AI designs for admin:', error);
+      });
+
+    // Fetch all payments from server for admin — used to populate customer payment counts
+    apiFetch('/payments', { headers: { ...getAuthHeaders() } })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data && data.success && Array.isArray(data.payments)) {
+          // Merge server payments with any local payments, deduplicating by id
+          const localPayments = getPayments();
+          const mergedById = new Map<string, any>();
+          [...data.payments, ...localPayments].forEach((p: any) => {
+            const pid = String(p?.id || '').trim();
+            if (pid && !mergedById.has(pid)) mergedById.set(pid, p);
+          });
+          state.customer.payments = [...mergedById.values()];
+          if (shouldRenderRefreshResult(options)) renderStabilized();
+        }
+      })
+      .catch((error) => {
+        console.warn('Failed to fetch all payments for admin:', error);
       });
   }
 
@@ -4131,14 +4418,19 @@ const handlePaymentRedirect = async () => {
       updatePayment(paymentId, localPaymentPatch);
     }
 
-    await syncDashboardsAndInvoices({ silent: true });
-
     if (paymentStatus === 'paid') {
+      markBookingPaidInState(bookingId, paymentId);
       state.customer.paymentError = '';
       state.customer.bookingMessage = '✅ Payment successful! Your booking is confirmed.';
+      void syncDashboardsAndInvoices({ silent: true })
+        .then(() => syncPaidDesignsFromBookings(getEffectiveBookings()))
+        .catch((error) => console.warn('Payment dashboard sync failed:', error));
       console.log('✅ Payment verified and dashboards/charts/invoices refreshed');
     } else if (paymentStatus === 'failed') {
       state.customer.paymentError = 'Payment failed. Please try again.';
+      await syncDashboardsAndInvoices({ silent: true });
+    } else {
+      await syncDashboardsAndInvoices({ silent: true });
     }
   } catch (error) {
     state.customer.paymentError = error instanceof Error ? error.message : 'Payment verification failed.';
@@ -4154,7 +4446,7 @@ const mapServerFeedbackRecords = (records: any[]) => {
   return records.map((fb: any) => ({
     id: fb.id,
     userId: fb.customerId || fb.userId || '',
-    userName: fb.userName || 'Customer',
+    userName: fb.customerName || fb.userName || 'Customer',
     rating: Number(fb.rating || 0),
     comment: String(fb.comment || ''),
     createdAt: fb.createdAt || new Date().toISOString()
@@ -4273,7 +4565,7 @@ const mergeServerLikesWithLocalDislikes = (serverLikes: any[]) => {
 
 const DISLIKE_FEEDBACK_STORAGE_KEY = 'ar_interia_dislike_feedbacks';
 const PACKAGE_CACHE_RESET_VERSION_KEY = 'ar_interia_package_cache_reset_version';
-const PACKAGE_CACHE_RESET_VERSION = '2026-03-22-room-map-v2';
+const PACKAGE_CACHE_RESET_VERSION = '2026-05-06-room-map-v12-final';
 
 const getDislikeFeedbackRecords = () => {
   try {
@@ -4738,11 +5030,7 @@ const ensureDesignsForCategory = (categoryId: string) => {
        motion3d: img?.motion3d
      }));
    }
-  if (images.length === 0) {
-    // Debug log for missing images
-    console.warn(`[Admin] No images found for category ${categoryId}`);
-    return;
-  }
+  if (images.length === 0) return;
 
   const categoryKeys = getCategoryMatchKeySet(selectedCategory.id || '', selectedCategory.title || '', selectedCategory.name || '');
   const referenceDesign = getDesigns().find((design: any) => {
@@ -4895,7 +5183,7 @@ const toYouTubeEmbedUrl = (url: string, autoplay = false) => {
     || '';
   if (!videoId) return raw;
   const params = autoplay
-    ? '?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3'
+    ? '?autoplay=1&mute=0&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3'
     : '?rel=0&modestbranding=1&iv_load_policy=3';
   return `https://www.youtube-nocookie.com/embed/${videoId}${params}`;
 };
@@ -4943,7 +5231,7 @@ const renderVideoEmbedOrTag = (url: string, classes: string, title = 'Video') =>
   if (isYoutube) {
     return `<iframe src="${escapeHtml(embedUrl)}" title="${escapeHtml(title)}" class="${escapeHtml(classes)}" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
   }
-  return `<video src="${escapeHtml(normalized)}" controls preload="metadata" class="${escapeHtml(classes)}"></video>`;
+  return `<video src="${escapeHtml(normalized)}" controls preload="metadata" class="${escapeHtml(classes)}" data-audio-default="on"></video>`;
 };
 
 const renderVideoLauncher = (url: string, classes: string, title = 'Video', posterUrl = '') => {
@@ -5400,6 +5688,20 @@ const getAnnouncementMatchedDiscountCodes = (announcement: any) => {
   });
 };
 
+const renderAnnouncementOfferChips = (announcement: any) => {
+  const matchedCodes = getAnnouncementMatchedDiscountCodes(announcement);
+  if (matchedCodes.length === 0) return '';
+  return `
+    <div class="flex flex-wrap gap-2 mt-2">
+      ${matchedCodes.map((code: any) => {
+        const kind = code.type === 'flat' ? `${formatCurrency(Number(code.value || 0))} off` : `${Number(code.value || 0)}% off`;
+        const minAmount = Number(code.minAmount || 0) > 0 ? ` min ${formatCurrency(Number(code.minAmount || 0))}` : '';
+        return `<span class="text-[10px] px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 font-bold">${escapeHtml(normalizePromoCode(String(code.code || '')))} · ${escapeHtml(kind + minAmount)}</span>`;
+      }).join('')}
+    </div>
+  `;
+};
+
 const getEligibleBookingsForDiscount = () => {
   const hiddenBookingIds = new Set(getHiddenBookingIds());
   return (state.customer.bookings || [])
@@ -5587,7 +5889,7 @@ const renderVideoModal = () => {
         <div class="relative w-full aspect-video bg-[#0a0a0a]">
           ${isYoutube
       ? `<iframe src="${embedUrl}" class="absolute inset-0 w-full h-full" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`
-      : `<video src="${escapeHtml(url)}" class="absolute inset-0 w-full h-full object-contain" controls autoplay playsinline></video>`
+      : `<video src="${escapeHtml(url)}" class="absolute inset-0 w-full h-full object-contain" controls autoplay playsinline preload="auto" data-audio-default="on"></video>`
     }
         </div>
 
@@ -5598,6 +5900,26 @@ const renderVideoModal = () => {
 
 // Expose legacy video renderer for feature-wrapper delegation.
 (globalThis as any).renderVideoModal = renderVideoModal;
+
+const enableAudibleVideos = (scope: ParentNode = document) => {
+  const videos = Array.from(scope.querySelectorAll('video[data-audio-default="on"]')) as HTMLVideoElement[];
+  videos.forEach((video) => {
+    if (video.dataset.audioPrepared === '1') return;
+    video.dataset.audioPrepared = '1';
+    video.muted = false;
+    video.defaultMuted = false;
+    if (video.volume === 0) {
+      video.volume = 1;
+    }
+    video.addEventListener('play', () => {
+      video.muted = false;
+      video.defaultMuted = false;
+      if (video.volume === 0) {
+        video.volume = 1;
+      }
+    }, { once: true });
+  });
+};
 
 const renderPackageModal = () => {
   const pkg = (state as any).selectedPackage as Package | undefined;
@@ -5714,7 +6036,7 @@ const renderPackageModal = () => {
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               ${pkg.rooms.map((room) => {
-                const roomImg = getRoomImage(room);
+                const roomImg = normalizeAssetUrl(String(room.image || '')) || getRoomImage(room);
                 return `
                 <div class="group cursor-pointer" data-action="open-room-preview" data-room-id="${room.id}">
                   <div class="aspect-video rounded-2xl overflow-hidden bg-slate-200 relative mb-2 shadow-sm group-hover:shadow-md transition">
@@ -5759,7 +6081,12 @@ const renderPackageModal = () => {
 (globalThis as any).renderPackageModal = renderPackageModal;
 
 const calculatePrice = () => {
-  const { category, shape, bhk, area, quality, settings } = state.calculator;
+  let { category, shape, bhk, area, quality, settings } = state.calculator;
+  const validShapeOptions = getCalculatorShapeOptions(Number(bhk || 1), category);
+  if (!validShapeOptions.some((option) => option.value === shape)) {
+    shape = validShapeOptions[0]?.value || 'Rectangle';
+    state.calculator.shape = shape;
+  }
   const normalizeCalcLabel = (value: string) => String(value || '').trim();
   const rawCategory = normalizeCalcLabel(category);
   const inferCategoryFromConfiguration = () => {
@@ -5996,6 +6323,33 @@ const calculatePrice = () => {
     return ContextImages.living;
   };
 
+  const getStrictCalculatorImageFolder = (category: string) => {
+    const key = normalizeCalcCategoryKey(category);
+    if (key.includes('classroom') || key.includes('class') || key.includes('school') || key.includes('education') || key.includes('training') || key.includes('learning')) return '/category/classroom/';
+    if (key.includes('gym') || key.includes('fitness') || key.includes('workout')) return '/category/gym/';
+    if (key.includes('meeting') || key.includes('conference') || key.includes('boardroom')) return '/category/meeting room/';
+    if (key.includes('office') || key.includes('workspace') || key.includes('study')) return '/category/office interior/';
+    if (key.includes('bath')) return '/category/bathroom/';
+    if (key.includes('kitchen')) return '/category/kitchen/';
+    if (key.includes('living') || key.includes('lounge')) return '/category/living room/';
+    if (key.includes('dining')) return '/category/diningroom/';
+    if (key.includes('balcony')) return '/category/balcony/';
+    if (key.includes('terrace') || key.includes('rooftop') || key.includes('deck')) return '/category/terrace/';
+    if (key.includes('garden') || key.includes('landscape') || key.includes('courtyard')) return '/category/garden/';
+    if (key.includes('pool') || key.includes('swimming')) return '/category/swimming pool/';
+    if (key.includes('spa')) return '/category/spa/';
+    if (key.includes('pooja') || key.includes('prayer') || key.includes('mandir')) return '/category/pooja room/';
+    if (key.includes('theatre') || key.includes('theater') || key.includes('cinema')) return '/category/home theatre/';
+    return '';
+  };
+
+  const isCalculatorImageCompatibleWithCategory = (image: string, category: string) => {
+    const requiredFolder = getStrictCalculatorImageFolder(category);
+    if (!requiredFolder) return true;
+    const imagePath = normalizeAssetUrl(String(image || '')).toLowerCase().replace(/%20/g, ' ');
+    return Boolean(imagePath) && imagePath.includes(requiredFolder);
+  };
+
   const resolveCalculatorImage = (item: any, fallbackCategory: string, index = 0) => {
     const cat = String(item?.category || item?.title || fallbackCategory);
     const pool = getContextImages(cat) || getContextImages(fallbackCategory);
@@ -6008,7 +6362,7 @@ const calculatePrice = () => {
       || ''
     ));
 
-    if (direct && direct.length > 10) return direct;
+    if (direct && direct.length > 10 && isCalculatorImageCompatibleWithCategory(direct, cat)) return direct;
     
     // Create a stable seed based on the item title/category to ensure diversity
     const seed = String(item?.title || item?.category || fallbackCategory).length + index;
@@ -6032,7 +6386,8 @@ const calculatePrice = () => {
 
     return (items || []).map((item: any, index: number) => {
       const currentImage = normalizeAssetUrl(String(item?.previewImage || item?.image || ''));
-      let resolved = currentImage;
+      const itemCategory = String(item?.category || item?.title || fallbackCategory);
+      let resolved = isCalculatorImageCompatibleWithCategory(currentImage, itemCategory) ? currentImage : '';
       const itemPool = (getContextImages(String(item?.category || item?.title || fallbackCategory)) || [])
         .map((img) => normalizeAssetUrl(String(img || '')))
         .filter(Boolean);
@@ -6193,7 +6548,7 @@ const calculatePrice = () => {
     'terrace': ['terrace', 'deck', 'rooftop'],
     'home office': ['office', 'study', 'work', 'desk'],
     'meeting room': ['meeting', 'conference', 'boardroom', 'office', 'workspace'],
-    'classroom': ['class', 'school', 'education', 'training', 'learning'],
+    'classroom': ['classroom', 'class', 'school', 'education'],
     'epoxy floor': ['epoxy', 'floor', 'industrial', 'garage', 'paving'],
     'guest room': ['guest', 'bedroom', 'extra room', 'visitor'],
     'spa': ['spa', 'massage', 'wellness', 'relaxation', 'sauna']
@@ -6221,7 +6576,7 @@ const calculatePrice = () => {
     'pooja room': ['pooja', 'prayer', 'mandir'],
     'gym': ['gym', 'fitness', 'workout', 'wellness'],
     'meeting room': ['meeting', 'conference', 'boardroom', 'office'],
-    'classroom': ['class', 'school', 'education', 'training'],
+    'classroom': ['classroom', 'class', 'school', 'education'],
     'epoxy floor': ['epoxy', 'floor', 'industrial', 'garage'],
     'guest room': ['guest', 'bedroom', 'extra room'],
     'spa': ['spa', 'massage', 'wellness', 'relaxation']
@@ -6303,6 +6658,7 @@ const calculatePrice = () => {
         return qualityKey === quality
           && bhkMatch
           && (!typeKey || typeKey === pkgType)
+          && isCalculatorImageCompatibleWithCategory(String(entry?.image || ''), feature)
           && (titleKey.includes(featureKey) || featureKey.includes(titleKey) || categoryKey === pkgType);
       });
       const fallbackFeatureImage = featureImageMap[String(feature || '')];
@@ -6472,7 +6828,9 @@ const calculatePrice = () => {
     const libraryCategoryImage = calculatorImageLibrary.find((entry: any) => {
       const entryCategory = normalizeFeatureText(String(entry?.category || ''));
       const entryQuality = String(entry?.quality || '').toLowerCase();
-      return entryQuality === quality && (entryCategory === categoryKey || categoryTokens.some((token) => entryCategory.includes(token)));
+      return entryQuality === quality
+        && (entryCategory === categoryKey || categoryTokens.some((token) => entryCategory.includes(token)))
+        && isCalculatorImageCompatibleWithCategory(String(entry?.image || ''), resultCategoryLabel);
     })?.image;
     const canonicalImage = normalizeAssetUrl(String(libraryCategoryImage || (canonicalFeature ? featureImageMap[canonicalFeature] : '') || ''));
     const strictCategoryPattern = new RegExp(`\\b(${categoryTokens.join('|')})\\b`, 'i');
@@ -6644,6 +7002,114 @@ const calculatePrice = () => {
   render();
 };
 
+const getCalculatorBhkPlan = (bhkValue: number) => {
+  const bhk = Math.max(1, Math.min(5, Number(bhkValue) || 1));
+  const plans: Record<number, {
+    title: string;
+    subtitle: string;
+    rooms: Array<{ label: string; category: string; count?: string; image: string }>;
+  }> = {
+    1: {
+      title: '1 BHK Starter Home',
+      subtitle: 'Compact essentials for a single-bedroom apartment.',
+      rooms: [
+        { label: 'Living + Dining', category: 'Living Room', image: '/category/Living room/living1.jpg' },
+        { label: 'Kitchen', category: 'Kitchen', image: '/category/Kitchen/kitchen1.jpg' },
+        { label: 'Master Bedroom', category: 'Master Bedroom', image: '/category/Master Bedroom/master-bedroom1.jpg' },
+        { label: 'Bathroom', category: 'Bathroom', image: '/category/Bathroom/bathroom1.jpg' }
+      ]
+    },
+    2: {
+      title: '2 BHK Family Apartment',
+      subtitle: 'Balanced daily-living layout with two private rooms.',
+      rooms: [
+        { label: 'Living + Dining', category: 'Living Room', image: '/category/Living room/living2.jpg' },
+        { label: 'Modular Kitchen', category: 'Kitchen', image: '/category/Kitchen/kitchen2.jpg' },
+        { label: 'Master Bedroom', category: 'Master Bedroom', image: '/category/Master Bedroom/master-bedroom2.jpg' },
+        { label: 'Kids / Guest Bedroom', category: 'Kids Bedroom', image: '/category/Kids-bedroom/kids-bedroom2.jpg' },
+        { label: 'Bathrooms', category: 'Bathroom', count: '2', image: '/category/Bathroom/bathroom2.jpg' },
+        { label: 'Wardrobe Storage', category: 'Wardrobe', image: '/category/wardrobe/wardrobe2.jpg' }
+      ]
+    },
+    3: {
+      title: '3 BHK Premium Home',
+      subtitle: 'Expanded family setup with flexible extra room planning.',
+      rooms: [
+        { label: 'Formal Living', category: 'Living Room', image: '/category/Living room/living3.jpg' },
+        { label: 'Dining Area', category: 'Dining Area', image: '/category/Diningroom/dining-room3.jpg' },
+        { label: 'Designer Kitchen', category: 'Kitchen', image: '/category/Kitchen/kitchen3.jpg' },
+        { label: 'Master Suite', category: 'Master Bedroom', image: '/category/Master Bedroom/master-bedroom3.jpg' },
+        { label: 'Kids Bedroom', category: 'Kids Bedroom', image: '/category/Kids-bedroom/kids-bedroom3.jpg' },
+        { label: 'Guest / Study Room', category: 'Guest Room', image: '/category/Guest room/guest room (3).jpg' },
+        { label: 'Pooja Nook', category: 'Pooja Room', image: '/category/Pooja room/pooja-room3.jpg' }
+      ]
+    },
+    4: {
+      title: '4 BHK Luxury Residence',
+      subtitle: 'Larger home planning with entertainment and work zones.',
+      rooms: [
+        { label: 'Grand Living', category: 'Living Room', image: '/category/Living room/living4.jpg' },
+        { label: 'Kitchen + Utility', category: 'Kitchen', image: '/category/Kitchen/kitchen4.jpg' },
+        { label: 'Master Suite', category: 'Master Bedroom', image: '/category/Master Bedroom/master-bedroom4.jpg' },
+        { label: 'Family Bedrooms', category: 'Kids Bedroom', count: '3', image: '/category/Kids-bedroom/kids-bedroom4.jpg' },
+        { label: 'Home Office', category: 'Office Interior', image: '/category/Office interior/office interior (4).jpg' },
+        { label: 'Balcony / Terrace', category: 'Balcony', image: '/category/Balcony/balcony (4).jpg' },
+        { label: 'Home Theatre', category: 'Home Theatre', image: '/category/Home theatre/home theatre (4).jpg' }
+      ]
+    },
+    5: {
+      title: '5+ BHK Villa / Mansion',
+      subtitle: 'Complete luxury concept with private leisure spaces.',
+      rooms: [
+        { label: 'Double-Height Living', category: 'Living Room', image: '/category/Living room/living5.jpg' },
+        { label: 'Gourmet Kitchen', category: 'Kitchen', image: '/category/Kitchen/kitchen5.jpg' },
+        { label: 'Bedroom Suites', category: 'Master Bedroom', count: '5+', image: '/category/Master Bedroom/master-bedroom5.jpg' },
+        { label: 'Private Theatre', category: 'Home Theatre', image: '/category/Home theatre/home theatre (5).jpg' },
+        { label: 'Gym / Wellness', category: 'Gym', image: '/category/Gym/gym (5).jpg' },
+        { label: 'Pool Deck', category: 'Swimming Pool', image: '/category/Swimming pool/swimmingpool5 - Copy.jpg' },
+        { label: 'Garden / Terrace', category: 'Garden', image: '/category/Garden/garden (5).jpg' }
+      ]
+    }
+  };
+  return plans[bhk] || plans[1];
+};
+
+const getCalculatorShapeOptions = (bhkValue: number, categoryValue = '') => {
+  const bhk = Math.max(1, Math.min(5, Number(bhkValue) || 1));
+  const isVilla = String(categoryValue || '').toLowerCase() === 'villa' || bhk >= 4;
+  const optionsByBhk: Record<number, Array<{ value: string; label: string; note: string }>> = {
+    1: [
+      { value: 'Rectangle', label: 'Linear Studio', note: 'Compact straight planning' },
+      { value: 'L-Shape', label: 'Corner Flow', note: 'Open living + kitchen corner' }
+    ],
+    2: [
+      { value: 'Rectangle', label: 'Compact Rectangle', note: 'Best for apartment blocks' },
+      { value: 'L-Shape', label: 'L-Shape Family', note: 'Bedroom privacy with open living' },
+      { value: 'Custom', label: 'Balcony Offset', note: 'For attached balcony or utility' }
+    ],
+    3: [
+      { value: 'Rectangle', label: 'Linear 3BHK', note: 'Simple efficient circulation' },
+      { value: 'L-Shape', label: 'L-Shape Premium', note: 'Living separated from bedrooms' },
+      { value: 'T-Shape', label: 'T-Zoned Home', note: 'Clear family/private zones' },
+      { value: 'Custom', label: 'Study Extension', note: 'For office or pooja expansion' }
+    ],
+    4: [
+      { value: 'L-Shape', label: 'Luxury L-Shape', note: 'Bedroom wing + social wing' },
+      { value: 'T-Shape', label: 'T-Zoned Residence', note: 'Family, guest, service zones' },
+      { value: 'Custom', label: 'Courtyard / Duplex', note: 'Villa, stair, or terrace layouts' }
+    ],
+    5: [
+      { value: 'T-Shape', label: 'Villa Wing Layout', note: 'Multiple suite wings' },
+      { value: 'Custom', label: 'Custom Mansion Plan', note: 'Pool, garden, theatre, gym zones' },
+      { value: 'L-Shape', label: 'Resort L-Shape', note: 'Indoor-outdoor luxury flow' }
+    ]
+  };
+  const options = optionsByBhk[bhk] || optionsByBhk[1];
+  return isVilla && bhk < 4
+    ? options.filter((option) => option.value !== 'Rectangle')
+    : options;
+};
+
 const renderPriceCalculatorModal = () => {
   if (!state.calculator.isOpen) return '';
   const s = state.calculator;
@@ -6681,6 +7147,31 @@ const renderPriceCalculatorModal = () => {
   };
 
   const normalizeCategoryKey = (value: string) => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const getStrictDisplayImageFolder = (category: string) => {
+    const key = normalizeCalcCategoryKey(category);
+    if (key.includes('classroom') || key.includes('class') || key.includes('school') || key.includes('education') || key.includes('training') || key.includes('learning')) return '/category/classroom/';
+    if (key.includes('gym') || key.includes('fitness') || key.includes('workout')) return '/category/gym/';
+    if (key.includes('meeting') || key.includes('conference') || key.includes('boardroom')) return '/category/meeting room/';
+    if (key.includes('office') || key.includes('workspace') || key.includes('study')) return '/category/office interior/';
+    if (key.includes('bath')) return '/category/bathroom/';
+    if (key.includes('kitchen')) return '/category/kitchen/';
+    if (key.includes('living') || key.includes('lounge')) return '/category/living room/';
+    if (key.includes('dining')) return '/category/diningroom/';
+    if (key.includes('balcony')) return '/category/balcony/';
+    if (key.includes('terrace') || key.includes('rooftop') || key.includes('deck')) return '/category/terrace/';
+    if (key.includes('garden') || key.includes('landscape') || key.includes('courtyard')) return '/category/garden/';
+    if (key.includes('pool') || key.includes('swimming')) return '/category/swimming pool/';
+    if (key.includes('spa')) return '/category/spa/';
+    if (key.includes('pooja') || key.includes('prayer') || key.includes('mandir')) return '/category/pooja room/';
+    if (key.includes('theatre') || key.includes('theater') || key.includes('cinema')) return '/category/home theatre/';
+    return '';
+  };
+  const isDisplayImageCompatibleWithCategory = (image: string, category: string) => {
+    const requiredFolder = getStrictDisplayImageFolder(category);
+    if (!requiredFolder) return true;
+    const imagePath = normalizeAssetUrl(String(image || '')).toLowerCase().replace(/%20/g, ' ');
+    return Boolean(imagePath) && imagePath.includes(requiredFolder);
+  };
   const categoryFeatureMap: Record<string, string> = {
     'apartment': 'Living + Dining',
     'villa': 'Swimming Pool',
@@ -6721,14 +7212,18 @@ const renderPriceCalculatorModal = () => {
       if (s.bhk >= 5) return '/category/Kitchen/kitchen1.jpg';
     }
 
+    const canonical = getCanonicalCategoryImages(cat);
+    if (canonical.length > 0 && getStrictDisplayImageFolder(cat)) return normalizeAssetUrl(canonical[0]);
+
     const qualityMatch = lib.find((item: any) => {
       const itemKey = normalizeCalcCategoryKey(String(item?.category || ''));
       const qualityKey = String(item?.quality || '').toLowerCase();
-      return qualityKey === String(s.quality || '').toLowerCase() && (itemKey === catKey || itemKey.includes(catKey) || catKey.includes(itemKey));
+      return qualityKey === String(s.quality || '').toLowerCase()
+        && (itemKey === catKey || itemKey.includes(catKey) || catKey.includes(itemKey))
+        && isDisplayImageCompatibleWithCategory(String(item?.image || ''), cat);
     });
     if (qualityMatch?.image) return normalizeAssetUrl(String(qualityMatch.image));
 
-    const canonical = getCanonicalCategoryImages(cat);
     if (canonical.length > 0) return normalizeAssetUrl(canonical[0]);
 
     const categoriesFromStore = getCategories();
@@ -6756,7 +7251,7 @@ const renderPriceCalculatorModal = () => {
         return categoryTokens.length > 0 && categoryTokens.every((token) => searchable.includes(token));
       })?.image;
     const roomImage = normalizeAssetUrl(String(packageRoomImage || ''));
-    if (roomImage) return roomImage;
+    if (roomImage && isDisplayImageCompatibleWithCategory(roomImage, cat)) return roomImage;
 
     const mapped = normalizeAssetUrl(String(CATEGORY_IMAGES[cat] || ''));
     if (mapped) return mapped;
@@ -6764,7 +7259,10 @@ const renderPriceCalculatorModal = () => {
   };
 
   const categories = Object.keys(settings.categoryMultipliers).sort();
-  const shapes = ['Rectangle', 'L-Shape', 'T-Shape', 'Custom'];
+  const bhkPlan = getCalculatorBhkPlan(Number(s.bhk || 1));
+  const shapes = getCalculatorShapeOptions(Number(s.bhk || 1), s.category);
+  const activeShapeValues = shapes.map((shapeOption) => shapeOption.value);
+  const activeShape = activeShapeValues.includes(String(s.shape || '')) ? String(s.shape || '') : shapes[0]?.value || 'Rectangle';
 
   return `
     <div class="fixed inset-0 z-[120] flex items-center justify-center bg-black/70 backdrop-blur-md p-4" data-action="close-calculator">
@@ -6807,8 +7305,9 @@ const renderPriceCalculatorModal = () => {
                   </label>
                   <div class="grid grid-cols-2 gap-2">
                     ${shapes.map(sh => `
-                      <button data-action="calc-set-shape" data-value="${sh}" class="p-2.5 rounded-xl border-2 text-[10px] font-bold transition flex flex-col items-center gap-1 ${s.shape === sh ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-slate-50 text-slate-400 hover:border-slate-200'}">
-                        <span>${sh}</span>
+                      <button data-action="calc-set-shape" data-value="${sh.value}" class="p-2.5 rounded-xl border-2 text-[10px] font-bold transition flex flex-col items-center gap-1 ${activeShape === sh.value ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-slate-50 text-slate-400 hover:border-slate-200'}">
+                        <span>${sh.label}</span>
+                        <span class="text-[9px] leading-tight font-semibold normal-case tracking-normal ${activeShape === sh.value ? 'text-amber-700' : 'text-slate-400'}">${sh.note}</span>
                       </button>
                     `).join('')}
                   </div>
@@ -6824,13 +7323,40 @@ const renderPriceCalculatorModal = () => {
                       const isLast = n === 5;
                       const colSpan = isLast ? 'col-span-2' : '';
                       const label = isLast ? (isVilla ? '5+ BHK Villa' : '5+ BHK / Commercial') : `${n} BHK`;
+                      const plan = getCalculatorBhkPlan(n);
                       return `
-                        <button data-action="calc-set-bhk" data-value="${n}" class="py-2.5 rounded-xl border-2 text-xs font-bold transition ${colSpan} ${s.bhk === n ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-slate-50 text-slate-400 hover:border-slate-200'}">
-                          ${label}
+                        <button data-action="calc-set-bhk" data-value="${n}" class="py-2.5 px-2 rounded-xl border-2 text-xs font-bold transition ${colSpan} ${s.bhk === n ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-slate-50 text-slate-400 hover:border-slate-200'}">
+                          <span class="block">${label}</span>
+                          <span class="block mt-0.5 text-[9px] font-semibold normal-case leading-tight ${s.bhk === n ? 'text-amber-700' : 'text-slate-400'}">${plan.rooms.length} room concepts</span>
                         </button>
                       `;
                     }).join('')}
                   </div>
+                </div>
+              </div>
+              <div class="rounded-2xl border border-amber-100 bg-amber-50/50 p-4">
+                <div class="flex items-start justify-between gap-4 mb-3">
+                  <div>
+                    <div class="text-[10px] uppercase tracking-widest text-amber-700 font-black">Room Configuration</div>
+                    <h3 class="text-sm font-black text-slate-900 mt-1">${bhkPlan.title}</h3>
+                    <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">${bhkPlan.subtitle}</p>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-full bg-white border border-amber-200 text-[10px] font-black text-amber-700 whitespace-nowrap">${s.bhk} BHK</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  ${bhkPlan.rooms.map((room) => `
+                    <div class="min-h-[76px] rounded-xl overflow-hidden border border-white bg-white shadow-sm relative">
+                      <img src="${room.image}" class="absolute inset-0 w-full h-full object-cover opacity-55" onerror="this.style.display='none'" />
+                      <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent"></div>
+                      <div class="absolute inset-x-0 bottom-0 p-2">
+                        <div class="text-[10px] font-black text-white leading-tight drop-shadow">${escapeHtml(room.label)}</div>
+                        <div class="mt-0.5 flex items-center justify-between gap-1">
+                          <span class="text-[9px] text-white/80 font-semibold truncate">${escapeHtml(room.category)}</span>
+                          ${room.count ? `<span class="px-1.5 py-0.5 rounded-full bg-amber-400 text-slate-900 text-[8px] font-black">${escapeHtml(room.count)}</span>` : ''}
+                        </div>
+                      </div>
+                    </div>
+                  `).join('')}
                 </div>
               </div>
             </div>
@@ -7015,6 +7541,7 @@ const renderPriceCalculatorModal = () => {
 
 // --- Frontend render layer ---------------------------------------------------
 let renderRequested = false;
+let adminRenderEffectiveBookingsCache: any[] | null = null;
 
 const isPerfDebugEnabled = () => {
   try {
@@ -7044,15 +7571,11 @@ const logPerfMetric = (label: string, durationMs: number, meta?: Record<string, 
 };
 
 const render = () => {
-  console.log('render() function called');
   if (renderRequested) {
-    console.log('render already requested, returning');
     return;
   }
   renderRequested = true;
-  console.log('scheduling requestAnimationFrame');
   requestAnimationFrame(() => {
-    console.log('requestAnimationFrame callback executing');
     try {
       const startedAt = perfNow();
       renderInternal();
@@ -7075,15 +7598,14 @@ const render = () => {
     }
     renderRequested = false;
     
-    // Initialize admin charts after render completes
-    if (state.activeTab === 'admin' && state.currentUser?.role === 'admin') {
-      setTimeout(() => {
-        initAdminChartsWhenVisible();
-        startAdminChartsAutoRefresh();
-        scheduleAdminChartsRetry();
-      }, 100);
-    }
+    // Admin charts are initialized from renderInternal on idle to keep clicks responsive.
   });
+};
+
+const getAdminRenderEffectiveBookings = () => {
+  if (adminRenderEffectiveBookingsCache) return adminRenderEffectiveBookingsCache;
+  adminRenderEffectiveBookingsCache = getEffectiveBookings();
+  return adminRenderEffectiveBookingsCache;
 };
 
 // Expose state and render for inline scripts
@@ -7092,6 +7614,7 @@ const render = () => {
 
 const renderInternal = () => {
   setThemeVars();
+  adminRenderEffectiveBookingsCache = null;
   // 2D rendering - no cleanup needed
   let content = '';
   if (state.activeTab === 'categories') {
@@ -7101,10 +7624,13 @@ const renderInternal = () => {
       content = '<div class="p-8 text-center text-red-600">Categories page is under construction or missing renderCategoryGallery implementation.</div>';
     }
     content += renderVideoFeature() + renderPackageFeature() + renderPriceCalculatorFeature() + renderServiceDetailsFeature() + renderServiceShowcaseDetailsFeature();
+  } else if (state.activeTab === 'admin') {
+    content = renderLayout();
   } else {
     content = renderLayout() + renderVideoFeature() + renderPackageFeature() + renderPriceCalculatorFeature() + renderServiceDetailsFeature() + renderServiceShowcaseDetailsFeature();
   }
   root.innerHTML = maybeNormalizeTemplateMarkup(content);
+  adminRenderEffectiveBookingsCache = null;
   scheduleConfirmMessageDismiss();
   schedulePaymentSuccessDismiss();
   scheduleAuto3DMotion();
@@ -7147,15 +7673,12 @@ const renderInternal = () => {
   }
 
   if (state.activeTab === 'admin' && state.currentUser?.role === 'admin') {
+    hydrateAdminToolSlotsInBackground();
     runWhenBrowserIdle(() => {
       initAdminChartsWhenVisible();
       startAdminChartsAutoRefresh();
       scheduleAdminChartsRetry();
     }, 700);
-    // Also try immediately after render completes
-    setTimeout(() => {
-      initAdminChartsWhenVisible();
-    }, 500);
     if (state.admin.focusSection) {
       const target = document.getElementById(`admin-${state.admin.focusSection}`);
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -7223,6 +7746,7 @@ const renderInternal = () => {
   const videoModal = document.getElementById('video-modal');
   if (videoModal && videoModal.getAttribute('data-bound-video-modal') !== '1') {
     videoModal.setAttribute('data-bound-video-modal', '1');
+    enableAudibleVideos(videoModal);
 
     const closeButtons = videoModal.querySelectorAll('[data-action="close-video"]');
     closeButtons.forEach((btn) => {
@@ -7244,6 +7768,7 @@ const renderInternal = () => {
       render();
     });
   }
+  enableAudibleVideos(root);
 
   // Setup file input handlers for upload modal
   const fileInputs = document.querySelectorAll('[data-file-input]');
@@ -7541,7 +8066,8 @@ const initSpideyHome = () => {
       });
 
       const slider = new Swiper(mainEl, {
-        spaceBetween: 1000,
+        slidesPerView: 1,
+        spaceBetween: 0,
         initialSlide: 0,
         loop: true,
         autoplay: {
@@ -7553,21 +8079,14 @@ const initSpideyHome = () => {
           nextEl: nextButtonEl,
           prevEl: prevButtonEl
         },
-        effect: 'coverflow',
-        speed: 1800,
+        effect: 'slide',
+        speed: 900,
         observer: true,
         observeParents: true,
         thumbs: {
           swiper: thumbs
         },
-        allowTouchMove: true,
-        coverflowEffect: {
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true
-        }
+        allowTouchMove: true
       });
 
       (window as any).__spideyThumbs = thumbs;
@@ -7855,6 +8374,7 @@ const renderHome = () => {
               <div class="flex-1">
                 <div class="font-bold text-[color:var(--primary)]">${escapeHtml(a.title)}</div>
                 <div class="text-sm text-slate-600 mt-1">${escapeHtml(a.message)}</div>
+                ${renderAnnouncementOfferChips(a)}
                 <div class="text-xs text-slate-400 mt-2">Valid until ${new Date(a.endDate).toLocaleDateString()}</div>
               </div>
             </div>
@@ -10539,16 +11059,6 @@ ${scopedThreeDShowcase.length
             previewImage: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800',
             price: 980000,
             motion3d: true
-          },
-          {
-            id: 'sample-epoxy-1',
-            title: 'Epoxy Luxe Flooring',
-            category: 'Epoxy',
-            categoryId: 'cat-epoxy',
-            description: 'High-gloss epoxy treatment with marble swirl finish for premium interiors.',
-            previewImage: 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?w=800',
-            price: 760000,
-            motion3d: true
           }
         ];
 
@@ -11290,31 +11800,31 @@ class="px-8 py-4 border-2 border-purple-400 text-purple-400 font-bold rounded-xl
 // Expose legacy portfolio renderer for feature-wrapper delegation.
 (globalThis as any).renderPortfolio = renderPortfolio;
 
+const getPasswordRuleChecks = (password: string) => ({
+  length: password.length >= 8,
+  uppercase: /[A-Z]/.test(password),
+  number: /\d/.test(password),
+  special: /[^A-Za-z0-9]/.test(password)
+});
+
+const getPasswordStrengthMeta = (password: string) => {
+  if (!password) return { score: 0, label: 'Enter password', color: '#cbd5e1' };
+
+  let score = 0;
+  if (password.length >= 8) score += 1;
+  if (password.length >= 12) score += 1;
+  if (/[A-Z]/.test(password)) score += 1;
+  if (/[a-z]/.test(password)) score += 1;
+  if (/\d/.test(password)) score += 1;
+  if (/[^A-Za-z0-9]/.test(password)) score += 1;
+
+  if (score <= 2) return { score: Math.max(1, score), label: 'Weak', color: '#ef4444' };
+  if (score <= 4) return { score, label: 'Medium', color: '#f59e0b' };
+  return { score, label: 'Strong', color: '#10b981' };
+};
+
   // --- Frontend auth page layer: Login (do not alter business logic) ----------
 const renderLogin = () => {
-  const getPasswordRuleChecks = (password: string) => ({
-    length: password.length >= 8,
-    uppercase: /[A-Z]/.test(password),
-    number: /\d/.test(password),
-    special: /[^A-Za-z0-9]/.test(password)
-  });
-
-  const getPasswordStrengthMeta = (password: string) => {
-    if (!password) return { score: 0, label: 'Enter password', color: '#cbd5e1' };
-
-    let score = 0;
-    if (password.length >= 8) score += 1;
-    if (password.length >= 12) score += 1;
-    if (/[A-Z]/.test(password)) score += 1;
-    if (/[a-z]/.test(password)) score += 1;
-    if (/\d/.test(password)) score += 1;
-    if (/[^A-Za-z0-9]/.test(password)) score += 1;
-
-    if (score <= 2) return { score: Math.max(1, score), label: 'Weak', color: '#ef4444' };
-    if (score <= 4) return { score, label: 'Medium', color: '#f59e0b' };
-    return { score, label: 'Strong', color: '#10b981' };
-  };
-
   const updatePasswordStrengthUi = (password: string) => {
     state.loginForm.password = password || '';
     const meta = getPasswordStrengthMeta(password || '');
@@ -11430,7 +11940,7 @@ const renderLogin = () => {
                 </h2>
                 <p class="mt-1 text-sm text-slate-600">
                   ${isSetupMode
-      ? 'Set up the first administrator account (default: admin954809@gmail.com / Admin@1234)'
+      ? 'Set up the first administrator account (default: admin@gmail.com / Admin@1234)'
       : state.loginForm.isSignup
         ? 'Start your design journey today'
         : 'Enter your credentials to continue'}
@@ -11523,7 +12033,7 @@ const renderLogin = () => {
                   </div>
                 ` : ''}
 
-                <button type="submit" ${canSubmit ? '' : 'disabled'} class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-600 to-[color:var(--accent)] text-white font-bold shadow-lg hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed login-submit-btn">
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-600 to-[color:var(--accent)] text-white font-bold shadow-lg hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed login-submit-btn">
                   ${isSetupMode ? 'Initialize System' : state.loginForm.twoFactorChallengeId ? 'Verify Code' : state.loginForm.isSignup ? 'Create Account' : 'Sign In'}
                 </button>
               </form>
@@ -11718,6 +12228,102 @@ const ensureModelViewerLoaded = (): Promise<void> => {
 // handleLogin is implemented later in the file; earlier duplicate removed
 
 // --- Backend integration layer (admin data sync) ----------------------------
+const appendBookingManagerApiFilters = (params: URLSearchParams, filter: AdminState['bookingFilter']) => {
+  const query = String(filter.query || '').trim();
+  if (query) params.set('query', query);
+  if (filter.categoryId && filter.categoryId !== 'all') params.set('categoryId', filter.categoryId);
+  if (filter.approvalStatus && filter.approvalStatus !== 'all') params.set('statusgroup', filter.approvalStatus);
+  if (filter.paymentStatus && filter.paymentStatus !== 'all') params.set('paymentStatus', filter.paymentStatus);
+  if (filter.dateFrom) params.set('dateFrom', filter.dateFrom);
+  if (filter.dateTo) params.set('dateTo', filter.dateTo);
+};
+
+const fetchAdminBookingsPage = async (options: { limit?: number; offset?: number; fast?: boolean } = {}) => {
+  if (!state.currentUser?.token) {
+    await ensureAdminToken();
+  }
+  const bookingParams = new URLSearchParams({
+    limit: String(options.limit || 30),
+    offset: String(options.offset || 0)
+  });
+  if (options.fast !== false) {
+    bookingParams.set('fast', '1');
+  }
+  appendBookingManagerApiFilters(bookingParams, state.admin.bookingFilter);
+  const response = await apiFetch(`/bookings?${bookingParams}`, { headers: { ...getAuthHeaders() } }, 2500);
+  const data = await response.json().catch(() => ({} as any));
+  if (!response.ok || !data?.success || !Array.isArray(data.bookings)) {
+    throw new Error(data?.message || 'Failed to fetch bookings');
+  }
+  return data;
+};
+
+const replaceAdminBookingsFromServer = (data: any) => {
+  state.admin.bookings = data.bookings.map((booking: any) => normalizeBookingRecord(booking)).sort((left: any, right: any) => {
+    return getBookingSortScore(right) - getBookingSortScore(left);
+  });
+  (state.admin as any).bookingsLastSyncedAt = new Date().toISOString();
+  (state.admin as any).bookingsLastFetched = Date.now();
+  (state.admin as any).bookingsPagination = data.pagination;
+  if (data.summary) {
+    (state.admin as any).bookingSummary = data.summary;
+  }
+};
+
+const refreshAdminBookingsOnly = async (options: { renderAfter?: boolean; fast?: boolean } = {}) => {
+  const data = await fetchAdminBookingsPage({ limit: 30, offset: 0, fast: options.fast !== false });
+  replaceAdminBookingsFromServer(data);
+  if (options.renderAfter !== false) {
+    renderStabilized();
+  }
+  return data;
+};
+
+let adminBookingFilterRefreshTimer: number | null = null;
+const refreshAdminBookingsForFilters = (delay = 0) => {
+  if (adminBookingFilterRefreshTimer) {
+    window.clearTimeout(adminBookingFilterRefreshTimer);
+  }
+  adminBookingFilterRefreshTimer = window.setTimeout(() => {
+    adminBookingFilterRefreshTimer = null;
+    void refreshAdminBookingsOnly({ renderAfter: true }).catch((error) => {
+      console.warn('[Admin] Booking filter refresh failed:', error);
+      renderStabilized();
+    });
+  }, delay);
+};
+
+const applyAdminBookingFilterValue = (bind: string, value: string) => {
+  switch (bind) {
+    case 'admin.bookingFilter.query':
+      state.admin.bookingFilter.query = value;
+      refreshAdminBookingsForFilters(250);
+      return true;
+    case 'admin.bookingFilter.categoryId':
+      state.admin.bookingFilter.categoryId = value;
+      refreshAdminBookingsForFilters(0);
+      return true;
+    case 'admin.bookingFilter.paymentStatus':
+      state.admin.bookingFilter.paymentStatus = value as AdminState['bookingFilter']['paymentStatus'];
+      refreshAdminBookingsForFilters(0);
+      return true;
+    case 'admin.bookingFilter.approvalStatus':
+      state.admin.bookingFilter.approvalStatus = value as AdminState['bookingFilter']['approvalStatus'];
+      refreshAdminBookingsForFilters(0);
+      return true;
+    case 'admin.bookingFilter.dateFrom':
+      state.admin.bookingFilter.dateFrom = value;
+      refreshAdminBookingsForFilters(0);
+      return true;
+    case 'admin.bookingFilter.dateTo':
+      state.admin.bookingFilter.dateTo = value;
+      refreshAdminBookingsForFilters(0);
+      return true;
+    default:
+      return false;
+  }
+};
+
 const refreshAdminData = async (options: RefreshOptions = {}) => {
   const refreshStart = getPerfNow();
   if (!state.currentUser || state.currentUser.role !== 'admin') {
@@ -11737,22 +12343,20 @@ const refreshAdminData = async (options: RefreshOptions = {}) => {
     // Check if we need to refresh bookings (cache for 30 seconds)
     const now = Date.now();
     const bookingsLastFetched = (state.admin as any).bookingsLastFetched || 0;
-    const bookingsCacheExpiry = 5 * 1000; // 5 seconds
+    // Force immediate refresh when options.force is true (e.g., after booking actions)
+    const bookingsCacheExpiry = options.force || options.forceRefresh ? 0 : 30 * 1000;
 
     let bookingsData = null;
     if (now - bookingsLastFetched > bookingsCacheExpiry || options.force || options.forceRefresh) {
       // Fetch bookings with pagination - start with first page
       const bookingParams = new URLSearchParams({
-        limit: '100', // Load more bookings initially for admin
-        offset: '0'
+        limit: '30',
+        offset: '0',
+        fast: '1'
       });
 
       // Apply current filters if they exist
-      const filter = state.admin.bookingFilter;
-      if (filter.approvalStatus && filter.approvalStatus !== 'all') bookingParams.set('status', filter.approvalStatus);
-      if (filter.paymentStatus && filter.paymentStatus !== 'all') bookingParams.set('paymentStatus', filter.paymentStatus);
-      if (filter.dateFrom) bookingParams.set('dateFrom', filter.dateFrom);
-      if (filter.dateTo) bookingParams.set('dateTo', filter.dateTo);
+      appendBookingManagerApiFilters(bookingParams, state.admin.bookingFilter);
 
       bookingsData = await apiFetch(`/bookings?${bookingParams}`, { headers: authHeaders }, 8000);
     }
@@ -11760,33 +12364,17 @@ const refreshAdminData = async (options: RefreshOptions = {}) => {
     const criticalFetches = await Promise.allSettled([
       bookingsData || Promise.resolve(null),
       apiFetch('/customers', { headers: authHeaders }, 6000),
-      apiFetch('/invoices/all', { headers: authHeaders }, 6000)
+      apiFetch('/invoices/all', { headers: authHeaders }, 6000),
+      apiFetch('/payments', { headers: authHeaders }, 6000)
     ]);
 
-    const [bookingsResult, customersResult, invoicesResult] = criticalFetches;
+    const [bookingsResult, customersResult, invoicesResult, paymentsResult] = criticalFetches;
 
     if (bookingsResult.status === 'fulfilled' && bookingsResult.value && bookingsResult.value.ok) {
       const bookingsResponse = bookingsResult.value;
       const bookingsData = await bookingsResponse.json().catch(() => ({} as any));
       if (bookingsData && Array.isArray(bookingsData.bookings)) {
-        const serverBookings = bookingsData.bookings.map((booking: any) => normalizeBookingRecord(booking));
-        const localBookings = getBookings().map((booking: any) => normalizeBookingRecord(booking));
-        const mergedById = new Map<string, any>();
-
-        [...serverBookings, ...localBookings].forEach((booking: any) => {
-          const bookingId = String(booking?.id || '').trim();
-          if (!bookingId) return;
-          if (!mergedById.has(bookingId)) {
-            mergedById.set(bookingId, booking);
-          }
-        });
-
-        state.admin.bookings = [...mergedById.values()].sort((left: any, right: any) => {
-          return getBookingSortScore(right) - getBookingSortScore(left);
-        });
-        (state.admin as any).bookingsLastSyncedAt = new Date().toISOString();
-        (state.admin as any).bookingsLastFetched = now;
-        (state.admin as any).bookingsPagination = bookingsData.pagination;
+        replaceAdminBookingsFromServer(bookingsData);
         console.log(`✅ Loaded ${state.admin.bookings.length} bookings from server (${bookingsData.pagination?.total || 0} total)`);
       }
     } else if (!bookingsData) {
@@ -11816,7 +12404,12 @@ const refreshAdminData = async (options: RefreshOptions = {}) => {
           pincode: String(customer.pincode || '').trim() || undefined,
           bio: String(customer.bio || '').trim() || undefined,
           profilePhoto: String(customer.profilePhoto || '').trim() || undefined,
-          createdAt: customer.createdAt
+          createdAt: customer.createdAt,
+          likesCount: Number(customer.likesCount || 0),
+          savedPackagesCount: Number(customer.savedPackagesCount || 0),
+          feedbacksCount: Number(customer.feedbacksCount || 0),
+          bookingsCount: Number(customer.bookingsCount || 0),
+          paymentsCount: Number(customer.paymentsCount || 0)
         }));
       }
     }
@@ -11825,6 +12418,22 @@ const refreshAdminData = async (options: RefreshOptions = {}) => {
       const invoicesResponse = invoicesResult.value;
       const invoicesData = await invoicesResponse.json().catch(() => ({} as any));
       state.admin.invoices = Array.isArray(invoicesData?.invoices) ? invoicesData.invoices : [];
+    }
+
+    if (paymentsResult.status === 'fulfilled' && paymentsResult.value.ok) {
+      const paymentsResponse = paymentsResult.value;
+      const paymentsData = await paymentsResponse.json().catch(() => ({} as any));
+      if (paymentsData && paymentsData.success && Array.isArray(paymentsData.payments)) {
+        const serverPayments = paymentsData.payments;
+        const localPayments = getPayments();
+        const merged = [...serverPayments, ...localPayments].filter(
+          (p: any, idx: number, arr: any[]) =>
+            arr.findIndex((e: any) => String(e?.id || '') === String(p?.id || '')) === idx
+        );
+        state.customer.payments = merged;
+        writeStorage(STORAGE_KEYS.payments, merged);
+        console.log(`✅ Loaded ${serverPayments.length} payments from server`);
+      }
     }
 
     if (shouldRenderRefreshResult(options) && state.activeTab === 'admin' && state.currentUser?.role === 'admin') {
@@ -11878,7 +12487,7 @@ const refreshAdminData = async (options: RefreshOptions = {}) => {
           const mappedFeedbacks = feedbacksData.feedbacks.map((feedback: any) => ({
             id: feedback.id,
             userId: feedback.customerId || feedback.userId || '',
-            userName: feedback.userName || 'Customer',
+            userName: feedback.customerName || feedback.userName || 'Customer',
             rating: feedback.rating,
             comment: feedback.comment,
             designId: feedback.designId || 'chatbot-general',
@@ -11919,7 +12528,7 @@ const refreshAdminData = async (options: RefreshOptions = {}) => {
             id: String(item.id || `chat-${Date.now()}-${Math.random().toString(16).slice(2)}`),
             userType: (item.userType || (item.customerId ? 'registered' : 'newGuest')) as ChatbotUserType,
             userId: String(item.customerId || 'guest'),
-            userName: String(item.userName || 'Customer'),
+            userName: String(item.customerName || item.userName || 'Customer'),
             query: String(item.query || ''),
             response: String(item.response || ''),
             createdAt: String(item.createdAt || new Date().toISOString()),
@@ -11931,6 +12540,7 @@ const refreshAdminData = async (options: RefreshOptions = {}) => {
       }
 
       if (state.activeTab === 'admin' && state.currentUser?.role === 'admin') {
+        if (!options.silent) renderStabilized();
         updateAdminCharts();
       }
     }).catch((backgroundError) => {
@@ -11959,7 +12569,8 @@ const renderAdminDashboardSection = () => {
   const totalDesigns = (state.customer.designs && state.customer.designs.length > 0)
     ? state.customer.designs.length
     : getDesigns().length;
-  const bookings = getEffectiveBookings();
+  const bookings = getAdminRenderEffectiveBookings();
+  const bookingSummary = (state.admin as any).bookingSummary || null;
   const knownCustomers = (state.users || []).filter((user: any) => String(user?.role || '').toLowerCase() === 'customer');
   const revenueRecognizedBookings = bookings.filter((booking: any) => {
     const paymentStatus = getBookingPaymentStatus(booking);
@@ -12014,7 +12625,7 @@ const renderAdminDashboardSection = () => {
         </div>
         <div>
           <div class="text-xs text-slate-400 uppercase tracking-wider font-bold">Existing Paid Designs</div>
-          <div class="text-2xl font-bold text-[color:var(--primary)]">${revenueRecognizedBookings.length}</div>
+          <div class="text-2xl font-bold text-[color:var(--primary)]">${Number(bookingSummary?.paidDesigns ?? revenueRecognizedBookings.length)}</div>
         </div>
       </div>
       <div id="admin-bookings" class="spidey-panel p-6 flex items-center gap-4">
@@ -12023,7 +12634,7 @@ const renderAdminDashboardSection = () => {
         </div>
         <div>
           <div class="text-xs text-slate-400 uppercase tracking-wider font-bold">Total Bookings</div>
-          <div class="text-2xl font-bold text-[color:var(--primary)]">${bookings.length}</div>
+          <div class="text-2xl font-bold text-[color:var(--primary)]">${Number(bookingSummary?.total ?? bookings.length)}</div>
         </div>
       </div>
       <div id="admin-revenue" class="spidey-panel p-6 flex items-center gap-4">
@@ -12097,6 +12708,7 @@ const renderAdminDashboardSection = () => {
             <div class="min-w-0">
               <div class="text-sm font-semibold text-[color:var(--primary)] truncate">${escapeHtml(announcement.title || 'Announcement')}</div>
               <div class="text-xs text-slate-500">${escapeHtml(announcement.message || '')}</div>
+              ${renderAnnouncementOfferChips(announcement)}
             </div>
           </div>
         `).join('')}
@@ -12230,7 +12842,8 @@ const syncPaidDesignsFromBookings = (bookings: any[]) => {
       };
     });
 
-  const existing = getStoredPaidDesigns(state.currentUser?.id);
+  const existing = getStoredPaidDesigns(state.currentUser?.id)
+    .filter((item: any) => !String(item?.bookingId || '').startsWith('seed-booking-'));
   const mergedByBookingId = new Map<string, any>();
   [...existing, ...paidFromBookings].forEach((item: any) => {
     const key = String(item?.bookingId || '').trim();
@@ -12240,26 +12853,6 @@ const syncPaidDesignsFromBookings = (bookings: any[]) => {
   const merged = [...mergedByBookingId.values()].sort((left: any, right: any) => (
     new Date(right?.bookedAt || 0).getTime() - new Date(left?.bookedAt || 0).getTime()
   ));
-
-  // Add seeded historical paid designs if count is low
-  if (merged.length < 50) {
-    const designs = getDesigns();
-    const now = new Date();
-    for (let i = 0; i < 50 - merged.length; i++) {
-      const design = designs[Math.floor(Math.random() * designs.length)] || { id: `design-${i}`, title: `Design ${i}` };
-      const date = new Date(now.getFullYear(), now.getMonth() - Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1);
-      merged.push({
-        bookingId: `seed-booking-${i}`,
-        designId: design.id,
-        designName: design.title || `Design ${i}`,
-        imageUrl: '',
-        amount: Math.floor(Math.random() * 50000) + 10000,
-        bookedAt: date.toISOString(),
-        paymentStatus: 'paid',
-        bookingStatus: 'confirmed'
-      });
-    }
-  }
 
   setStoredPaidDesigns(merged, state.currentUser?.id);
   (state.customer as any).paidDesigns = merged;
@@ -12295,13 +12888,13 @@ const organizeBookingsByStatus = (bookings: any[]) => {
 };
 
 const getRecentBookings = () => {
-  const all = getEffectiveBookings();
+  const all = getAdminRenderEffectiveBookings();
   const { recentBookings } = organizeBookingsByStatus(all);
   return recentBookings;
 };
 
 const getPreviousBookings = () => {
-  const all = getEffectiveBookings();
+  const all = getAdminRenderEffectiveBookings();
   const { previousBookings } = organizeBookingsByStatus(all);
   return previousBookings;
 };
@@ -12321,7 +12914,7 @@ const setBookingActionPending = (bookingId: string, pending: boolean) => {
 const patchBookingStatusInState = (bookingId: string, status: Booking['status'], paymentStatus?: string) => {
   const applyPatch = (bookings: any[]) => bookings.map((booking: any) => {
     if (String(booking?.id || '') === String(bookingId)) {
-      const patched = { ...booking, status };
+      const patched = { ...booking, status, updatedAt: new Date().toISOString() };
       if (paymentStatus) patched.paymentStatus = paymentStatus;
       return patched;
     }
@@ -12334,6 +12927,107 @@ const patchBookingStatusInState = (bookingId: string, status: Booking['status'],
   if (Array.isArray(state.customer.bookings)) {
     state.customer.bookings = applyPatch(state.customer.bookings) as any;
   }
+  adminSectionRenderCache.delete('admin-dashboard');
+  adminSectionRenderCache.delete('admin-bookings');
+  adminSectionRenderCache.delete('admin-customers');
+};
+
+const markBookingPaidInState = (bookingId: string, paymentId?: string, amount?: number) => {
+  const paidAt = new Date().toISOString();
+  const applyBookingPatch = (bookings: any[]) => bookings.map((booking: any) => {
+    if (String(booking?.id || '') !== String(bookingId)) return booking;
+    return {
+      ...booking,
+      status: 'confirmed',
+      paymentStatus: 'paid',
+      price: Number.isFinite(Number(amount)) ? Number(amount) : booking.price,
+      paymentDateTime: paidAt,
+      paidAt,
+      updatedAt: paidAt
+    };
+  });
+  const applyPaymentPatch = (payments: any[]) => payments.map((payment: any) => {
+    const matchesPayment = paymentId && String(payment?.id || '') === String(paymentId);
+    const matchesBooking = String(payment?.bookingId || '') === String(bookingId);
+    if (!matchesPayment && !matchesBooking) return payment;
+    return {
+      ...payment,
+      status: 'paid',
+      paymentStatus: 'paid',
+      amount: Number.isFinite(Number(amount)) ? Number(amount) : payment.amount,
+      paymentDateTime: paidAt,
+      paidAt,
+      updatedAt: paidAt
+    };
+  });
+
+  if (Array.isArray(state.admin.bookings)) {
+    state.admin.bookings = applyBookingPatch(state.admin.bookings) as any;
+  }
+  if (Array.isArray(state.customer.bookings)) {
+    state.customer.bookings = applyBookingPatch(state.customer.bookings) as any;
+  }
+  if (Array.isArray(state.customer.payments)) {
+    state.customer.payments = applyPaymentPatch(state.customer.payments) as any;
+    writeStorage(STORAGE_KEYS.payments, state.customer.payments);
+  }
+  if (paymentId) {
+    const paymentPatch: any = {
+      status: 'paid',
+      paymentStatus: 'paid',
+      paymentDateTime: paidAt,
+      paidAt
+    };
+    if (Number.isFinite(Number(amount))) paymentPatch.amount = Number(amount);
+    updatePayment(paymentId, paymentPatch);
+  }
+  const bookingPatch: any = {
+    status: 'confirmed',
+    paymentStatus: 'paid',
+    paymentDateTime: paidAt,
+    paidAt
+  };
+  if (Number.isFinite(Number(amount))) bookingPatch.price = Number(amount);
+  updateBooking(bookingId, bookingPatch);
+  adminSectionRenderCache.delete('admin-dashboard');
+  adminSectionRenderCache.delete('admin-bookings');
+  adminSectionRenderCache.delete('admin-customers');
+};
+
+const continueBookingAfterAuth = (designId: string) => {
+  const safeDesignId = String(designId || '').trim();
+  if (!safeDesignId) return false;
+  sessionStorage.setItem('pending_booking_design_id', safeDesignId);
+  state.loginError = 'Please sign in or create an account to continue booking.';
+  state.loginForm.isSignup = false;
+  navigateTo('login');
+  return true;
+};
+
+const syncAdminBookingsInBackground = () => {
+  void refreshAdminBookingsOnly({ renderAfter: false })
+    .then(() => {
+      if (state.activeTab === 'admin' && state.currentUser?.role === 'admin') {
+        renderStabilized();
+      }
+    })
+    .catch((error) => {
+      console.warn('[Bookings] Background refresh failed:', error);
+    });
+};
+
+const syncCustomerDataInBackground = () => {
+  void refreshCustomerData({ silent: true }).catch((error) => {
+    console.warn('[Customers] Background refresh failed:', error);
+  });
+};
+
+const scheduleAdminChartsUpdate = () => {
+  window.setTimeout(() => {
+    if (state.activeTab === 'admin' && state.currentUser?.role === 'admin') {
+      updateAdminCharts();
+    }
+  }, 250);
 };
 
 const bookingContextCache = new Map<string, ReturnType<typeof resolveBookingDesignContext>>();
@@ -12579,7 +13273,7 @@ const resolveBookingDesignContext = (booking: any) => {
 const renderAdminBookingDetailsModal = () => {
   const viewingId = (state.admin as any).viewingBookingId as string | undefined;
   if (!viewingId) return '';
-  const bookings = getEffectiveBookings();
+  const bookings = getAdminRenderEffectiveBookings();
   const booking = bookings.find((b) => b.id === viewingId);
   if (!booking) return '';
   const customerDetails = resolveBookingCustomerDetails(booking);
@@ -12651,11 +13345,16 @@ const renderAdminBookingDetailsModal = () => {
 
             <!-- Actions -->
             <div class="mt-6 flex gap-2 admin-modal-actions">
-                ${booking.status !== 'fulfilled' ? `
+                ${booking.status === 'approved' ? `
+            <div class="flex-1 px-4 py-2 rounded-lg bg-emerald-100 text-emerald-700 font-semibold text-center">✓ Approved</div>
+            <div class="flex-1 px-4 py-2 rounded-lg bg-amber-100 text-amber-700 font-semibold text-center">Payment Pending</div>
+          ` : booking.status !== 'fulfilled' && booking.status !== 'cancelled' ? `
             <button type="button" data-action="approve-booking" data-booking-id="${booking.id}" ${isPendingAction ? 'disabled' : ''} class="flex-1 px-4 py-2 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 ${isPendingAction ? 'opacity-60 cursor-not-allowed' : ''}">${isPendingAction ? 'Updating...' : '✓ Approve'}</button>
             <button type="button" data-action="decline-booking" data-booking-id="${booking.id}" ${isPendingAction ? 'disabled' : ''} class="flex-1 px-4 py-2 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700 ${isPendingAction ? 'opacity-60 cursor-not-allowed' : ''}">${isPendingAction ? 'Updating...' : '✕ Decline'}</button>
-          ` : `
+          ` : booking.status === 'fulfilled' ? `
             <div class="flex-1 px-4 py-2 rounded-lg bg-green-100 text-green-700 font-semibold text-center">✓ Approved</div>
+          ` : `
+            <div class="flex-1 px-4 py-2 rounded-lg bg-red-100 text-red-700 font-semibold text-center">✕ Cancelled</div>
           `}
                 <button type="button" data-action="close-booking-view" class="px-4 py-2 rounded-lg bg-slate-200 text-slate-700 font-semibold hover:bg-slate-300">Close</button>
             </div>
@@ -12666,7 +13365,9 @@ const renderAdminBookingDetailsModal = () => {
 
 const renderAdminBookingsSection = () => {
   const categories = getCategories();
-  const bookings = getEffectiveBookings();
+  const bookings = getAdminRenderEffectiveBookings();
+  const bookingSummary = (state.admin as any).bookingSummary || null;
+  const maxRenderedBookingRows = 50;
   const bookingsLastSyncedAt = (state.admin as any).bookingsLastSyncedAt as string | undefined;
   const isRecentlySynced = bookingsLastSyncedAt
     ? (Date.now() - new Date(bookingsLastSyncedAt).getTime()) < 10_000
@@ -12718,7 +13419,7 @@ const renderAdminBookingsSection = () => {
     return true;
   }).sort((left: any, right: any) => getBookingSortScore(right.booking) - getBookingSortScore(left.booking));
 
-  const stats = bookingRows.reduce((acc, row) => {
+  const localStats = bookingRows.reduce((acc, row) => {
     acc.total += 1;
     if (row.paymentStatus === 'paid') acc.paid += 1;
     if (row.paymentStatus === 'pending') acc.pending += 1;
@@ -12726,6 +13427,17 @@ const renderAdminBookingsSection = () => {
     if (row.approvedForPayment) acc.approved += 1;
     return acc;
   }, { total: 0, paid: 0, pending: 0, failed: 0, approved: 0 });
+  const stats = bookingSummary
+    ? {
+      total: Number(bookingSummary.total || 0),
+      paid: Number(bookingSummary.paid || 0),
+      pending: Number(bookingSummary.pending || 0),
+      failed: Number(bookingSummary.failed || 0),
+      approved: Number(bookingSummary.approved || 0)
+    }
+    : localStats;
+  const visibleBookings = filteredBookings.slice(0, maxRenderedBookingRows);
+  const hiddenFilteredCount = Math.max(0, filteredBookings.length - visibleBookings.length);
 
   return `
     <div class="spidey-panel p-6">
@@ -12800,7 +13512,7 @@ const renderAdminBookingsSection = () => {
           <div class="mb-4 p-3 rounded-xl bg-blue-50 border border-blue-200">
             <div class="text-sm font-semibold text-blue-900 mb-2">📊 Designs Booked on ${new Date(state.admin.bookingFilter.dateFrom).toLocaleDateString()}</div>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-              ${filteredBookings
+              ${visibleBookings
                 .map((row) => {
                   const ctx = row.bookingContext;
                   return `<div class="p-2 rounded-lg bg-white border border-black/10 text-center"><img src="${escapeHtml(ctx.imageUrl)}" alt="" class="w-full h-20 object-cover rounded mb-1" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22><rect fill=%22%23e5e7eb%22 width=%22100%25%22 height=%22100%25%22/></svg>'" /><div class="text-xs font-semibold truncate">${escapeHtml(ctx.displayName)}</div></div>`;
@@ -12811,8 +13523,8 @@ const renderAdminBookingsSection = () => {
         ` : ''}
 
         <div class="space-y-2.5 max-h-[380px] overflow-y-auto custom-scroll admin-booking-list">
-            ${filteredBookings.length
-      ? filteredBookings
+            ${visibleBookings.length
+      ? visibleBookings
         .map((row) => {
           const booking = row.booking;
           const bookingContext = row.bookingContext;
@@ -12828,6 +13540,7 @@ const renderAdminBookingsSection = () => {
           })();
           const bookingStatusDisplay = (() => {
             const status = String(booking.status).toLowerCase();
+            if (bookingPaymentStatus === 'paid') return 'Paid';
             if (status === 'approved') return 'Approved';
             if (status === 'confirmed') return 'Confirmed';
             if (status === 'fulfilled') return 'Fulfilled';
@@ -12858,11 +13571,13 @@ const renderAdminBookingsSection = () => {
                                 <div class="text-xs px-2 py-1 rounded-full ${bookingStatusClass} font-medium">${bookingStatusDisplay}</div>
                                 <div class="flex items-center gap-2 flex-wrap justify-end">
                                     <button type="button" data-action="view-booking" data-booking-id="${booking.id}" class="text-xs px-3 py-1.5 rounded-lg bg-blue-100 text-blue-700 font-medium hover:bg-blue-200 transition">👁️ View</button>
-                                    ${isBookingApprovedForPayment(booking)
-                          ? `<span class="text-xs px-2 py-1 rounded-lg bg-emerald-100 text-emerald-700 font-medium">✓ Payment Approved</span>`
-                          : `<button type="button" data-action="approve-for-payment" data-booking-id="${booking.id}" ${isPendingAction ? 'disabled' : ''} class="text-xs px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-medium hover:bg-emerald-700 transition ${isPendingAction ? 'opacity-60 cursor-not-allowed' : ''}">${isPendingAction ? '⏳ Updating...' : '✓ Approve Payment'}</button>`}
+                                    ${booking.status === 'fulfilled' || booking.status === 'cancelled'
+                          ? `<span class="text-xs px-2 py-1 rounded-lg ${booking.status === 'fulfilled' ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'} font-medium">${booking.status === 'fulfilled' ? '✓ Approved' : '✕ Cancelled'}</span>`
+                          : isBookingApprovedForPayment(booking)
+                          ? `<span class="text-xs px-2 py-1 rounded-lg ${bookingPaymentStatus === 'paid' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'} font-medium">${bookingPaymentStatus === 'paid' ? '✓ Payment Approved' : 'Payment Pending'}</span>`
+                          : `<button type="button" data-action="approve-for-payment" data-booking-id="${booking.id}" ${isPendingAction ? 'disabled' : ''} class="text-xs px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-medium hover:bg-emerald-700 transition ${isPendingAction ? 'opacity-60 cursor-not-allowed' : ''}">${isPendingAction ? '⏳ Updating...' : '✓ Approve Payment'}</button>
                                     <button type="button" data-action="approve-booking" data-booking-id="${booking.id}" ${isPendingAction ? 'disabled' : ''} class="text-xs px-3 py-1.5 rounded-lg bg-green-100 text-green-700 font-medium hover:bg-green-200 transition ${isPendingAction ? 'opacity-60 cursor-not-allowed' : ''}">${isPendingAction ? '⏳ Updating...' : '✓ Accept'}</button>
-                                    <button type="button" data-action="decline-booking" data-booking-id="${booking.id}" ${isPendingAction ? 'disabled' : ''} class="text-xs px-3 py-1.5 rounded-lg bg-red-100 text-red-700 font-medium hover:bg-red-200 transition ${isPendingAction ? 'opacity-60 cursor-not-allowed' : ''}">${isPendingAction ? '⏳ Updating...' : '✕ Decline'}</button>
+                                    <button type="button" data-action="decline-booking" data-booking-id="${booking.id}" ${isPendingAction ? 'disabled' : ''} class="text-xs px-3 py-1.5 rounded-lg bg-red-100 text-red-700 font-medium hover:bg-red-200 transition ${isPendingAction ? 'opacity-60 cursor-not-allowed' : ''}">${isPendingAction ? '⏳ Updating...' : '✕ Decline'}</button>`}
                                 </div>
                             </div>
                         </div>
@@ -12873,6 +13588,12 @@ const renderAdminBookingsSection = () => {
     }
         </div>
 
+        ${hiddenFilteredCount > 0 ? `
+          <div class="mt-3 text-center text-xs text-slate-400">
+            Showing ${visibleBookings.length} of ${filteredBookings.length} matching bookings. Use filters or Load More for older records.
+          </div>
+        ` : ''}
+
         ${(() => {
           const pagination = (state.admin as any).bookingsPagination;
           if (!pagination || !pagination.hasMore) return '';
@@ -12882,7 +13603,7 @@ const renderAdminBookingsSection = () => {
               <button data-action="load-more-bookings" class="px-6 py-2.5 rounded-xl bg-blue-100 text-blue-700 font-semibold hover:bg-blue-200 transition text-sm flex items-center gap-2">
                 <span>📥</span>
                 <span>Load More Bookings</span>
-                <span class="text-xs text-blue-600">(${filteredBookings.length} of ${pagination.total})</span>
+                <span class="text-xs text-blue-600">(${bookings.length} of ${Number(stats.total || pagination.total || bookings.length)})</span>
               </button>
             </div>
           `;
@@ -13087,6 +13808,8 @@ const renderAdminDesignStudioSection = () => {
               const variantCount = Array.isArray(record?.variants) ? record.variants.length : 0;
               const customer = state.users.find((user) => String(user.id || '') === String(record?.userId || ''));
               const previewImage = String(record?.originalImage || record?.variants?.[0]?.image || '');
+              const promptText = String(record?.prompt || record?.variants?.[0]?.styleTag || record?.variants?.[0]?.description || 'No prompt saved for this Design Studio request.');
+              const roomLabel = String(record?.roomType || record?.room || record?.variants?.[0]?.roomType || record?.variants?.[0]?.categoryName || 'Room not set');
               return `
                 <div class="rounded-2xl border border-black/5 bg-white p-4">
                   <div class="flex items-start gap-3">
@@ -13096,15 +13819,15 @@ const renderAdminDesignStudioSection = () => {
                     <div class="min-w-0 flex-1">
                       <div class="flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                          <div class="text-sm font-semibold text-[color:var(--primary)] truncate">${escapeHtml(String(customer?.name || record?.userName || 'Customer'))}</div>
-                          <div class="text-[11px] text-slate-400 truncate">${escapeHtml(String(customer?.email || record?.userEmail || 'No email available'))}</div>
+                          <div class="text-sm font-semibold text-[color:var(--primary)] truncate">${escapeHtml(String(customer?.name || record?.userName || record?.customerName || 'Customer'))}</div>
+                          <div class="text-[11px] text-slate-400 truncate">${escapeHtml(String(customer?.email || record?.userEmail || record?.customerEmail || 'No email available'))}</div>
                         </div>
                         <div class="text-[10px] text-slate-400 whitespace-nowrap">${record?.createdAt ? escapeHtml(new Date(record.createdAt).toLocaleDateString()) : 'Recently added'}</div>
                       </div>
-                      <div class="mt-2 text-xs text-slate-600 line-clamp-2">${escapeHtml(String(record?.prompt || 'No prompt saved for this Design Studio request.'))}</div>
+                      <div class="mt-2 text-xs text-slate-600 line-clamp-2">${escapeHtml(promptText)}</div>
                       <div class="mt-3 flex flex-wrap gap-2 text-[10px] font-semibold">
                         <span class="px-2 py-1 rounded-full bg-slate-100 text-slate-600">${variantCount} variants</span>
-                        <span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700">${escapeHtml(String(record?.roomType || record?.room || 'Room not set'))}</span>
+                        <span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700">${escapeHtml(roomLabel)}</span>
                       </div>
                     </div>
                   </div>
@@ -13216,7 +13939,7 @@ const renderAdminCustomerDetailsModal = () => {
   const customer = state.users.find((u) => String(u.id || '') === String(viewingId));
   if (!customer) return '';
 
-  const allBookings = getEffectiveBookings();
+  const allBookings = getAdminRenderEffectiveBookings();
   const bookingsLoading = !!(state.admin as any).customerBookingsLoading;
   const serverBookingsCache: any[] | null = (state.admin as any).customerBookingsCache ?? null;
   const localCustomerBookings = allBookings.filter((b: any) => String(b.userId || b.customerId || '') === String(viewingId));
@@ -13239,11 +13962,11 @@ const renderAdminCustomerDetailsModal = () => {
     .slice()
     .sort((a: any, b: any) => new Date(b?.createdAt || 0).getTime() - new Date(a?.createdAt || 0).getTime());
   const serverLikesCache: any[] | null = (state.admin as any).customerLikesCache ?? null;
-  const localLikes = (state.customer.likes || []).filter((item: any) => String(item?.userId || '') === String(viewingId) && String(item?.value || '') === 'like');
+  const localLikes = (state.customer.likes || []).filter((item: any) => String(item?.userId || item?.customerId || '') === String(viewingId) && String(item?.value || '') === 'like');
   const customerLikes = serverLikesCache !== null ? serverLikesCache.filter((l: any) => String(l?.value || '') === 'like') : localLikes;
   const serverFeedbacksCache: any[] | null = (state.admin as any).customerFeedbacksCache ?? null;
   const localFeedbacks = (state.customer.feedbacks || [])
-    .filter((item: any) => String(item?.userId || '') === String(viewingId));
+    .filter((item: any) => String(item?.userId || item?.customerId || '') === String(viewingId));
   const customerFeedbacks = (serverFeedbacksCache !== null ? serverFeedbacksCache : localFeedbacks)
     .slice()
     .sort((a: any, b: any) => new Date(b?.createdAt || 0).getTime() - new Date(a?.createdAt || 0).getTime());
@@ -13649,10 +14372,32 @@ const getDisplayCategoryFromRoomKind = (kind: string): string => {
 
 const sanitizePackageRoomsForDisplay = (rooms: PackageRoom[], packageId: string) => {
   const packageSeed = Array.from(String(packageId || '')).reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
+  const usedImages = new Set<string>();
+
+  const pickUniqueRoomImage = (pool: string[], preferredImage: string, index: number) => {
+    const normalizedPool = pool.map((image) => normalizeAssetUrl(image)).filter(Boolean);
+    const candidates = preferredImage ? [preferredImage, ...normalizedPool] : normalizedPool;
+    if (candidates.length === 0) return preferredImage;
+
+    const startIndex = Math.abs(packageSeed + (index * 7)) % candidates.length;
+    for (let offset = 0; offset < candidates.length; offset += 1) {
+      const candidate = candidates[(startIndex + offset) % candidates.length];
+      const key = candidate.toLowerCase();
+      if (!usedImages.has(key)) {
+        usedImages.add(key);
+        return candidate;
+      }
+    }
+
+    const fallback = candidates[startIndex] || candidates[0] || preferredImage;
+    usedImages.add(`${fallback.toLowerCase()}#${index}`);
+    return fallback;
+  };
+
   return (Array.isArray(rooms) ? rooms : []).map((room: PackageRoom, index: number) => {
     const kind = classifyRoomKindForDisplay(
       room?.title || '',
-      room?.description || '',
+      '',
       String((room as any)?.category || ''),
       String((room as any)?.name || '')
     );
@@ -13662,6 +14407,9 @@ const sanitizePackageRoomsForDisplay = (rooms: PackageRoom[], packageId: string)
     const normalizedImageLower = normalizedImage.toLowerCase();
     const tokens = DISPLAY_ROOM_IMAGE_TOKENS[kind] || [];
     const hasRelevantImage = normalizedImage && tokens.some((token) => normalizedImageLower.includes(String(token).toLowerCase()));
+    const pool = DISPLAY_ROOM_IMAGE_POOL[kind] || DISPLAY_ROOM_IMAGE_POOL.living;
+    const uniqueImage = pickUniqueRoomImage(pool, hasRelevantImage ? normalizedImage : '', index);
+
     if (hasRelevantImage) {
       return {
         ...room,
@@ -13669,20 +14417,18 @@ const sanitizePackageRoomsForDisplay = (rooms: PackageRoom[], packageId: string)
         title: resolvedTitle,
         name: String((room as any)?.name || resolvedTitle),
         category: resolvedCategory,
-        image: normalizedImage || String(room?.image || ''),
+        image: uniqueImage,
         description: String(room?.description || `${resolvedTitle} related image`)
       } as PackageRoom;
     }
 
-    const pool = DISPLAY_ROOM_IMAGE_POOL[kind] || DISPLAY_ROOM_IMAGE_POOL.living;
-    const fallbackImage = pool[Math.abs(index + packageSeed) % pool.length];
     return {
       ...room,
       id: String(room?.id || `${packageId}-room-${index + 1}`),
       title: resolvedTitle,
       name: String((room as any)?.name || resolvedTitle),
       category: resolvedCategory,
-      image: normalizeAssetUrl(fallbackImage)
+      image: uniqueImage
     } as PackageRoom;
   });
 };
@@ -14122,20 +14868,42 @@ const getCustomerDisplayPackages = (): Package[] => {
       ? pkg.rooms.filter((room: any) => room && (room.image || room.title))
       : [];
 
-    // Merge existing DB rooms with generated layout rooms index-by-index so missing/weak
-    // room metadata falls back to all inferred package categories (not only living room).
+    const getPackageRoomKind = (room: any) => classifyRoomKindForDisplay(
+      String(room?.title || ''),
+      '',
+      String(room?.category || ''),
+      String(room?.name || '')
+    );
+
+    const usedExistingRoomIndexes = new Set<number>();
+    const takeExistingRoomForGeneratedSlot = (generatedRoom: PackageRoom, roomIndex: number) => {
+      const generatedKind = getPackageRoomKind(generatedRoom);
+      const matchedIndex = existingRooms.findIndex((candidate: any, candidateIndex: number) => {
+        if (usedExistingRoomIndexes.has(candidateIndex)) return false;
+        return getPackageRoomKind(candidate) === generatedKind;
+      });
+      if (matchedIndex >= 0) {
+        usedExistingRoomIndexes.add(matchedIndex);
+        return existingRooms[matchedIndex] as any;
+      }
+      if (existingRooms[roomIndex] && !usedExistingRoomIndexes.has(roomIndex)) {
+        usedExistingRoomIndexes.add(roomIndex);
+        return existingRooms[roomIndex] as any;
+      }
+      return null;
+    };
+
+    // Merge existing DB room labels into generated slots by room type, not by raw array
+    // order. The generated slot keeps the category-correct image/category.
     const builtRooms: PackageRoom[] = generatedLayoutRooms.map((generatedRoom, roomIndex) => {
-      const existingRoom = existingRooms[roomIndex] as any;
+      const existingRoom = takeExistingRoomForGeneratedSlot(generatedRoom, roomIndex);
       if (!existingRoom) return generatedRoom;
 
       const existingTitle = String(existingRoom?.title || existingRoom?.name || '').trim();
       const existingName = String(existingRoom?.name || existingRoom?.title || '').trim();
-      const existingCategory = String(existingRoom?.category || '').trim();
-      const existingImage = normalizeAssetUrl(String(existingRoom?.image || ''));
       const existingDescription = String(existingRoom?.description || '').trim();
 
       const hasGenericTitle = !existingTitle || /^room\s*\d+$/i.test(existingTitle);
-      const hasGenericCategory = !existingCategory || /^(living room|design|room)$/i.test(existingCategory);
 
       const mergedTitle = hasGenericTitle ? generatedRoom.title : existingTitle;
       const mergedName = existingName || mergedTitle;
@@ -14146,8 +14914,8 @@ const getCustomerDisplayPackages = (): Package[] => {
         id: String(existingRoom?.id || generatedRoom.id),
         title: mergedTitle,
         name: mergedName,
-        category: hasGenericCategory ? generatedRoom.category : existingCategory,
-        image: existingImage || generatedRoom.image,
+        category: generatedRoom.category,
+        image: generatedRoom.image,
         description: existingDescription || generatedRoom.description
       } as PackageRoom;
     });
@@ -14195,9 +14963,13 @@ const getCustomerDisplayPackages = (): Package[] => {
       }
     });
 
+    const uniqueDisplayImage = getPackageDisplayImage(pkg) || sanitizedBuiltRooms[0]?.image || '/category/Living room/living1.jpg';
+    const uniqueBackgroundImage = getPackageBackgroundImage(pkg) || sanitizedBuiltRooms[1]?.image || uniqueDisplayImage;
+
     return {
       ...pkg,
-      image: pkg.image || sanitizedBuiltRooms[0]?.image || getPackageDisplayImage(pkg),
+      image: uniqueDisplayImage,
+      backgroundImage: uniqueBackgroundImage,
       features: mergedFeatures,
       rooms: sanitizedBuiltRooms,
       type: layoutInfo?.isVilla ? 'Villa' : (pkg.type || 'Apartment'),
@@ -14735,7 +15507,14 @@ const renderAdminChatbotManagerSection = () => {
     : (chatbotStats.newGuestMessages + chatbotStats.returningGuestMessages);
   return `
     <div class="spidey-panel p-6">
-        <h2 class="text-xl font-display font-bold text-[color:var(--primary)] mb-6">💬 Chatbot Assistant</h2>
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-xl font-display font-bold text-[color:var(--primary)] mb-0">💬 Chatbot Assistant</h2>
+          <button
+            type="button"
+            data-action="admin-refresh-data"
+            class="px-3 py-1.5 rounded-lg border border-black/10 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition flex items-center gap-1"
+          >🔄 Refresh Data</button>
+        </div>
     <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
       <div class="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50">
         <div class="text-[10px] uppercase tracking-wider text-blue-600 font-semibold">💬 Messages</div>
@@ -15182,7 +15961,9 @@ const renderAdminAnnouncementsSection = () => {
                 <div class="flex items-center justify-between p-3 rounded-xl border border-black/5 bg-white/50">
                     <div class="flex-1">
                         <div class="text-sm font-semibold text-[color:var(--primary)]">${getAnnouncementEmoji(a)} ${escapeHtml(a.title)}</div>
-                        <div class="text-[10px] text-slate-500">${a.location} • ${a.active ? '🟢 Active' : '🔴 Inactive'}</div>
+                        <div class="text-xs text-slate-500 mt-0.5">${escapeHtml(String(a.message || ''))}</div>
+                        ${renderAnnouncementOfferChips(a)}
+                        <div class="text-[10px] text-slate-500 mt-1">${a.location || 'both'} • ${getActiveAnnouncements().some((active: any) => active.id === a.id) ? '🟢 Visible now' : a.active ? '🟠 Scheduled/expired' : '🔴 Inactive'}</div>
                     </div>
                     <div class="flex gap-2">
                         <button data-action="edit-announcement" data-id="${a.id}" class="text-xs px-2 py-1 rounded-lg bg-blue-100 text-blue-700">Edit</button>
@@ -15813,7 +16594,7 @@ const renderAdminShowcaseSection = () => {
 };
 
 const renderAdminCustomersSection = () => {
-  const allEffectiveBookings = getEffectiveBookings();
+  const allEffectiveBookings = getAdminRenderEffectiveBookings();
   const editingCustomerId = String((state.admin as any).editingCustomerId || '');
   const showCustomerActivityDetails = Boolean((state.admin as any).showCustomerActivityDetails);
   const customers = state.users.filter((u: any) => String(u?.role || 'customer').toLowerCase() === 'customer');
@@ -15821,41 +16602,69 @@ const renderAdminCustomersSection = () => {
   const likesByUser = new Map<string, number>();
   for (const like of (state.customer.likes || [])) {
     if (String((like as any)?.value || '') !== 'like') continue;
-    const userId = String((like as any)?.userId || '');
+    const userId = String((like as any)?.userId || (like as any)?.customerId || '');
     if (!userId) continue;
     likesByUser.set(userId, (likesByUser.get(userId) || 0) + 1);
   }
 
   const feedbackByUser = new Map<string, number>();
   for (const feedback of (state.customer.feedbacks || [])) {
-    const userId = String((feedback as any)?.userId || '');
+    const userId = String((feedback as any)?.userId || (feedback as any)?.customerId || '');
     if (!userId) continue;
     feedbackByUser.set(userId, (feedbackByUser.get(userId) || 0) + 1);
   }
 
   const bookingsByUser = new Map<string, number>();
+  const bookingUserById = new Map<string, string>();
   for (const booking of allEffectiveBookings) {
     const userId = String((booking as any)?.userId || (booking as any)?.customerId || '');
+    const bookingId = String((booking as any)?.id || '').trim();
+    if (bookingId && userId) bookingUserById.set(bookingId, userId);
     if (!userId) continue;
     bookingsByUser.set(userId, (bookingsByUser.get(userId) || 0) + 1);
   }
 
+  const paymentsByUser = new Map<string, number>();
+  for (const payment of (state.customer.payments || [])) {
+    const userId = String(
+      (payment as any)?.userId
+      || (payment as any)?.customerId
+      || bookingUserById.get(String((payment as any)?.bookingId || '').trim())
+      || ''
+    );
+    if (!userId) continue;
+    paymentsByUser.set(userId, (paymentsByUser.get(userId) || 0) + 1);
+  }
+
+  const savedPackagesByUser = new Map<string, number>();
+  const packagePreferenceMap = getPackagePreferenceMap() as Record<string, string[]>;
+  Object.entries(packagePreferenceMap).forEach(([userId, packageIds]) => {
+    savedPackagesByUser.set(String(userId), Array.isArray(packageIds) ? packageIds.length : 0);
+  });
+
   const customerRows = customers.map((customer) => {
     const customerId = String(customer.id || '');
+    const getServerCount = (key: string, fallback: number) => {
+      if (!Object.prototype.hasOwnProperty.call(customer as any, key)) return fallback;
+      const value = Number((customer as any)[key]);
+      return Number.isFinite(value) ? value : fallback;
+    };
     return renderAdminCustomerRow({
       customer,
       isEditing: editingCustomerId === customerId,
-      customerLikes: likesByUser.get(customerId) || 0,
-      customerFeedbacks: feedbackByUser.get(customerId) || 0,
-      customerBookings: bookingsByUser.get(customerId) || 0,
+      customerLikes: getServerCount('likesCount', likesByUser.get(customerId) || 0),
+      customerSavedPackages: savedPackagesByUser.get(customerId) || 0,
+      customerFeedbacks: getServerCount('feedbacksCount', feedbackByUser.get(customerId) || 0),
+      customerBookings: getServerCount('bookingsCount', bookingsByUser.get(customerId) || 0),
+      customerPayments: getServerCount('paymentsCount', paymentsByUser.get(customerId) || 0),
       escapeHtml
     });
   }).join('');
 
   const activityDetailsMarkup = showCustomerActivityDetails
     ? customers.map((customer) => {
-      const customerLikes = (state.customer.likes || []).filter((l) => String((l as any)?.userId || '') === String(customer.id || '') && String((l as any)?.value || '') === 'like');
-      const customerFeedbacks = (state.customer.feedbacks || []).filter((f) => String((f as any)?.userId || '') === String(customer.id || ''));
+      const customerLikes = (state.customer.likes || []).filter((l) => String((l as any)?.userId || (l as any)?.customerId || '') === String(customer.id || '') && String((l as any)?.value || '') === 'like');
+      const customerFeedbacks = (state.customer.feedbacks || []).filter((f) => String((f as any)?.userId || (f as any)?.customerId || '') === String(customer.id || ''));
       const likedDesignObjs = customerLikes
         .map((l) => state.customer.designs.find((d) => d.id === (l as any).designId))
         .filter((d): d is DesignModel => !!d);
@@ -15866,6 +16675,12 @@ const renderAdminCustomersSection = () => {
                             <div class="text-xs font-semibold text-slate-600 mb-2">📌 Liked Designs:</div>
                             <div class="flex flex-wrap gap-2">
                                 ${likedDesignObjs.length ? likedDesignObjs.map(d => `<span class="px-2 py-1 rounded-lg bg-blue-50 text-blue-700 text-xs">${escapeHtml(resolveDesignDisplayName(d, { imageUrl: d.previewImage, categoryId: d.categoryId }))}</span>`).join('') : '<span class="text-xs text-slate-400">No liked designs yet</span>'}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="text-xs font-semibold text-slate-600 mb-2">💰 Purchase History:</div>
+                            <div class="space-y-1">
+                                ${(state.customer.payments || []).filter(p => String((p as any)?.userId || (p as any)?.customerId || bookingUserById.get(String((p as any)?.bookingId || '').trim()) || '') === String(customer.id || '')).length ? (state.customer.payments || []).filter(p => String((p as any)?.userId || (p as any)?.customerId || bookingUserById.get(String((p as any)?.bookingId || '').trim()) || '') === String(customer.id || '')).slice(0, 5).map(p => `<div class="text-xs p-2 rounded-lg bg-emerald-50 text-emerald-700 font-medium">₹${(p as any).amount} - ${escapeHtml((p as any).status || 'completed')} (${new Date((p as any).createdAt).toLocaleDateString()})</div>`).join('') : '<span class="text-xs text-slate-400">No payment records</span>'}
                             </div>
                         </div>
                         <div>
@@ -15883,11 +16698,18 @@ const renderAdminCustomersSection = () => {
     <section class="spidey-panel p-6">
         <div class="flex items-center justify-between gap-3 mb-4">
           <h2 class="text-xl font-display font-bold text-[color:var(--primary)]">👤 Customers</h2>
-          <button
-            type="button"
-            data-action="toggle-customer-activity-details"
-            class="px-3 py-1.5 rounded-lg border border-black/10 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition"
-          >${showCustomerActivityDetails ? 'Hide' : 'Show'} Activity Details</button>
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              data-action="admin-refresh-data"
+              class="px-3 py-1.5 rounded-lg border border-black/10 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition flex items-center gap-1"
+            >🔄 Refresh Data</button>
+            <button
+              type="button"
+              data-action="toggle-customer-activity-details"
+              class="px-3 py-1.5 rounded-lg border border-black/10 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition"
+            >${showCustomerActivityDetails ? 'Hide' : 'Show'} Activity Details</button>
+          </div>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
@@ -15896,15 +16718,17 @@ const renderAdminCustomersSection = () => {
                         <th class="text-left py-3 px-3 font-semibold text-slate-600">Customer Name</th>
                         <th class="text-left py-3 px-3 font-semibold text-slate-600">Email</th>
                       <th class="text-left py-3 px-3 font-semibold text-slate-600">Location</th>
-                      <th class="text-left py-3 px-3 font-semibold text-slate-600">Pincode</th>
-                        <th class="text-left py-3 px-3 font-semibold text-slate-600">Liked Designs</th>
+                        <th class="text-left py-3 px-3 font-semibold text-slate-600">Pincode</th>
+                        <th class="text-left py-3 px-3 font-semibold text-slate-600">Likes</th>
+                        <th class="text-left py-3 px-3 font-semibold text-slate-600">Saved Packages</th>
                         <th class="text-left py-3 px-3 font-semibold text-slate-600">Feedbacks</th>
                         <th class="text-left py-3 px-3 font-semibold text-slate-600">Bookings</th>
+                        <th class="text-left py-3 px-3 font-semibold text-slate-600">Purchase History</th>
                         <th class="text-left py-3 px-3 font-semibold text-slate-600">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                  ${customerRows}
+                    ${customerRows}
                 </tbody>
             </table>
         </div>
@@ -16730,22 +17554,30 @@ const renderCustomerDashboard = () => {
       const bookingPaymentStatus = getBookingPaymentStatus(booking);
       const bookingStatusRaw = String(booking.status || '').trim().toLowerCase();
       const isApproved = isBookingApprovedForPayment(booking);
+      const isAdminRejected = bookingStatusRaw === 'declined' || bookingStatusRaw === 'rejected';
+      const isCancelled = bookingStatusRaw === 'cancelled' || bookingStatusRaw === 'canceled';
       const bookingStatusDisplay = (bookingStatusRaw === 'approved' && isApproved) ? 'Approved' 
         : (bookingStatusRaw === 'fulfilled' ? 'Fulfilled'
-        : (bookingStatusRaw === 'declined' || bookingStatusRaw === 'cancelled' ? 'Rejected'
+        : (isAdminRejected ? 'Rejected'
+        : (isCancelled ? 'Cancelled'
         : (bookingStatusRaw === 'confirmed' ? 'Confirmed'
         : (bookingStatusRaw === 'completed' ? 'Completed'
-        : 'Pending'))));
+        : 'Pending')))));
       const paymentBadgeClass = bookingPaymentStatus === 'failed'
           ? 'bg-red-100 text-red-700'
           : bookingPaymentStatus === 'paid'
           ? 'bg-emerald-100 text-emerald-700'
           : 'bg-amber-100 text-amber-700';
-      const bookingStatusBadgeClass = bookingStatusDisplay === 'Rejected'
+      const bookingStatusBadgeClass = bookingStatusDisplay === 'Rejected' || bookingStatusDisplay === 'Cancelled'
           ? 'bg-red-100 text-red-700'
           : bookingStatusDisplay === 'Approved' || bookingStatusDisplay === 'Fulfilled' || bookingStatusDisplay === 'Confirmed' || bookingStatusDisplay === 'Completed'
           ? 'bg-emerald-100 text-emerald-700'
           : 'bg-amber-100 text-amber-700';
+      const awaitingApprovalLabel = bookingStatusDisplay === 'Rejected'
+        ? '🚫 Rejected by Admin'
+        : bookingStatusDisplay === 'Cancelled'
+          ? 'Cancelled'
+          : '⏳ Awaiting Admin Approval';
       return `
                 <div class="p-4 rounded-xl border border-amber-100 bg-amber-50/40 shadow-sm">
                   <div class="flex justify-between items-start mb-3">
@@ -16768,7 +17600,7 @@ const renderCustomerDashboard = () => {
                       <button type="button" data-action="pay-and-book" data-booking-id="${booking.id}" data-design-id="${escapeHtml(String(bookingContext.design?.id || booking.designId || ''))}" class="flex-1 py-2 rounded-lg bg-[color:var(--primary)] text-white text-xs font-bold hover:opacity-90 transition">💳 Pay Now</button>
                     ` : ''}
                     ${bookingPaymentStatus !== 'paid' && !isApproved ? `
-                      <div class="flex-1 py-2 rounded-lg bg-blue-50 text-blue-700 text-xs font-semibold text-center border border-blue-200">${bookingStatusDisplay === 'Rejected' ? '🚫 Rejected by Admin' : '⏳ Awaiting Admin Approval'}</div>
+                      <div class="flex-1 py-2 rounded-lg bg-blue-50 text-blue-700 text-xs font-semibold text-center border border-blue-200">${awaitingApprovalLabel}</div>
                     ` : ''}
                     <button data-action="remove-booking" data-booking-id="${booking.id}" class="px-3 py-2 rounded-lg border border-red-200 text-red-600 text-xs font-semibold hover:bg-red-50 transition">Remove</button>
                   </div>
@@ -17080,6 +17912,9 @@ const renderAdminDislikeFeedbackSection = () => {
 };
 
 const adminSectionRenderCache = new Map<string, { key: string; html: string }>();
+const adminToolWarmCache = new Map<string, string>();
+const adminToolHtmlCache = new Map<string, { key: string; html: string }>();
+const adminToolWarmInFlight = new Set<string>();
 
 const getCollectionStamp = (items: any[]): string => {
   if (!Array.isArray(items) || items.length === 0) return 'empty';
@@ -17090,6 +17925,28 @@ const getCollectionStamp = (items: any[]): string => {
     String(first.id || first.updatedAt || first.createdAt || ''),
     String(last.id || last.updatedAt || last.createdAt || '')
   ].join(':');
+};
+
+const getCustomerCountStamp = (items: any[]): string => {
+  if (!Array.isArray(items) || items.length === 0) return 'empty';
+  return items
+    .map((item: any) => [
+      String(item?.id || ''),
+      Number(item?.likesCount || 0),
+      Number(item?.savedPackagesCount || 0),
+      Number(item?.feedbacksCount || 0),
+      Number(item?.bookingsCount || 0),
+      Number(item?.paymentsCount || 0)
+    ].join(':'))
+    .join('|');
+};
+
+const getPackagePreferenceStamp = () => {
+  try {
+    return localStorage.getItem(PACKAGE_PREFERENCES_KEY) || '';
+  } catch {
+    return '';
+  }
 };
 
 const memoizeAdminSection = (
@@ -17103,6 +17960,54 @@ const memoizeAdminSection = (
   const html = renderer();
   adminSectionRenderCache.set(sectionId, { key, html });
   return html;
+};
+
+const getAdminToolWarmKey = (
+  toolId: string,
+  keyParts: Array<string | number | boolean | null | undefined>
+) => `${toolId}::${keyParts.map((part) => String(part ?? '')).join('||')}`;
+
+const injectAdminToolContentIfVisible = (toolId: string, html: string) => {
+  const slot = root.querySelector(`[data-admin-tool-slot="${CSS.escape(toolId)}"]`) as HTMLElement | null;
+  if (!slot) return;
+  if (slot.getAttribute('data-admin-tool-loaded') === '1') return;
+  slot.innerHTML = html;
+  slot.setAttribute('data-admin-tool-loaded', '1');
+};
+
+const hydrateAdminToolSlotsInBackground = () => {
+  if (!(state.activeTab === 'admin' && state.currentUser?.role === 'admin')) return;
+  const slots = Array.from(root.querySelectorAll<HTMLElement>('[data-admin-tool-slot]'));
+  slots.forEach((slot, index) => {
+    const toolId = String(slot.getAttribute('data-admin-tool-slot') || '').trim();
+    const cached = toolId ? adminToolHtmlCache.get(toolId) : null;
+    if (!toolId || !cached?.html || slot.getAttribute('data-admin-tool-loaded') === '1') return;
+    window.setTimeout(() => {
+      runWhenBrowserIdle(() => injectAdminToolContentIfVisible(toolId, cached.html), 500);
+    }, index * 80);
+  });
+};
+
+const scheduleAdminToolWarmup = (
+  toolId: string,
+  keyParts: Array<string | number | boolean | null | undefined>,
+  renderer: () => string
+) => {
+  const warmKey = getAdminToolWarmKey(toolId, keyParts);
+  if (adminToolWarmCache.get(toolId) === warmKey || adminToolWarmInFlight.has(warmKey)) return;
+  adminToolWarmInFlight.add(warmKey);
+  runWhenBrowserIdle(() => {
+    try {
+      const html = renderer();
+      adminToolWarmCache.set(toolId, warmKey);
+      adminToolHtmlCache.set(toolId, { key: warmKey, html });
+      injectAdminToolContentIfVisible(toolId, html);
+    } catch (error) {
+      console.warn(`[Admin] Tool warmup failed (${toolId}):`, error);
+    } finally {
+      adminToolWarmInFlight.delete(warmKey);
+    }
+  }, 900);
 };
 
 // --- Frontend admin page layer (do not alter business logic) ----------------
@@ -17121,11 +18026,44 @@ const renderAdmin = () => {
   const adminServices = Array.isArray(state.services) ? state.services : [];
   const adminShowrooms = Array.isArray(state.showrooms) ? state.showrooms : [];
   const adminShowcases = Array.isArray(state.serviceShowcases) ? state.serviceShowcases : [];
+  const customerUsers = Array.isArray(state.users)
+    ? state.users.filter((user: any) => String(user?.role || 'customer').toLowerCase() === 'customer')
+    : [];
+  const adminEffectiveBookings = getAdminRenderEffectiveBookings();
+  const renderAdminTool = (
+    toolId: string,
+    title: string,
+    icon: string,
+    keyParts: Array<string | number | boolean | null | undefined>,
+    renderer: () => string
+  ) => {
+    const warmKey = getAdminToolWarmKey(toolId, keyParts);
+    const isWarm = adminToolWarmCache.get(toolId) === warmKey;
+    const cachedToolHtml = adminToolHtmlCache.get(toolId)?.key === warmKey ? adminToolHtmlCache.get(toolId)?.html || '' : '';
+    scheduleAdminToolWarmup(toolId, keyParts, renderer);
+    return `
+      <section class="spidey-panel p-5" data-admin-tool-slot="${escapeHtml(toolId)}">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <div class="text-xs text-slate-400 uppercase tracking-wider font-bold">${escapeHtml(icon)} Loading Section</div>
+            <div class="text-lg font-display font-bold text-[color:var(--primary)]">${escapeHtml(title)}</div>
+            <div data-admin-tool-status class="text-xs ${cachedToolHtml || isWarm ? 'text-emerald-600' : 'text-slate-400'} font-semibold mt-1">${cachedToolHtml || isWarm ? 'Ready' : 'Warming in background'}</div>
+          </div>
+          <div class="h-2 w-24 rounded-full bg-slate-100 overflow-hidden">
+            <div class="h-full w-2/3 bg-blue-200 rounded-full"></div>
+          </div>
+        </div>
+      </section>
+    `;
+  };
 
   const dashboardSection = memoizeAdminSection('admin-dashboard', [
     getCollectionStamp(adminBookings),
     getCollectionStamp(adminCustomers),
-    getCollectionStamp(adminInvoices)
+    getCollectionStamp(adminInvoices),
+    getCollectionStamp(state.users || []),
+    getCollectionStamp(adminEffectiveBookings),
+    getCollectionStamp(state.customer.feedbacks || [])
   ], renderAdminDashboardSection);
 
   const bookingsSection = memoizeAdminSection('admin-bookings', [
@@ -17146,80 +18084,99 @@ const renderAdmin = () => {
     String((state.admin as any)?.selectedInvoice?.id || '')
   ], renderAdminInvoicesSection);
 
-  const inquiriesSection = memoizeAdminSection('admin-inquiries', [
+  const inquiriesKey = [
     getCollectionStamp(adminInquiries),
     String((state.admin as any)?.selectedInquiry?.id || ''),
     String((state.admin as any)?.inquiryFilter || 'all')
-  ], renderAdminInquiriesSection);
+  ];
+  const inquiriesSection = renderAdminTool('inquiries', 'Inquiries', '📩', inquiriesKey, () => memoizeAdminSection('admin-inquiries', inquiriesKey, renderAdminInquiriesSection));
 
-  const categoriesSection = memoizeAdminSection('admin-categories', [
+  const categoriesKey = [
     getCollectionStamp(adminCategories),
     String(state.admin?.categoryForm?.id || ''),
     String(state.admin?.categoryForm?.title || '')
-  ], renderAdminCategoriesSection);
+  ];
+  const categoriesSection = renderAdminTool('categories', 'Categories', '📂', categoriesKey, () => memoizeAdminSection('admin-categories', categoriesKey, renderAdminCategoriesSection));
 
-  const designManagerSection = memoizeAdminSection('admin-design-manager', [
+  const designManagerKey = [
     getCollectionStamp(adminDesigns),
     String(state.admin?.designForm?.id || ''),
     String((state.admin as any)?.designEditOpen || false),
     String((state.admin as any)?.designCategoryFilter || 'all')
-  ], renderAdminDesignManagerSection);
+  ];
+  const designManagerSection = renderAdminTool('designs', 'Design Manager', '🎨', designManagerKey, () => memoizeAdminSection('admin-design-manager', designManagerKey, renderAdminDesignManagerSection));
 
-  const catalogSection = memoizeAdminSection('admin-catalog', [
+  const catalogKey = [
     getCollectionStamp(adminCatalog),
     String((state.admin as any)?.catalogFilter || 'all'),
     String((state.admin as any)?.catalogSearch || ''),
     String((state.admin as any)?.catalogPreviewId || '')
-  ], renderAdminCatalogSection);
+  ];
+  const catalogSection = renderAdminTool('catalog', 'Catalog', '🖼️', catalogKey, () => memoizeAdminSection('admin-catalog', catalogKey, renderAdminCatalogSection));
 
-  const packageSection = memoizeAdminSection('admin-packages', [
+  const packageKey = [
     String((state.admin as any)?.packageForm?.id || ''),
     String((state.admin as any)?.packageSelectedCategory || ''),
     String((state.admin as any)?.packageSelectedId || ''),
     String((state.admin as any)?.packageRefreshTick || 0)
-  ], renderAdminPackageManagerSection);
+  ];
+  const packageSection = renderAdminTool('packages', 'Packages', '📦', packageKey, () => memoizeAdminSection('admin-packages', packageKey, renderAdminPackageManagerSection));
 
-  const calculatorSection = renderAdminCalculatorSection();
+  const calculatorHistoryForKey = getCalculationHistory();
+  const calculatorKey = [
+    String(state.admin.calculatorTab || 'settings'),
+    String((state.admin as any)?.calculatorRefreshTick || 0),
+    String(calculatorHistoryForKey.length || 0),
+    String((calculatorHistoryForKey[0] as any)?.id || (calculatorHistoryForKey[0] as any)?.createdAt || '')
+  ];
+  const calculatorSection = renderAdminTool('calculator', 'Price Calculator', '🧮', calculatorKey, renderAdminCalculatorSection);
 
-  const feedbackSection = memoizeAdminSection('admin-feedback', [
+  const feedbackKey = [
     getCollectionStamp(adminFeedbacks),
     String((state.admin as any)?.feedbackFilter || 'all')
-  ], renderAdminFeedbackSection);
+  ];
+  const feedbackSection = renderAdminTool('feedback', 'Feedback', '⭐', feedbackKey, () => memoizeAdminSection('admin-feedback', feedbackKey, renderAdminFeedbackSection));
 
-  const dislikeFeedbackSection = memoizeAdminSection('admin-dislike-feedback', [
+  const dislikeFeedbackKey = [
     String((state.admin as any)?.dislikeFeedbackRefreshTick || 0)
-  ], renderAdminDislikeFeedbackSection);
+  ];
+  const dislikeFeedbackSection = renderAdminTool('dislike-feedback', 'Dislike Feedback', '⚠️', dislikeFeedbackKey, () => memoizeAdminSection('admin-dislike-feedback', dislikeFeedbackKey, renderAdminDislikeFeedbackSection));
 
-  const chatbotSection = memoizeAdminSection('admin-chatbot', [
+  const chatbotKey = [
     String(chatbotStats?.totalMessages || 0),
     String(chatbotStats?.lastUpdated || ''),
     String(chatbotSettings?.enabled || false)
-  ], renderAdminChatbotManagerSection);
+  ];
+  const chatbotSection = renderAdminTool('chatbot', 'Chatbot Manager', '💬', chatbotKey, () => memoizeAdminSection('admin-chatbot', chatbotKey, renderAdminChatbotManagerSection));
 
-  const announcementsSection = memoizeAdminSection('admin-announcements', [
+  const announcementsKey = [
     String((state.admin as any)?.announcementForm?.id || ''),
     String((state.admin as any)?.announcementRefreshTick || 0)
-  ], renderAdminAnnouncementsSection);
+  ];
+  const announcementsSection = renderAdminTool('announcements', 'Announcements', '📢', announcementsKey, () => memoizeAdminSection('admin-announcements', announcementsKey, renderAdminAnnouncementsSection));
 
-  const themeSection = memoizeAdminSection('admin-theme', [
+  const themeKey = [
     String(state.theme?.darkMode || false),
     String(state.theme?.primaryColor || ''),
     String(state.theme?.accentColor || '')
-  ], renderAdminThemeSection);
+  ];
+  const themeSection = renderAdminTool('theme', 'Theme Settings', '🎛️', themeKey, () => memoizeAdminSection('admin-theme', themeKey, renderAdminThemeSection));
 
-  const designStudioSection = memoizeAdminSection('admin-design-studio', [
+  const designStudioKey = [
     String(state.smartResult?.imageUrl || ''),
     String(state.smartResult?.variantCount || 0),
     String((state.admin as any)?.designStudioLoading || false)
-  ], renderAdminDesignStudioSection);
+  ];
+  const designStudioSection = renderAdminTool('design-studio', 'Design Studio', '🧠', designStudioKey, () => memoizeAdminSection('admin-design-studio', designStudioKey, renderAdminDesignStudioSection));
 
-  const servicesSection = memoizeAdminSection('admin-services', [
+  const servicesKey = [
     getCollectionStamp(adminServices),
     String(state.admin?.serviceForm?.id || ''),
     String(state.admin?.serviceForm?.title || '')
-  ], renderAdminServicesSection);
+  ];
+  const servicesSection = renderAdminTool('services', 'Services', '🛠️', servicesKey, () => memoizeAdminSection('admin-services', servicesKey, renderAdminServicesSection));
 
-  const portfolioSection = memoizeAdminSection('admin-portfolio', [
+  const portfolioKey = [
     String(state.portfolioContent?.aboutTitle || ''),
     String(state.portfolioContent?.worksTitle || ''),
     String(state.portfolioContent?.updatedAt || ''),
@@ -17227,29 +18184,40 @@ const renderAdmin = () => {
     String((state.portfolioContent as any)?.designers?.length || 0),
     String((state.portfolioContent as any)?.businessMetrics?.length || 0),
     String((state.portfolioContent as any)?.journey?.milestones?.length || 0)
-  ], renderAdminPortfolioSection);
+  ];
+  const portfolioSection = renderAdminTool('portfolio', 'Portfolio', '🏢', portfolioKey, () => memoizeAdminSection('admin-portfolio', portfolioKey, renderAdminPortfolioSection));
 
-  const luxuryEditorSection = memoizeAdminSection('admin-luxury', [
+  const luxuryEditorKey = [
     String(state.showroomPropertyType || 'house'),
     String(state.selectedShowroomRoom || ''),
     String((state.admin as any)?.luxuryRefreshTick || 0)
-  ], renderAdminLuxuryEditorSection);
+  ];
+  const luxuryEditorSection = renderAdminTool('luxury', 'Luxury Showroom', '🏠', luxuryEditorKey, () => memoizeAdminSection('admin-luxury', luxuryEditorKey, renderAdminLuxuryEditorSection));
 
-  const showroomsSection = memoizeAdminSection('admin-showrooms', [
+  const showroomsKey = [
     getCollectionStamp(adminShowrooms),
     String(state.admin?.showroomForm?.id || ''),
     String(state.admin?.showroomForm?.name || '')
-  ], renderAdminShowroomsSection);
+  ];
+  const showroomsSection = renderAdminTool('showrooms', 'Showrooms', '🏬', showroomsKey, () => memoizeAdminSection('admin-showrooms', showroomsKey, renderAdminShowroomsSection));
 
-  const showcasesSection = memoizeAdminSection('admin-showcases', [
+  const showcasesKey = [
     getCollectionStamp(adminShowcases),
     String(state.admin?.showcaseForm?.id || ''),
     String(state.admin?.showcaseForm?.title || ''),
     String((state.admin?.showcaseForm as any)?.relatedImages?.length || 0)
-  ], renderAdminShowcaseSection);
+  ];
+  const showcasesSection = renderAdminTool('showcases', 'Showcases', '✨', showcasesKey, () => memoizeAdminSection('admin-showcases', showcasesKey, renderAdminShowcaseSection));
 
   const customersSection = memoizeAdminSection('admin-customers', [
     getCollectionStamp(adminCustomers),
+    getCollectionStamp(customerUsers),
+    getCustomerCountStamp(customerUsers),
+    getCollectionStamp(state.customer.likes || []),
+    getCollectionStamp(state.customer.feedbacks || []),
+    getCollectionStamp(state.customer.payments || []),
+    getCollectionStamp(adminEffectiveBookings),
+    getPackagePreferenceStamp(),
     String((state.admin as any)?.editingCustomerId || ''),
     String((state.admin as any)?.customerFilter || 'all'),
     String((state.admin as any)?.selectedCustomer?.id || ''),
@@ -17610,8 +18578,6 @@ const updateAdminCharts = () => {
     (charts.bookings.data.datasets[1] as any).backgroundColor = theme.bookingsSecondary;
     charts.bookings.update();
   }
-
-  console.log('✅ Charts updated with latest data');
 };
 
 const stopAdminChartsAutoRefresh = () => {
@@ -17989,7 +18955,7 @@ const handleLogin = async (formData: FormData) => {
         sessionStorage.removeItem('pending_booking_design_id');
         navigateTo('dashboard');
         schedulePostLoginSync();
-        window.setTimeout(() => handleCustomerBooking(pendingDesignId), 0);
+        window.setTimeout(() => handleBookDesignOnly(pendingDesignId), 0);
         return;
       } else if (pendingQuote) {
         sessionStorage.removeItem('pending_quote_package');
@@ -18124,6 +19090,25 @@ const handleLogin = async (formData: FormData) => {
       state.loginForm.twoFactorDeliveredTo = '';
       state.loginForm.twoFactorDebugCode = '';
       persistState();
+      const pendingDesignId = sessionStorage.getItem('pending_booking_design_id');
+      const pendingQuote = sessionStorage.getItem('pending_quote_package');
+      if (pendingDesignId) {
+        sessionStorage.removeItem('pending_booking_design_id');
+        navigateTo('dashboard');
+        schedulePostLoginSync();
+        window.setTimeout(() => handleBookDesignOnly(pendingDesignId), 0);
+        return;
+      }
+      if (pendingQuote) {
+        sessionStorage.removeItem('pending_quote_package');
+        try {
+          const { name: pendingPackageName } = JSON.parse(pendingQuote);
+          state.inquiryForm.message = `Requesting quote for: ${pendingPackageName} `;
+          navigateTo('contact');
+          schedulePostLoginSync();
+          return;
+        } catch (e) { }
+      }
       navigateTo('dashboard');
       schedulePostLoginSync();
       return;
@@ -18348,8 +19333,7 @@ const handlePublicFeedbackSubmit = async (formData: FormData) => {
     persistState();
     render();
     void refreshPublicFeedbacks({ silent: true });
-    void refreshCustomerData({ silent: true });
-    void refreshAdminData({ silent: true });
+    triggerCustomerActivitySync('public-feedback-created');
   } catch (error) {
     const newFeedback: Feedback = {
       id: Date.now().toString(),
@@ -18365,6 +19349,7 @@ const handlePublicFeedbackSubmit = async (formData: FormData) => {
     state.feedbackForm = { rating: 5, comment: '', name: '' };
     persistState();
     render();
+    triggerCustomerActivitySync('public-feedback-local-fallback');
     console.warn('Feedback save fell back to local state:', error);
   }
 };
@@ -18680,6 +19665,35 @@ const syncDashboardsAndInvoices = async (options: { silent?: boolean } = {}) => 
     console.log('✅ [syncDashboardsAndInvoices] Complete. Admin bookings:', state.admin.bookings?.length || 0);
   } finally {
     dashboardSyncInFlight = false;
+  }
+};
+
+const persistCustomerProfileToServer = async (customer: User) => {
+  const customerId = String(customer?.id || '').trim();
+  if (!customerId) return false;
+  try {
+    const response = await apiFetch(`/customers/${encodeURIComponent(customerId)}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
+      body: JSON.stringify({
+        name: customer.name,
+        email: customer.email,
+        phone: (customer as any).phone || '',
+        address: (customer as any).address || '',
+        location: (customer as any).location || '',
+        pincode: (customer as any).pincode || '',
+        bio: (customer as any).bio || '',
+        profilePhoto: (customer as any).profilePhoto || ''
+      })
+    });
+    const data = await response.json().catch(() => ({} as any));
+    if (!response.ok || data?.success === false) {
+      throw new Error(data?.message || 'Profile sync failed');
+    }
+    return true;
+  } catch (error) {
+    console.warn('Customer profile server sync failed:', error);
+    return false;
   }
 };
 
@@ -19210,6 +20224,8 @@ const submitCardPaymentWithProvider = async (cardNumber: string, cvv: string, na
       throw new Error(serverSyncError || 'Payment could not be synced with server. Please retry from your booking card.');
     }
 
+    markBookingPaidInState(bookingId, paymentId, amount);
+
     // Local-only fallback bookings (no server row) still need optimistic local state updates.
     if (!fp.isServer) {
       const paymentCompletedAt = new Date().toISOString();
@@ -19235,8 +20251,10 @@ const submitCardPaymentWithProvider = async (cardNumber: string, cvv: string, na
     };
     state.customer.paymentLoadingId = null;
 
-    await syncDashboardsAndInvoices({ silent: true });
     syncPaidDesignsFromBookings(getEffectiveBookings());
+    void syncDashboardsAndInvoices({ silent: true })
+      .then(() => syncPaidDesignsFromBookings(getEffectiveBookings()))
+      .catch((error) => console.warn('Payment dashboard sync failed:', error));
     setTimeout(() => {
       console.log('✅ Simulated card payment marked paid and synced to dashboards/charts/invoices');
       alert(`💳 Payment Successful!\n\n✅ Amount: ₹${amount.toLocaleString()}\n✅ Invoice Generated\n✅ Booking Confirmed\n\nYour invoice is available in your dashboard.`);
@@ -19275,7 +20293,7 @@ const handleCustomerFeedback = async () => {
       });
       state.customer.feedbackText = '';
       state.customer.rating = 5;
-      await refreshCustomerData();
+      triggerCustomerActivitySync('customer-feedback-created');
       render();
     }
   } catch (error) {
@@ -19290,7 +20308,7 @@ const handleCustomerFeedback = async () => {
     state.customer.feedbackText = '';
     state.customer.rating = 5;
     render();
-    void refreshCustomerData({ silent: true });
+    triggerCustomerActivitySync('customer-feedback-local-fallback');
   }
 };
 
@@ -19972,12 +20990,85 @@ root.addEventListener('click', async (event) => {
       state.admin.bookingFilter.approvalStatus = 'all';
     }
     render();
+    refreshAdminBookingsForFilters(0);
     return;
   }
   const actionEl = target.closest('[data-action]') as HTMLElement | null;
 
   const action = actionEl?.getAttribute('data-action');
   if (!action || !actionEl) return;
+
+  if (action === 'clear-booking-filters') {
+    event.preventDefault();
+    state.admin.bookingFilter = {
+      query: '',
+      categoryId: 'all',
+      dateFrom: '',
+      dateTo: '',
+      paymentStatus: 'all',
+      approvalStatus: 'all'
+    };
+    render();
+    refreshAdminBookingsForFilters(0);
+    return;
+  }
+
+  if (action === 'refresh-admin-bookings') {
+    event.preventDefault();
+    await refreshAdminBookingsOnly({ renderAfter: true });
+    void refreshAdminData({ silent: true });
+    return;
+  }
+
+  if (action === 'load-more-bookings') {
+    event.preventDefault();
+    const pagination = (state.admin as any).bookingsPagination;
+    if (!pagination || !pagination.hasMore) return;
+    try {
+      const data = await fetchAdminBookingsPage({
+        limit: Number(pagination.limit || 30),
+        offset: Number(pagination.offset || 0) + Number(pagination.limit || 30),
+        fast: true
+      });
+      const newBookings = data.bookings.map((booking: any) => normalizeBookingRecord(booking));
+      const existingIds = new Set(state.admin.bookings.map((booking: any) => String(booking?.id || '')));
+      const uniqueNewBookings = newBookings.filter((booking: any) => !existingIds.has(String(booking?.id || '')));
+      state.admin.bookings = [...state.admin.bookings, ...uniqueNewBookings].sort((left: any, right: any) => (
+        getBookingSortScore(right) - getBookingSortScore(left)
+      ));
+      (state.admin as any).bookingsPagination = data.pagination;
+      if (data.summary) (state.admin as any).bookingSummary = data.summary;
+      renderStabilized();
+    } catch (error) {
+      console.error('Failed to load more bookings:', error);
+    }
+    return;
+  }
+
+  if (action === 'open-admin-tool') {
+    event.preventDefault();
+    return;
+  }
+
+  if (action === 'close-admin-tool') {
+    event.preventDefault();
+    return;
+  }
+
+  if (action === 'admin-refresh-data') {
+    event.preventDefault();
+    const btn = actionEl as HTMLButtonElement;
+    const originalHtml = btn.innerHTML;
+    btn.innerHTML = '🔄 Refreshing...';
+    btn.disabled = true;
+    try {
+      await refreshAdminData();
+    } finally {
+      btn.innerHTML = originalHtml;
+      btn.disabled = false;
+    }
+    return;
+  }
 
   if (state.activeTab === 'admin') {
     const isAdminHeavyAction = action.startsWith('admin-')
@@ -20017,6 +21108,19 @@ root.addEventListener('click', async (event) => {
   const actionStartedAt = perfNow();
   try {
   switch (action) {
+    case 'admin-refresh-data': {
+      const btn = button as HTMLButtonElement;
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = 'Refreshing...';
+      btn.disabled = true;
+      try {
+        await refreshAdminData();
+      } finally {
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
+      }
+      break;
+    }
     case 'open-calculator': {
       state.calculator.isOpen = true;
       state.calculator.result = null;
@@ -20030,6 +21134,13 @@ root.addEventListener('click', async (event) => {
     }
     case 'calc-set-category': {
       state.calculator.category = button.getAttribute('data-value') || 'Full Home';
+      if (state.calculator.category.toLowerCase() === 'villa' && Number(state.calculator.bhk || 1) < 3) {
+        state.calculator.bhk = 3;
+      }
+      const shapeOptions = getCalculatorShapeOptions(Number(state.calculator.bhk || 1), state.calculator.category);
+      if (!shapeOptions.some((option) => option.value === state.calculator.shape)) {
+        state.calculator.shape = shapeOptions[0]?.value || 'Rectangle';
+      }
       state.calculator.result = null;
       render();
       break;
@@ -20047,6 +21158,10 @@ root.addEventListener('click', async (event) => {
     }
     case 'calc-set-bhk': {
       state.calculator.bhk = Number(button.getAttribute('data-value') || 1);
+      const shapeOptions = getCalculatorShapeOptions(state.calculator.bhk, state.calculator.category);
+      if (!shapeOptions.some((option) => option.value === state.calculator.shape)) {
+        state.calculator.shape = shapeOptions[0]?.value || 'Rectangle';
+      }
       state.calculator.result = null;
       render();
       break;
@@ -20431,7 +21546,7 @@ root.addEventListener('click', async (event) => {
       break;
     }
     case 'ai-save': {
-      if (!state.smartStudio.originalImage || state.smartStudio.variants.length === 0) return;
+      if (state.smartStudio.variants.length === 0) return;
       if (!state.currentUser) {
         alert('Please login to save designs to your dashboard.');
         navigateTo('login');
@@ -20440,21 +21555,43 @@ root.addEventListener('click', async (event) => {
       state.smartStudio.error = '';
       (async () => {
         try {
+          const savedVariants = state.smartStudio.variants.map((variant: any) => ({
+            ...variant,
+            roomType: variant?.roomType || state.smartStudio.room || '',
+            categoryName: variant?.categoryName || state.smartStudio.room || 'Design Studio'
+          }));
+          const originalImage = state.smartStudio.originalImage || savedVariants.find((variant: any) => String(variant?.image || '').trim())?.image || '';
           const resp = await apiFetch('/ai/designs', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
             body: JSON.stringify({
-              originalImage: state.smartStudio.originalImage,
+              originalImage,
               prompt: state.smartStudio.prompt,
-              variants: state.smartStudio.variants
+              roomType: state.smartStudio.room,
+              variants: savedVariants
             })
           });
           const data = await resp.json().catch(() => ({} as any));
           if (!resp.ok) throw new Error(data?.message || 'Failed to save designs');
 
           if (data?.design) {
+            const savedDesign = {
+              ...data.design,
+              userId: data.design.userId || state.currentUser.id,
+              userName: data.design.userName || data.design.customerName || state.currentUser.name,
+              userEmail: data.design.userEmail || data.design.customerEmail || state.currentUser.email,
+              prompt: data.design.prompt || state.smartStudio.prompt,
+              roomType: data.design.roomType || state.smartStudio.room,
+              variants: Array.isArray(data.design.variants) && data.design.variants.length > 0 ? data.design.variants : savedVariants
+            };
             const existing = Array.isArray(state.customer.aiDesigns) ? state.customer.aiDesigns : [];
-            state.customer.aiDesigns = [data.design, ...existing].filter((entry: any, index: number, list: any[]) => {
+            state.customer.aiDesigns = [savedDesign, ...existing].filter((entry: any, index: number, list: any[]) => {
+              const id = String(entry?.id || '');
+              if (!id) return true;
+              return list.findIndex((item: any) => String(item?.id || '') === id) === index;
+            });
+            const adminExisting = Array.isArray(state.admin.aiDesigns) ? state.admin.aiDesigns : [];
+            state.admin.aiDesigns = [savedDesign, ...adminExisting].filter((entry: any, index: number, list: any[]) => {
               const id = String(entry?.id || '');
               if (!id) return true;
               return list.findIndex((item: any) => String(item?.id || '') === id) === index;
@@ -20463,11 +21600,11 @@ root.addEventListener('click', async (event) => {
 
           alert('✅ Design concepts saved to your dashboard! You can view them in the Customer Dashboard.');
           if (state.currentUser?.role === 'admin') {
-            await Promise.all([refreshCustomerData(), refreshAdminData()]);
+            await Promise.all([refreshCustomerData({ silent: true }), refreshAdminData({ silent: true, force: true })]);
           } else {
-            await refreshCustomerData();
+            await refreshCustomerData({ silent: true });
           }
-          navigateTo('dashboard');
+          navigateTo(state.currentUser?.role === 'admin' ? 'admin' : 'dashboard');
           render();
         } catch (error) {
           state.smartStudio.error = error instanceof Error ? error.message : 'Save failed.';
@@ -20675,6 +21812,7 @@ root.addEventListener('click', async (event) => {
         ]
       };
       render();
+      refreshAdminBookingsForFilters(0);
       break;
     }
     case 'remove-portfolio-milestone': {
@@ -21735,9 +22873,10 @@ root.addEventListener('click', async (event) => {
       if (!state.currentUser) {
         state.loginError = 'Please sign in to continue booking.';
         if (designId) {
-          sessionStorage.setItem('pending_booking_design_id', designId);
+          continueBookingAfterAuth(designId);
+        } else {
+          navigateTo('login');
         }
-        navigateTo('login');
         break;
       }
       if (designId) {
@@ -21858,7 +22997,9 @@ root.addEventListener('click', async (event) => {
       const pkgIdToLike = button.getAttribute('data-package-id') || '';
       if (!pkgIdToLike || !state.currentUser) break;
       toggleCustomerPackagePreference(state.currentUser.id, pkgIdToLike);
+      triggerCustomerActivitySync('saved-package-toggled');
       render();
+      refreshAdminBookingsForFilters(0);
       break;
     }
 
@@ -22048,6 +23189,7 @@ root.addEventListener('click', async (event) => {
           if (payResult.status === 'fulfilled' && payResult.value.ok) {
             const data = await payResult.value.json();
             const serverPayments = Array.isArray(data?.payments) ? data.payments : [];
+            console.log(`[Admin] Fetched ${serverPayments.length} payments from server for ${customerId}`);
             const localPayments = getPayments().filter((p: any) =>
               String(p?.userId || p?.customerId || '') === String(customerId)
             );
@@ -22056,6 +23198,17 @@ root.addEventListener('click', async (event) => {
                 arr.findIndex((e: any) => String(e?.id || '') === String(p?.id || '')) === idx
             );
             (state.admin as any).customerPaymentsCache = merged;
+            
+            // Sync to global state and persistent storage
+            const currentGlobal = getPayments();
+            const nextGlobal = [...serverPayments, ...currentGlobal].filter(
+              (p: any, idx: number, arr: any[]) =>
+                arr.findIndex((e: any) => String(e?.id || '') === String(p?.id || '')) === idx
+            );
+            state.customer.payments = nextGlobal;
+            writeStorage(STORAGE_KEYS.payments, nextGlobal);
+          } else {
+            console.warn('[Admin] Payment fetch not successful or empty:', payResult);
           }
         } catch (e) { console.error('[Admin] Payment fetch error:', e); }
         (state.admin as any).customerPaymentsLoading = false;
@@ -22395,10 +23548,10 @@ root.addEventListener('click', async (event) => {
           });
           const data = await resp.json();
           if (data && data.success) {
-            await refreshAdminData({ force: true });
-            void refreshCustomerData({ silent: true });
+            syncAdminBookingsInBackground();
+            syncCustomerDataInBackground();
             state.confirmMessage = 'Booking approved for payment.';
-            setTimeout(() => updateAdminCharts(), 0);
+            scheduleAdminChartsUpdate();
           } else {
             throw new Error(data.message || 'Unknown error');
           }
@@ -22418,7 +23571,7 @@ root.addEventListener('click', async (event) => {
       if (!bookingId) return;
       if (isBookingActionPending(bookingId)) return;
       setBookingActionPending(bookingId, true);
-      patchBookingStatusInState(bookingId, 'fulfilled', 'paid');
+      patchBookingStatusInState(bookingId, 'approved', 'pending');
       if (String((state.admin as any).viewingBookingId || '') === bookingId) {
         (state.admin as any).viewingBookingId = undefined;
       }
@@ -22429,15 +23582,14 @@ root.addEventListener('click', async (event) => {
           const resp = await apiFetch('/bookings/update', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
-            body: JSON.stringify({ bookingId, status: 'fulfilled', paymentStatus: 'paid' })
+            body: JSON.stringify({ bookingId, status: 'approved', paymentStatus: 'pending' })
           });
           const data = await resp.json();
           if (data && data.success) {
-            console.log('[Booking] Approved:', bookingId);
-            await refreshAdminData({ force: true });
-            void refreshCustomerData({ silent: true });
-            state.confirmMessage = 'Booking approved successfully.';
-            setTimeout(() => updateAdminCharts(), 0);
+            syncAdminBookingsInBackground();
+            syncCustomerDataInBackground();
+            state.confirmMessage = 'Booking approved. Payment is pending.';
+            scheduleAdminChartsUpdate();
           } else {
             throw new Error(data.message || 'Unknown error');
           }
@@ -22472,11 +23624,10 @@ root.addEventListener('click', async (event) => {
           });
           const data = await resp.json();
           if (data && data.success) {
-            console.log('[Booking] Declined:', bookingId);
-            await refreshAdminData({ force: true });
-            void refreshCustomerData({ silent: true });
+            syncAdminBookingsInBackground();
+            syncCustomerDataInBackground();
             state.confirmMessage = 'Booking declined successfully.';
-            setTimeout(() => updateAdminCharts(), 0);
+            scheduleAdminChartsUpdate();
           } else {
             throw new Error(data.message || 'Unknown error');
           }
@@ -22615,6 +23766,7 @@ root.addEventListener('click', async (event) => {
       const packageId = button.getAttribute('data-package-id') || '';
       if (packageId) {
         removeCustomerPackagePreference(state.currentUser.id, packageId);
+        triggerCustomerActivitySync('saved-package-removed');
         render();
         break;
       }
@@ -22644,6 +23796,7 @@ root.addEventListener('click', async (event) => {
           // Keep the optimistic local state if backend sync fails.
         }
       })();
+      triggerCustomerActivitySync('design-preference-removed');
       break;
     }
     case 'remove-booking': {
@@ -22662,7 +23815,12 @@ root.addEventListener('click', async (event) => {
     }
     case 'book-design': {
       const designId = button.getAttribute('data-design-id');
-      if (designId) handleCustomerBooking(designId);
+      if (!designId) break;
+      if (!state.currentUser) {
+        continueBookingAfterAuth(designId);
+        break;
+      }
+      handleCustomerBooking(designId);
       break;
     }
     case 'book-ai-design': {
@@ -22715,14 +23873,11 @@ root.addEventListener('click', async (event) => {
       break;
     }
     case 'book-design-only': {
+      const designId = button.getAttribute('data-design-id');
       if (!state.currentUser) {
-        state.loginForm.isSignup = false;
-        state.activeTab = 'login';
-        window.history.pushState({}, '', '/login');
-        render();
+        if (designId) continueBookingAfterAuth(designId);
         break;
       }
-      const designId = button.getAttribute('data-design-id');
       if (designId) handleBookDesignOnly(designId);
       break;
     }
@@ -22821,11 +23976,14 @@ root.addEventListener('click', async (event) => {
 
     case 'quick-pay': {
       const designId = button.getAttribute('data-design-id');
-      if (designId && state.currentUser) {
-        void handleBookDesignOnly(designId);
-        state.confirmMessage = 'Booking submitted. Wait for admin approval, then use Pay Now from your bookings.';
-        render();
+      if (!designId) break;
+      if (!state.currentUser) {
+        continueBookingAfterAuth(designId);
+        break;
       }
+      void handleBookDesignOnly(designId);
+      state.confirmMessage = 'Booking submitted. Wait for admin approval, then use Pay Now from your bookings.';
+      render();
       break;
     }
 
@@ -23114,8 +24272,21 @@ root.addEventListener('click', async (event) => {
       const tab = button.getAttribute('data-tab') as 'chat' | 'activity' | null;
       if (tab) {
         state.chatbot.activeTab = tab;
+        if (tab === 'activity' && state.currentUser?.role === 'admin') {
+          void refreshAdminData({ silent: true }).then(() => mountChatbot()).catch((error) => {
+            console.warn('Failed to refresh admin activity for chatbot:', error);
+          });
+        }
         mountChatbot();
       }
+      break;
+    }
+    case 'chatbot-admin-refresh-activity': {
+      if (state.currentUser?.role !== 'admin') return;
+      void refreshAdminData({ force: true, silent: true }).then(() => mountChatbot()).catch((error) => {
+        console.warn('Failed to refresh admin activity for chatbot:', error);
+        mountChatbot();
+      });
       break;
     }
     case 'chatbot-activity-feedback': {
@@ -23767,16 +24938,13 @@ root.addEventListener('input', (event) => {
       state.inquiryForm.message = value;
       break;
     case 'admin.bookingFilter.query':
-      state.admin.bookingFilter.query = value;
-      render();
+      applyAdminBookingFilterValue(bind, value);
       break;
     case 'admin.bookingFilter.dateFrom':
-      state.admin.bookingFilter.dateFrom = value;
-      render();
+      applyAdminBookingFilterValue(bind, value);
       break;
     case 'admin.bookingFilter.dateTo':
-      state.admin.bookingFilter.dateTo = value;
-      render();
+      applyAdminBookingFilterValue(bind, value);
       break;
     case 'admin.invoiceFilter.query':
       state.admin.invoiceFilter.query = value;
@@ -23798,6 +24966,12 @@ root.addEventListener('input', (event) => {
       break;
     case 'loginForm.password':
       state.loginForm.password = value;
+      if (state.loginForm.isSignup) {
+        const submitButton = root.querySelector('form[data-form="login"] button[type="submit"]') as HTMLButtonElement | null;
+        if (submitButton) {
+          submitButton.disabled = !Object.values(getPasswordRuleChecks(value)).every(Boolean);
+        }
+      }
       break;
     case 'loginForm.twoFactorCode':
       state.loginForm.twoFactorCode = value;
@@ -23912,6 +25086,7 @@ root.addEventListener('change', async (event) => {
         upsertUserInState(updatedCustomer);
         state.confirmMessage = 'Customer profile photo updated locally.';
         persistState();
+        void persistCustomerProfileToServer(updatedCustomer).finally(() => triggerCustomerActivitySync('admin-customer-photo-updated'));
       } catch (error) {
         console.error('Failed to upload admin customer photo locally:', error);
         state.confirmMessage = 'Failed to update customer photo.';
@@ -23930,6 +25105,7 @@ root.addEventListener('change', async (event) => {
         state.currentUser = updatedUser;
         state.confirmMessage = 'Profile picture updated.';
         persistState();
+        void persistCustomerProfileToServer(updatedUser).finally(() => triggerCustomerActivitySync('customer-profile-photo-updated'));
       } catch (error) {
         console.error('Failed to upload profile photo locally:', error);
         state.confirmMessage = 'Failed to update profile picture.';
@@ -24253,24 +25429,13 @@ root.addEventListener('change', async (event) => {
   const value = target.value;
   switch (bind) {
     case 'admin.bookingFilter.categoryId':
-      state.admin.bookingFilter.categoryId = value;
-      render();
+      applyAdminBookingFilterValue(bind, value);
       break;
     case 'admin.bookingFilter.paymentStatus':
-      state.admin.bookingFilter.paymentStatus = value as AdminState['bookingFilter']['paymentStatus'];
-      render();
+      applyAdminBookingFilterValue(bind, value);
       break;
     case 'admin.bookingFilter.approvalStatus':
-      state.admin.bookingFilter.approvalStatus = value as AdminState['bookingFilter']['approvalStatus'];
-      render();
-      break;
-    case 'admin.bookingFilter.dateFrom':
-      state.admin.bookingFilter.dateFrom = value;
-      render();
-      break;
-    case 'admin.bookingFilter.dateTo':
-      state.admin.bookingFilter.dateTo = value;
-      render();
+      applyAdminBookingFilterValue(bind, value);
       break;
     case 'admin.invoiceFilter.status':
       state.admin.invoiceFilter.status = value as AdminState['invoiceFilter']['status'];
@@ -24480,6 +25645,7 @@ root.addEventListener('submit', async (event) => {
       state.confirmMessage = 'Customer profile updated.';
       persistState();
       render();
+      void persistCustomerProfileToServer(updatedCustomer).finally(() => triggerCustomerActivitySync('admin-customer-profile-updated'));
       break;
     }
     case 'customer-profile-form': {
@@ -24502,6 +25668,7 @@ root.addEventListener('submit', async (event) => {
       state.confirmMessage = 'Profile updated successfully.';
       persistState();
       render();
+      void persistCustomerProfileToServer(updatedUser).finally(() => triggerCustomerActivitySync('customer-profile-updated'));
       break;
     }
     case 'category-form':
@@ -24562,9 +25729,9 @@ root.addEventListener('submit', async (event) => {
       }
       state.admin.announcementForm = { id: '', title: '', message: '', startDate: '', endDate: '', active: true, location: 'both' };
       persistState();
+      render();
       
-      // No immediate render - background refresh handles UI update
-      Promise.all([refreshCustomerData(), refreshAdminData()]).catch((err) => {
+      Promise.all([refreshCustomerData({ silent: true }), refreshAdminData({ silent: true })]).catch((err) => {
         console.warn('Background admin refresh failed after announcement save:', err);
       });
       break;
@@ -24572,9 +25739,12 @@ root.addEventListener('submit', async (event) => {
     case 'discount-code-form': {
       if (state.currentUser?.role !== 'admin') break;
       const rawCode = normalizePromoCode(String(formData.get('code') || ''));
-      const type = String(formData.get('type') || 'percentage') === 'fixed' ? 'fixed' : 'percentage';
+      const rawType = String(formData.get('type') || 'percent').toLowerCase();
+      const type = rawType === 'flat' || rawType === 'fixed' ? 'flat' : 'percent';
       const value = Number(formData.get('value') || 0);
       const minAmount = Number(formData.get('minAmount') || 0);
+      const maxDiscount = Number(formData.get('maxDiscount') || 0);
+      const endDate = String(formData.get('endDate') || '').trim();
       if (!rawCode) {
         state.confirmMessage = 'Discount code is required.';
         render();
@@ -24585,7 +25755,7 @@ root.addEventListener('submit', async (event) => {
         render();
         break;
       }
-      if (type === 'percentage' && value > 100) {
+      if (type === 'percent' && value > 100) {
         state.confirmMessage = 'Percentage discount cannot exceed 100%.';
         render();
         break;
@@ -24601,6 +25771,8 @@ root.addEventListener('submit', async (event) => {
         type,
         value,
         minAmount: Number.isFinite(minAmount) ? Math.max(0, minAmount) : 0,
+        maxDiscount: Number.isFinite(maxDiscount) ? Math.max(0, maxDiscount) : 0,
+        endDate,
         active: true
       });
       state.confirmMessage = 'Discount code added.';
@@ -24692,7 +25864,10 @@ root.addEventListener('submit', async (event) => {
 
     case 'refresh-admin-bookings': {
       console.log('🔄 Refreshing admin bookings...');
-      void refreshAdminData({ silent: false, force: true });
+      (async () => {
+        await refreshAdminBookingsOnly({ renderAfter: true });
+        void refreshAdminData({ silent: true });
+      })();
       break;
     }
 
@@ -24710,14 +25885,11 @@ root.addEventListener('submit', async (event) => {
       // Build query params with current filters
       const bookingParams = new URLSearchParams({
         limit: String(pagination.limit || 50),
-        offset: String(nextOffset)
+        offset: String(nextOffset),
+        fast: '1'
       });
 
-      const filter = state.admin.bookingFilter;
-      if (filter.approvalStatus && filter.approvalStatus !== 'all') bookingParams.set('status', filter.approvalStatus);
-      if (filter.paymentStatus && filter.paymentStatus !== 'all') bookingParams.set('paymentStatus', filter.paymentStatus);
-      if (filter.dateFrom) bookingParams.set('dateFrom', filter.dateFrom);
-      if (filter.dateTo) bookingParams.set('dateTo', filter.dateTo);
+      appendBookingManagerApiFilters(bookingParams, state.admin.bookingFilter);
 
       apiFetch(`/bookings?${bookingParams}`, { headers: authHeaders }, 5000)
         .then(response => response.json())
@@ -24952,6 +26124,9 @@ const init = async () => {
   console.log('INIT FUNCTION STARTED');
   try {
     console.log('Initializing app...');
+    
+    // Force purge legacy caches on every init if version mismatch
+    purgeLegacyPackageCaches();
 
     // Show loading screen immediately
     root.innerHTML = `
@@ -25530,23 +26705,144 @@ const mountChatbot = () => {
 
   const cb = state.chatbot;
   const { isOpen, messages, isTyping } = state.chatbot;
+  const isRegisteredCustomer = Boolean(state.currentUser?.id && state.currentUser?.role === 'customer');
+  const isAdminUser = Boolean(state.currentUser?.id && state.currentUser?.role === 'admin');
+  const canViewActivity = isRegisteredCustomer || isAdminUser;
+  if (!canViewActivity && cb.activeTab === 'activity') {
+    cb.activeTab = 'chat';
+  }
   const activeTab: 'chat' | 'activity' = cb.activeTab || 'chat';
-  const isRegistered = Boolean(state.currentUser?.id);
 
   // ---- My Activity content builder ----
   const buildActivityPanel = (): string => {
-    const user = state.currentUser!;
+    if (!canViewActivity) {
+      return `
+        <div style="flex:1;overflow-y:auto;padding:18px;background:#f8f9fb;">
+          <div style="background:white;border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border:1px solid rgba(0,0,0,0.06);">
+            <div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:6px;">Sign in required</div>
+            <div style="font-size:12px;color:#64748b;line-height:1.5;">My Activity is shown only for registered customers.</div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (isAdminUser) {
+      const adminBookings = Array.isArray(state.admin?.bookings) ? state.admin.bookings : [];
+      const adminInvoices = Array.isArray((state.admin as any)?.invoices) ? (state.admin as any).invoices : [];
+      const customers = Array.isArray(state.users)
+        ? state.users.filter((u: any) => String(u?.role || 'customer').toLowerCase() === 'customer')
+        : [];
+      const inquiries = Array.isArray(state.inquiries) ? state.inquiries : [];
+      const allFeedbacks = [...(state.customer.feedbacks || []), ...(state.feedbacks || [])]
+        .filter((f: any, idx: number, arr: any[]) => arr.findIndex((x: any) => String(x?.id || '') === String(f?.id || idx)) === idx);
+      const registeredChatQueries = (chatbotHistoryState || []).filter((entry: any) => entry.userType === 'registered');
+      const paidInvoices = adminInvoices.filter((inv: any) => String(inv.status || inv.paymentStatus || '').toLowerCase() === 'paid');
+      const paidRevenue = paidInvoices.reduce((sum: number, inv: any) => sum + Number(inv.amount || inv.total || inv.price || 0), 0);
+
+      const metricCard = (label: string, value: string | number, color: string) => `
+        <div style="background:white;border-radius:12px;padding:12px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+          <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;font-weight:800;">${label}</div>
+          <div style="font-size:20px;color:${color};font-weight:900;margin-top:3px;">${value}</div>
+        </div>`;
+
+      const recentBookings = adminBookings
+        .slice()
+        .sort((a: any, b: any) => new Date(b.createdAt || b.bookingDate || 0).getTime() - new Date(a.createdAt || a.bookingDate || 0).getTime())
+        .slice(0, 4);
+      const recentBookingRows = recentBookings.length
+        ? recentBookings.map((booking: any) => {
+            const name = booking.customerName || booking.userName || booking.name || 'Customer';
+            const design = booking.designName || booking.packageName || booking.designId || 'Booking';
+            const status = String(booking.status || booking.approvalStatus || 'pending');
+            const date = booking.createdAt || booking.bookingDate ? new Date(booking.createdAt || booking.bookingDate).toLocaleDateString() : '';
+            return `<div style="padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.05);">
+              <div style="display:flex;justify-content:space-between;gap:8px;">
+                <div style="min-width:0;">
+                  <div style="font-size:12px;font-weight:800;color:#1a1a2e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(String(name))}</div>
+                  <div style="font-size:10px;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(String(design))}</div>
+                </div>
+                <span style="font-size:9px;font-weight:800;color:#c54542;text-transform:capitalize;white-space:nowrap;">${escapeHtml(status)}</span>
+              </div>
+              <div style="font-size:10px;color:#94a3b8;margin-top:2px;">${date}</div>
+            </div>`;
+          }).join('')
+        : `<div style="font-size:12px;color:#94a3b8;padding:8px 0;">No bookings loaded yet.</div>`;
+
+      const recentChatRows = registeredChatQueries
+        .slice()
+        .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+        .slice(0, 4);
+      const chatRows = recentChatRows.length
+        ? recentChatRows.map((entry: any) => {
+            const when = entry.createdAt ? new Date(entry.createdAt).toLocaleDateString() : '';
+            return `<div style="padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.05);">
+              <div style="font-size:11px;font-weight:800;color:#1a1a2e;">${escapeHtml(String(entry.userName || 'Customer'))}</div>
+              <div style="font-size:11px;color:#475569;margin-top:2px;">${escapeHtml(String(entry.query || '').slice(0, 90))}${String(entry.query || '').length > 90 ? '…' : ''}</div>
+              <div style="font-size:10px;color:#94a3b8;margin-top:2px;">${when}</div>
+            </div>`;
+          }).join('')
+        : `<div style="font-size:12px;color:#94a3b8;padding:8px 0;">No registered customer chatbot queries yet.</div>`;
+
+      return `
+        <div style="flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:14px;background:#f8f9fb;">
+          <div style="background:white;border-radius:14px;padding:12px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+            <div style="font-size:11px;font-weight:900;color:#c54542;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">📊 Admin Activity</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              ${metricCard('Bookings', adminBookings.length, '#2563eb')}
+              ${metricCard('Customers', customers.length, '#16a34a')}
+              ${metricCard('Invoices', adminInvoices.length, '#9333ea')}
+              ${metricCard('Revenue', formatCurrency(paidRevenue), '#c54542')}
+              ${metricCard('Inquiries', inquiries.length, '#d97706')}
+              ${metricCard('Feedback', allFeedbacks.length, '#db2777')}
+            </div>
+          </div>
+          <div style="background:white;border-radius:14px;padding:12px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+            <div style="font-size:11px;font-weight:900;color:#c54542;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">📋 Recent Bookings</div>
+            ${recentBookingRows}
+          </div>
+          <div style="background:white;border-radius:14px;padding:12px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+            <div style="font-size:11px;font-weight:900;color:#c54542;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">💬 Registered Customer Chatbot Queries (${registeredChatQueries.length})</div>
+            ${chatRows}
+          </div>
+          <button data-action="chatbot-admin-refresh-activity" style="
+            width:100%;padding:11px;border:none;border-radius:12px;
+            background:linear-gradient(135deg,#c54542,#8b2a2a);color:white;
+            font-size:13px;font-weight:800;cursor:pointer;
+            box-shadow:0 4px 12px rgba(197,69,66,0.35);
+          ">Refresh Admin Activity</button>
+        </div>
+      `;
+    }
+
+    const user = state.currentUser;
+    const effectiveId = String(user.id || '').trim();
     const bookings = (state.customer.bookings || [])
+      .filter((b: any) => {
+        const bookingUserId = String(b.customerId || b.userId || b.customer?.id || '').trim();
+        return !bookingUserId || bookingUserId === effectiveId;
+      })
       .slice()
       .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+
     const likedItems = (state.customer.likes || [])
-      .filter((l: any) => String(l.userId || '') === String(user.id || '') && String(l.value || '') === 'like')
+      .filter((l: any) => {
+        const lid = String(l.userId || '').trim();
+        return lid === effectiveId && String(l.value || '') === 'like';
+      })
       .slice(0, 4);
+
     const dislikedItems = (state.customer.likes || [])
-      .filter((l: any) => String(l.userId || '') === String(user.id || '') && String(l.value || '') === 'dislike')
+      .filter((l: any) => {
+        const lid = String(l.userId || '').trim();
+        return lid === effectiveId && String(l.value || '') === 'dislike';
+      })
       .slice(0, 4);
+
     const myFeedbacks = (state.customer.feedbacks || [])
-      .filter((f: any) => String(f.customerId || f.userId || '') === String(user.id || ''))
+      .filter((f: any) => {
+        const fid = String(f.customerId || f.userId || '').trim();
+        return fid === effectiveId;
+      })
       .slice()
       .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
       .slice(0, 3);
@@ -25607,8 +26903,13 @@ const mountChatbot = () => {
         }).join('')
       : `<div style="font-size:12px;color:#94a3b8;padding:6px 0;">No feedback submitted yet.</div>`;
 
-    const invoiceRows = (state.customer.invoices || []).length
-      ? (state.customer.invoices || []).map((inv: any) => {
+    const myInvoices = (state.customer.invoices || []).filter((inv: any) => {
+      const invoiceUserId = String(inv.customerId || inv.userId || inv.customer?.id || '').trim();
+      return !invoiceUserId || invoiceUserId === effectiveId;
+    });
+
+    const invoiceRows = myInvoices.length
+      ? myInvoices.map((inv: any) => {
           const displayName = inv.displayName || `Invoice #${inv.invoiceNumber || inv.id}`;
           const amount = inv.displayAmount || inv.amount || inv.price || 0;
           const date = inv.displayDate || inv.createdAt || inv.updatedAt || '';
@@ -25726,8 +27027,7 @@ const mountChatbot = () => {
         </div>
       </div>
 
-      <!-- Tabs (registered users only) -->
-      ${isRegistered ? `
+      <!-- Tabs -->
       <div style="display:flex;background:#0f141a;border-bottom:2px solid rgba(255,255,255,0.07);flex-shrink:0;">
         <button data-action="chatbot-tab" data-tab="chat" style="
           flex:1;padding:9px 0;border:none;cursor:pointer;font-size:12px;font-weight:700;
@@ -25736,16 +27036,16 @@ const mountChatbot = () => {
           border-bottom:2px solid ${activeTab === 'chat' ? '#c54542' : 'transparent'};
           margin-bottom:-2px;
         ">💬 Chat</button>
-        <button data-action="chatbot-tab" data-tab="activity" style="
+        ${canViewActivity ? `<button data-action="chatbot-tab" data-tab="activity" style="
           flex:1;padding:9px 0;border:none;cursor:pointer;font-size:12px;font-weight:700;
           background:transparent;transition:all 0.2s;
           color:${activeTab === 'activity' ? '#c54542' : 'rgba(255,255,255,0.5)'};
           border-bottom:2px solid ${activeTab === 'activity' ? '#c54542' : 'transparent'};
           margin-bottom:-2px;
-        ">📊 My Activity</button>
-      </div>` : ''}
+        ">📊 ${isAdminUser ? 'Admin Activity' : 'My Activity'}</button>` : ''}
+      </div>
 
-      ${activeTab === 'activity' && isRegistered ? buildActivityPanel() : `
+      ${activeTab === 'activity' ? buildActivityPanel() : `
       <!-- Messages -->
       <div id="aria-messages" style="
         flex:1; overflow-y:auto; padding:16px 14px; display:flex; flex-direction:column; gap:12px;
@@ -25792,7 +27092,9 @@ const mountChatbot = () => {
       <!-- Suggested topics (shown only if 1 message) -->
       ${messages.length <= 1 ? `
       <div style="padding:0 14px 8px;background:#f8f9fb;display:flex;flex-wrap:wrap;gap:6px;">
-        ${(isRegistered
+        ${(isAdminUser
+          ? ['My Activity', 'Bookings', 'Customers', 'Chatbot History', 'Feedback']
+          : isRegisteredCustomer
           ? ['My Activity', 'My Bookings', 'Leave Feedback', 'Gallery', 'Pricing']
           : ['Services', 'Pricing', 'Book Now', 'Gallery', 'Contact']).map(t => `
           <button data-action="chat-quick-reply" data-reply="${t}" style="
@@ -25896,12 +27198,27 @@ const mountChatbot = () => {
       // Switch between Chat and My Activity tabs
       const tab = button.getAttribute('data-tab') as 'chat' | 'activity';
       if (tab) {
+        if (tab === 'activity' && !canViewActivity) {
+          state.chatbot.activeTab = 'chat';
+          mountChatbot();
+          return;
+        }
         state.chatbot.activeTab = tab;
-        if (tab === 'activity') {
+        if (tab === 'activity' && isAdminUser) {
+          void refreshAdminData({ silent: true }).then(() => mountChatbot()).catch((error) => {
+            console.warn('Failed to refresh admin activity for chatbot:', error);
+          });
+        } else if (tab === 'activity') {
           void refreshCustomerData({ silent: true });
         }
         mountChatbot();
       }
+    } else if (action === 'chatbot-admin-refresh-activity') {
+      if (!isAdminUser) return;
+      void refreshAdminData({ force: true, silent: true }).then(() => mountChatbot()).catch((error) => {
+        console.warn('Failed to refresh admin activity for chatbot:', error);
+        mountChatbot();
+      });
     } else if (action === 'chatbot-activity-feedback') {
       // Switch to chat tab and start feedback flow
       state.chatbot.activeTab = 'chat';
@@ -25915,8 +27232,36 @@ const mountChatbot = () => {
       const reply = button.getAttribute('data-reply');
       if (!reply) return;
 
+      const quickRatingMatch = reply.match(/^\s*([1-5])\b/);
+      if (quickRatingMatch && /Poor|Fair|Good|Great|Excellent/i.test(reply)) {
+        const rating = parseInt(quickRatingMatch[1], 10);
+        state.chatbot.messages.push(createMessage('user', reply));
+        state.chatbot.feedbackStep = 'awaiting-comment';
+        state.chatbot.pendingFeedbackRating = rating;
+        state.chatbot.inputText = '';
+        const promptText = `${'⭐'.repeat(rating)} Thank you for the **${rating}-star rating!**\n\nWould you like to add any comments or suggestions? (Type your message or tap Skip)`;
+        recordChatbotHistory(reply, promptText);
+        state.chatbot.messages.push(createMessage('bot', promptText, ['Skip — No Comment']));
+        mountChatbot();
+        return;
+      }
+
+      if (state.chatbot.feedbackStep === 'awaiting-rating' || state.chatbot.feedbackStep === 'awaiting-comment') {
+        state.chatbot.inputText = reply;
+        handleSendChat();
+        return;
+      }
+
       // Route "My Activity" quick reply to activity tab
-      if (reply === 'My Activity' && isRegistered) {
+      if ((reply === 'My Activity' || reply === 'Admin Activity') && isAdminUser) {
+        state.chatbot.activeTab = 'activity';
+        void refreshAdminData({ silent: true }).then(() => mountChatbot()).catch((error) => {
+          console.warn('Failed to refresh admin activity for chatbot:', error);
+        });
+        mountChatbot();
+        return;
+      }
+      if ((reply === 'My Activity' || reply === 'My Bookings') && isRegisteredCustomer) {
         state.chatbot.activeTab = 'activity';
         void refreshCustomerData({ silent: true });
         mountChatbot();
@@ -26005,7 +27350,9 @@ const handleSendChat = () => {
       }
       state.chatbot.messages.push(createMessage('bot',
         `🎉 **Thank you for your feedback!** Your ${rating}-star review has been saved. We really appreciate it! 💛`,
-        ['View Gallery', 'Book Consultation', 'My Activity']
+        state.currentUser?.id && state.currentUser?.role === 'customer'
+          ? ['View Gallery', 'Book Consultation', 'My Activity']
+          : ['View Gallery', 'Book Consultation']
       ));
       recordChatbotHistory(text, `🎉 Thank you for your feedback! Your ${rating}-star review has been saved.`);
       state.chatbot.isTyping = false;

@@ -575,10 +575,7 @@ const createSeedCategories = (): Category[] => {
         { name: 'apartment10.jpg', url: '/category/Apartment/apartment10.jpg' },
         { name: 'apartment11.jpg', url: '/category/Apartment/apartment11.jpg' }
       ]
-    },
-
-    // Epoxy Floor: epoxy1.jpg - epoxy9.jpg
-    { id: 'cat-epoxy', title: 'Epoxy Floor', description: 'Modern and durable epoxy flooring designs for residential and commercial spaces.', image: '/category/Epoxy Floor/epoxy1.jpg', thumbnail: '/category/Epoxy Floor/epoxy1.jpg', status: 'active', createdAt, imageCount: 9, images: imgs('Epoxy Floor', 'epoxy', 9) }
+    }
   ];
 
   return categories.map((category) => {
@@ -690,11 +687,7 @@ export const seedDashboardData = () => {
   if (!existingCalcSettings) {
     writeStorage(STORAGE_KEYS.calculatorSettings, DEFAULT_CALCULATOR_SETTINGS);
   } else {
-    // Ensure missing categories like Epoxy Floor are added
-    const updatedMultipliers = { ...DEFAULT_CALCULATOR_SETTINGS.categoryMultipliers, ...existingCalcSettings.categoryMultipliers };
-    writeStorage(STORAGE_KEYS.calculatorSettings, { ...existingCalcSettings, categoryMultipliers: updatedMultipliers });
   }
-
 };
 
 export const getCalculatorSettings = (): CalculatorSettings => {

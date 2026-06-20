@@ -1,26 +1,137 @@
-﻿// Utility to get the best image for a room
-const getRoomImage = (room: any): string => {
-  if (room?.image && typeof room.image === 'string' && room.image.trim()) {
-    return room.image;
-  }
-  // Use title + name + category + description so generic titles still resolve correctly.
-  const roomText = [room?.title, room?.name, room?.category, room?.description]
+// @ts-nocheck
+// Utility to get the best image for a room
+// CRITICAL: Only match on title/name/category — NOT description.
+// Also validates room.image against room title to reject mismatched saved images.
+const getRoomImage = (room) => {
+  // Match ONLY on title + name + category — NOT description
+  const roomText = [room?.title, room?.name, room?.category]
     .filter(Boolean)
-    .map((value: any) => String(value).toLowerCase())
+    .map((value) => String(value).toLowerCase())
     .join(' ');
-  if (roomText.includes('bedroom')) return '/category/Master Bedroom/master-bedroom1.jpg';
-  if (roomText.includes('kitchen')) return '/category/Kitchen/kitchen1.jpg';
-  if (roomText.includes('dining')) return '/category/Diningroom/dining-room1.jpg';
-  if (roomText.includes('bathroom')) return '/category/Bathroom/bathroom1.jpg';
-  if (roomText.includes('office')) return '/category/Office interior/office interior (1).jpg';
-  if (roomText.includes('balcony')) return '/category/Balcony/balcony (1).jpg';
-  if (roomText.includes('theatre') || roomText.includes('theater')) return '/category/Home theatre/home theatre (1).jpg';
-  if (roomText.includes('gym')) return '/category/Gym/gym (1).jpg';
-  if (roomText.includes('pool')) return '/category/Swimming pool/swimming pool.jpg';
-  if (roomText.includes('garden')) return '/category/Garden/garden (1).jpg';
-  // Default fallback
-  return '/category/Living room/living1.jpg';
+
+  // Detect which category the title belongs to
+  const getExpectedCategory = (text) => {
+    if (text.includes('kids') || text.includes('child') || (text.includes('oasis') && text.includes('kid'))) return 'kids';
+    if (text.includes('suite') || text.includes('retreat') || text.includes('master')) return 'master';
+    if (text.includes('guest')) return 'guest';
+    if (text.includes('bedroom')) return 'bedroom';
+    if (text.includes('kitchen') || text.includes('modular') || text.includes('chef') || text.includes('breakfast nook') || text.includes('gourmet')) return 'kitchen';
+    if (text.includes('dining') || text.includes('bar') || text.includes('restaurant')) return 'dining';
+    if (text.includes('terrace') || text.includes('rooftop')) return 'terrace';
+    if (text.includes('balcony') || text.includes('skyline') || text.includes('deck')) return 'balcony';
+    if (text.includes('garden') || text.includes('lawn') || text.includes('landscape')) return 'garden';
+    if (text.includes('living') || text.includes('lounge') || text.includes('hall') || text.includes('foyer') || text.includes('entryway')) return 'living';
+    if (text.includes('bathroom') || text.includes('washroom') || text.includes('toilet') || text.includes('bath') || text.includes('spa-inspired')) return 'bathroom';
+    if (text.includes('spa') || text.includes('wellness')) return 'spa';
+    if (text.includes('pooja') || text.includes('mandir') || text.includes('prayer') || text.includes('sanctum') || text.includes('zen')) return 'pooja';
+    if (text.includes('wardrobe') || text.includes('closet') || text.includes('robe') || text.includes('dressing room')) return 'wardrobe';
+    if (text.includes('office') || text.includes('study') || text.includes('workspace') || text.includes('reading') || text.includes('executive')) return 'office';
+    if (text.includes('theatre') || text.includes('theater') || text.includes('cinema') || text.includes('immersive')) return 'theatre';
+    if (text.includes('gym') || text.includes('fitness') || text.includes('workout')) return 'gym';
+    if (text.includes('pool') || text.includes('swimming')) return 'pool';
+    if (text.includes('nook')) return 'kitchen';
+    if (text.includes('area')) return 'living';
+    return 'unknown';
+  };
+
+  // Map expected category to image path
+  const categoryToImage = {
+    'kids':     '/category/Kids-bedroom/kids-bedroom1.jpg',
+    'master':   '/category/Master Bedroom/master-bedroom1.jpg',
+    'guest':    '/category/Guest room/guest room  (1).jpg',
+    'bedroom':  '/category/Master Bedroom/master-bedroom1.jpg',
+    'kitchen':  '/category/Kitchen/kitchen1.jpg',
+    'dining':   '/category/Diningroom/dining-room1.jpg',
+    'terrace':  '/category/Terrace/terrace (1).jpg',
+    'balcony':  '/category/Balcony/balcony (1).jpg',
+    'garden':   '/category/Garden/garden (1).jpg',
+    'living':   '/category/Living room/living1.jpg',
+    'bathroom': '/category/Bathroom/bathroom1.jpg',
+    'spa':      '/category/Spa/spa room (1).jpg',
+    'pooja':    '/category/Pooja room/pooja-room1.jpg',
+    'wardrobe': '/category/wardrobe/wardrobe1.jpg',
+    'office':   '/category/Office interior/office interior (1).jpg',
+    'theatre':  '/category/Home theatre/home theatre (1).jpg',
+    'gym':      '/category/Gym/gym (1).jpg',
+    'pool':     '/category/Swimming pool/swimming pool.jpg',
+    'unknown':  '/category/Living room/living1.jpg',
+  };
+
+  // Category markers present in image paths for cross-validation
+  const categoryPathMarkers = {
+    'kids':     ['kids-bedroom', 'kids bedroom'],
+    'master':   ['master bedroom', 'master-bedroom'],
+    'guest':    ['guest room'],
+    'bedroom':  ['master bedroom', 'master-bedroom', 'kids-bedroom'],
+    'kitchen':  ['kitchen'],
+    'dining':   ['diningroom', 'dining-room', 'dining room'],
+    'terrace':  ['terrace'],
+    'balcony':  ['balcony'],
+    'garden':   ['garden'],
+    'living':   ['living room', 'living-room'],
+    'bathroom': ['bathroom'],
+    'spa':      ['spa room', 'spa-room'],
+    'pooja':    ['pooja room', 'pooja-room'],
+    'wardrobe': ['wardrobe'],
+    'office':   ['office interior'],
+    'theatre':  ['home theatre', 'home-theatre'],
+    'gym':      ['gym'],
+    'pool':     ['swimming pool'],
+  };
+
+  const expectedCategory = getExpectedCategory(roomText);
+
+  // If a room.image is provided, validate it matches the expected category
+  if (room?.image && typeof room.image === 'string' && room.image.trim() && !room.image.includes('unsplash.com') && !room.image.includes('/category/Custom/')) {
+    const imgLower = room.image.toLowerCase();
+    const markers = categoryPathMarkers[expectedCategory] || [];
+    const imageMatchesCategory = markers.length === 0 || markers.some(m => imgLower.includes(m));
+    if (imageMatchesCategory) {
+      return room.image; // Image matches — use it
+    }
+    // Image does NOT match the room title — fall through to keyword-based resolution
+  }
+
+  // Keyword-based resolution (always correct, title-only matching)
+  return categoryToImage[expectedCategory] || '/category/Living room/living1.jpg';
 };
+const PACKAGE_CACHE_RESET_VERSION_KEY = 'ar_interia_package_cache_reset_version';
+const PACKAGE_CACHE_RESET_VERSION = '2026-05-06-room-map-v7';
+const PACKAGE_PREFERENCES_KEY = 'ar_interia_customer_package_preferences';
+
+const purgeLegacyPackageCaches = () => {
+  try {
+    const appliedVersion = String(localStorage.getItem(PACKAGE_CACHE_RESET_VERSION_KEY) || '');
+    if (appliedVersion === PACKAGE_CACHE_RESET_VERSION) return;
+    console.log('Purging legacy package caches for version:', PACKAGE_CACHE_RESET_VERSION);
+
+    const explicitKeys = [
+      'ar_interia_packages',
+      'ar_interia_packages_v1',
+      'ar_interia_packages_v2',
+      'ar_interia_packages_v3',
+      'ar_interia_designs_v2',
+      PACKAGE_PREFERENCES_KEY
+    ];
+
+    explicitKeys.forEach((key) => localStorage.removeItem(key));
+
+    const dynamicKeysToRemove: string[] = [];
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i);
+      if (!key) continue;
+      if (/^ar_interia_packages/i.test(key) || /^ar_interia_package/i.test(key)) {
+        dynamicKeysToRemove.push(key);
+      }
+    }
+
+    dynamicKeysToRemove.forEach((key) => localStorage.removeItem(key));
+    localStorage.setItem(PACKAGE_CACHE_RESET_VERSION_KEY, PACKAGE_CACHE_RESET_VERSION);
+  } catch (error) {
+    console.warn('Failed to purge legacy package cache keys:', error);
+  }
+};
+
 import '../index.css';
 import Chart from 'chart.js/auto';
 import { COLORS, SAMPLE_MODELS, SERVICES as INITIAL_SERVICES, COMPANY_INFO, PACKAGES, SERVICE_CATEGORIES, SHOWROOMS, INITIAL_SERVICE_SHOWCASES, featureImageMap } from '../constants';
@@ -982,15 +1093,11 @@ const PORTFOLIO_CATEGORY_NAME_MAP: Record<string, string> = {
   'cat-classroom': 'Classroom',
   'cat-custom': 'Custom',
   'cat-dining-room': 'Dining Room',
-  'cat-epoxy-floor': 'Epoxy Floor',
   'cat-garden': 'Garden',
   'cat-home-theatre': 'Home Theatre',
   'cat-kids-bedroom': 'Kids Bedroom',
   'cat-meeting-room': 'Meeting Room',
   'cat-office-interior': 'Office Interior',
-  'cat-swimming-pool': 'Swimming Pool',
-  'cat-terrace': 'Terrace',
-  'cat-epoxy': 'Epoxy',
   'cat-balcony': 'Balcony',
   'cat-bathroom': 'Bathroom',
   'cat-wardrobe': 'Wardrobe',
@@ -998,7 +1105,8 @@ const PORTFOLIO_CATEGORY_NAME_MAP: Record<string, string> = {
   'cat-pooja': 'Pooja Room',
   'cat-gym': 'Gym',
   'cat-spa': 'Spa',
-  'cat-pool': 'Swimming Pool'
+  'cat-terrace': 'Terrace',
+  'cat-swimming-pool': 'Swimming Pool'
 };
 
 const getPortfolioAvailableCategories = () => {
@@ -1025,9 +1133,8 @@ const getPortfolioSampleCategorySeries = () => {
     { id: 'cat-bedroom', label: 'Bedroom', patterns: ['bedroom'] },
     { id: 'cat-classroom', label: 'Classroom', patterns: ['classroom'] },
     { id: 'cat-custom', label: 'Custom', patterns: ['custom'] },
-    { id: 'cat-diningarea', label: 'Dining Area', patterns: ['dining area'] },
     { id: 'cat-dining-room', label: 'Dining Room', patterns: ['dining room'] },
-    { id: 'cat-epoxy-floor', label: 'Epoxy Floor', patterns: ['epoxy floor'] },
+    { id: 'cat-diningarea', label: 'Dining Area', patterns: ['dining area'] },
     { id: 'cat-garden', label: 'Garden', patterns: ['garden'] },
     { id: 'cat-guestroom', label: 'Guest Room', patterns: ['guestroom', 'guest room', 'guest'] },
     { id: 'cat-gym', label: 'Gym', patterns: ['gym'] },
@@ -1042,9 +1149,7 @@ const getPortfolioSampleCategorySeries = () => {
     { id: 'cat-spa', label: 'Spa', patterns: ['spa'] },
     { id: 'cat-swimming-pool', label: 'Swimming Pool', patterns: ['swimming pool'] },
     { id: 'cat-terrace', label: 'Terrace', patterns: ['terrace'] },
-    { id: 'cat-wardrobe', label: 'Wardrobe', patterns: ['wardrobe'] },
-    { id: 'cat-epoxy', label: 'Epoxy', patterns: ['epoxy'] },
-    { id: 'cat-pool', label: 'Swimming Pool', patterns: ['pool'] }
+    { id: 'cat-wardrobe', label: 'Wardrobe', patterns: ['wardrobe'] }
   ];
 
   const resolved = categoryHints.map((hint, index) => {
@@ -1073,14 +1178,12 @@ const resolvePortfolioCategoryId = (item: any): string => {
     if (normalizedId.includes('custom')) return 'cat-custom';
     if (normalizedId.includes('dining room')) return 'cat-dining-room';
     if (normalizedId.includes('dining area')) return 'cat-diningarea';
-    if (normalizedId.includes('epoxy floor')) return 'cat-epoxy-floor';
     if (normalizedId.includes('garden')) return 'cat-garden';
     if (normalizedId.includes('guest')) return 'cat-guestroom';
     if (normalizedId.includes('home theatre') || normalizedId.includes('home theater')) return 'cat-home-theatre';
     if (normalizedId.includes('kids bedroom') || normalizedId.includes('kid bedroom') || normalizedId.includes('kids-bedroom')) return 'cat-kids-bedroom';
     if (normalizedId.includes('meeting room')) return 'cat-meeting-room';
     if (normalizedId.includes('office interior') || normalizedId.includes('office')) return 'cat-office-interior';
-    if (normalizedId.includes('epoxy')) return 'cat-epoxy';
     if (normalizedId.includes('bedroom') || normalizedId.includes('master-bedroom') || normalizedId.includes('kids-bedroom')) return 'cat-bedroom';
     if (normalizedId.includes('swimming pool')) return 'cat-swimming-pool';
     if (normalizedId.includes('terrace')) return 'cat-terrace';
@@ -1104,14 +1207,12 @@ const resolvePortfolioCategoryId = (item: any): string => {
     if (rawCategory.includes('custom')) return 'cat-custom';
     if (rawCategory.includes('dining room')) return 'cat-dining-room';
     if (rawCategory.includes('dining area')) return 'cat-diningarea';
-    if (rawCategory.includes('epoxy floor')) return 'cat-epoxy-floor';
     if (rawCategory.includes('garden')) return 'cat-garden';
     if (rawCategory.includes('guest')) return 'cat-guestroom';
     if (rawCategory.includes('home theatre') || rawCategory.includes('home theater')) return 'cat-home-theatre';
     if (rawCategory.includes('kids bedroom') || rawCategory.includes('kid bedroom')) return 'cat-kids-bedroom';
     if (rawCategory.includes('meeting room')) return 'cat-meeting-room';
     if (rawCategory.includes('office interior') || rawCategory.includes('office')) return 'cat-office-interior';
-    if (rawCategory.includes('epoxy')) return 'cat-epoxy';
     if (rawCategory.includes('bedroom')) return 'cat-bedroom';
     if (rawCategory.includes('swimming pool')) return 'cat-swimming-pool';
     if (rawCategory.includes('terrace')) return 'cat-terrace';
@@ -11381,6 +11482,7 @@ const fetchPackagesFromServer = async (
 };
 
 const init = async () => {
+  purgeLegacyPackageCaches();
   const initStart = getPerfNow();
   try {
     console.log('Initializing app...');

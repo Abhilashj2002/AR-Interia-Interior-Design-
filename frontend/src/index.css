@@ -17,6 +17,18 @@
 body { background: #faf9f6; font-family: "Inter", sans-serif; }
 #root { min-height: 100vh; }
 
+.admin-masonry-item,
+.admin-customers-bottom,
+[data-admin-tool-slot] {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 720px;
+}
+
+.admin-booking-list,
+.admin-invoice-list {
+  contain: content;
+}
+
 /* Dark Mode Styles */
 body.dark-mode {
   color-scheme: dark;
@@ -338,6 +350,7 @@ model-viewer {
   position: relative;
   height: 100vh;
   z-index: 1;
+  overflow: hidden;
 }
 
 .spidey-main-slider {
@@ -347,28 +360,41 @@ model-viewer {
   background: var(--spidey-red);
 }
 
-.spidey-main-slider .swiper-slide {
+.spidey-main-slider .swiper-wrapper,
+.spidey-thumbs .swiper-wrapper {
   width: 100%;
+  height: 100%;
+}
+
+.spidey-main-slider .swiper-slide {
+  flex: 0 0 100%;
+  width: 100% !important;
   height: 100%;
   position: relative;
   background: transparent;
+  overflow: hidden;
 }
 
 .spidey-main-slider .swiper-slide img {
   position: absolute;
+  left: clamp(72px, 6.75vw, 128px);
+  right: auto;
   bottom: 0;
-  right: 22%;
-  height: 82vh;
+  width: min(72vw, 1240px);
+  height: min(84vh, 720px);
   object-fit: cover;
   border-radius: 32px 32px 0 0;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  z-index: 1;
 }
 
 .spidey-text {
   position: absolute;
-  left: 16%;
+  left: clamp(120px, 16vw, 280px);
   bottom: 28%;
   max-width: 360px;
+  z-index: 3;
+  pointer-events: none;
 }
 
 .spidey-text h2 {
@@ -438,9 +464,10 @@ model-viewer {
 
 .spidey-thumbs .swiper-slide {
   height: 100%;
-  width: 100%;
+  width: auto;
   position: relative;
   background: var(--spidey-blue);
+  overflow: hidden;
 }
 
 .spidey-thumbs .swiper-slide:nth-child(2) {
@@ -1024,7 +1051,8 @@ button span {
   }
 
   .spidey-main-slider .swiper-slide img {
-    right: 8%;
+    left: 5%;
+    width: 78vw;
   }
 }
 
@@ -1049,7 +1077,8 @@ button span {
 
   .spidey-main-slider .swiper-slide img {
     height: 60vh;
-    right: 4%;
+    left: 4%;
+    width: 82vw;
   }
 
   .spidey-thumbs {
@@ -1316,16 +1345,25 @@ button span {
 
   .spidey-main-slider .swiper-slide img {
     position: relative;
+    display: block;
+    left: auto;
     height: 46vh;
+    width: calc(100% - 48px);
     right: auto;
     margin: 0 24px;
   }
 
   .spidey-thumbs {
-    position: static;
-    width: 100%;
-    height: 140px;
-    margin: 0 24px 24px;
+    position: absolute;
+    right: 16px;
+    bottom: 88px;
+    width: min(46vw, 180px);
+    height: 92px;
+    margin: 0;
+    padding: 8px 8px 8px 0;
+    border-bottom: 0;
+    border-radius: 12px;
+    overflow: hidden;
   }
 
   .spidey-socials {

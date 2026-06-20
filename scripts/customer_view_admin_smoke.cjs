@@ -1,7 +1,7 @@
 const { chromium } = require('playwright');
 
 (async () => {
-  const base = process.env.E2E_BASE || 'http://localhost:5500';
+  const base = process.env.E2E_BASE || 'http://127.0.0.1:5500';
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ ignoreHTTPSErrors: true });
 

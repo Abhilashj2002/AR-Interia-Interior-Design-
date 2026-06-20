@@ -50,20 +50,38 @@ const loginAdmin = async () => {
   const smokeAdmin = await ensureSmokeAdmin();
   const attempts = [
     { username: smokeAdmin.username, password: smokeAdmin.password },
-    { username: 'admin', password: 'admin123' },
-    { email: 'admin', password: 'admin123' }
+    { username: 'admin', password: 'Admin@1234' },
+    { email: 'admin', password: 'Admin@1234' }
   ];
 
   for (const payload of attempts) {
-    const response = await fetch(`${BASE_URL}/auth/login`, {
+    const loginResponse = await fetch(`${BASE_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
 
-    const data = await response.json().catch(() => ({}));
-    if (response.ok && data?.token) {
-      return data.token;
+    const loginData = await loginResponse.json().catch(() => ({}));
+    
+    if (loginResponse.ok && loginData?.token) {
+      return loginData.token;
+    }
+    
+    // Handle 2FA requirement
+    if (loginResponse.ok && loginData?.twoFactorRequired && loginData?.challengeId && loginData?.debugCode) {
+      const verifyResponse = await fetch(`${BASE_URL}/auth/login/verify`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          challengeId: loginData.challengeId,
+          code: loginData.debugCode
+        })
+      });
+
+      const verifyData = await verifyResponse.json().catch(() => ({}));
+      if (verifyResponse.ok && verifyData?.token) {
+        return verifyData.token;
+      }
     }
   }
 

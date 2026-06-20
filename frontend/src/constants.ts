@@ -303,29 +303,29 @@ const villaFeaturesByTier: Record<string, string[]> = {
 
 // Feature to Image Mapping for displaying feature images in modals
 export const featureImageMap: Record<string, string> = {
-  'Modular Kitchen': 'https://images.unsplash.com/photo-1556911227-855230007fe4?auto=format&fit=crop&q=80&w=600',
-  'Designer Kitchen': 'https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&q=80&w=600',
-  'Gourmet Kitchen': 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&q=80&w=600',
-  'Chef Kitchen': 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=600',
-  'Wardrobes': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=600',
-  'Walk-in Wardrobes': 'https://images.unsplash.com/photo-1595428774223-efba35af62fa?auto=format&fit=crop&q=80&w=600',
-  'Living + Dining': 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=600',
-  'Grand Living': 'https://images.unsplash.com/photo-1493663214027-63d0fa24b991?auto=format&fit=crop&q=80&w=600',
-  'Double-height Living': 'https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&q=80&w=600',
-  'Balcony Design': 'https://images.unsplash.com/photo-1542268908-4629dddae91f?auto=format&fit=crop&q=80&w=600',
-  'Bathroom Vanity': 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&q=80&w=600',
-  'Spa Bathroom': 'https://images.unsplash.com/photo-1600566752355-397921139bf1?auto=format&fit=crop&q=80&w=600',
-  'Swimming Pool': 'https://images.unsplash.com/photo-1576013551627-0cf5d3829d30?auto=format&fit=crop&q=80&w=600',
-  'Home Theater': 'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&q=80&w=600',
-  'Home Gym': 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600',
-  'Home Office': 'https://images.unsplash.com/photo-1593642632505-c69ca3fbf5d7?auto=format&fit=crop&q=80&w=600',
-  'Master Suites': 'https://images.unsplash.com/photo-1505693415918-9f3f044a0911?auto=format&fit=crop&q=80&w=600',
-  'Pooja Room': 'https://images.unsplash.com/photo-1578500494198-246f612d03b3?auto=format&fit=crop&q=80&w=600',
-  'Terrace Garden': 'https://images.unsplash.com/photo-1565182999555-e1e99062d370?auto=format&fit=crop&q=80&w=600',
-  'Family Bedrooms': 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=600',
-  'Classroom': 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&q=80&w=600',
-  'Meeting Room': 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=600',
-  'Epoxy Floor': 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=600'
+  'Modular Kitchen': '/category/Kitchen/kitchen1.jpg',
+  'Designer Kitchen': '/category/Kitchen/kitchen2.jpg',
+  'Gourmet Kitchen': '/category/Kitchen/kitchen3.jpg',
+  'Chef Kitchen': '/category/Kitchen/kitchen4.jpg',
+  'Wardrobes': '/category/wardrobe/wardrobe1.jpg',
+  'Walk-in Wardrobes': '/category/wardrobe/wardrobe2.jpg',
+  'Living + Dining': '/category/Living room/living1.jpg',
+  'Grand Living': '/category/Living room/living2.jpg',
+  'Double-height Living': '/category/Living room/living3.jpg',
+  'Balcony Design': '/category/Balcony/balcony (1).jpg',
+  'Bathroom Vanity': '/category/Bathroom/bathroom1.jpg',
+  'Spa Bathroom': '/category/Bathroom/bathroom2.jpg',
+  'Swimming Pool': '/category/Swimming pool/swimming pool.jpg',
+  'Home Theater': '/category/Home theatre/home theatre (1).jpg',
+  'Home Gym': '/category/Gym/gym (1).jpg',
+  'Home Office': '/category/Office interior/office interior (1).jpg',
+  'Master Suites': '/category/Master Bedroom/master-bedroom1.jpg',
+  'Pooja Room': '/category/Pooja room/pooja-room1.jpg',
+  'Terrace Garden': '/category/Terrace/terrace (1).jpg',
+  'Family Bedrooms': '/category/Master Bedroom/master-bedroom2.jpg',
+  'Classroom': '/category/Classroom/classroom1.jpg',
+  'Meeting Room': '/category/Meeting room/meeting room (1).jpg',
+  'Epoxy Floor': '/category/Epoxy Floor/epoxy1.jpg'
 };
 
 export const PACKAGES = [
@@ -350,15 +350,11 @@ export const PACKAGES = [
     "bhk": 1,
     "rooms": [
       {
-        "id": "apartment-1bhk-essential-kitchen",
-        "title": "Modular Kitchen",
-        "image": "/category/Custom/custom_02.png",
+        "id": "apartment-1bhk-essential-kitchen", "title": "Modular Kitchen", "image": "/category/Custom/custom_03.png",
         "description": "Efficient modular kitchen with smart storage solutions and modern finishes."
       },
       {
-        "id": "apartment-1bhk-essential-bedroom",
-        "title": "Bedroom",
-        "image": "/category/Custom/custom_03.png",
+        "id": "apartment-1bhk-essential-bedroom", "title": "Bedroom", "image": "/category/Custom/custom_02.png",
         "description": "Comfortable bedroom with integrated wardrobe and calming aesthetics."
       },
       {
@@ -370,13 +366,13 @@ export const PACKAGES = [
       {
         "id": "apartment-1bhk-essential-bathroom",
         "title": "Bathroom",
-        "image": "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Modern bathroom with premium fixtures and elegant finishes."
       },
       {
         "id": "apartment-1bhk-essential-balcony",
         "title": "Balcony",
-        "image": "https://images.unsplash.com/photo-1542268908-4629dddae91f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor space with all-weather seating and urban views."
       }
     ]
@@ -404,31 +400,31 @@ export const PACKAGES = [
       {
         "id": "apartment-1bhk-luxury-kitchen",
         "title": "Designer Kitchen",
-        "image": "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Premium designer kitchen with high-end finishes and smart storage."
       },
       {
         "id": "apartment-1bhk-luxury-bedroom",
         "title": "Bedroom",
-        "image": "https://images.unsplash.com/photo-1617328442775-4c9b046c044b?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxurious bedroom with designer wallpaper and custom wardrobe."
       },
       {
         "id": "apartment-1bhk-luxury-living",
         "title": "Living Area",
-        "image": "https://images.unsplash.com/photo-1600248533312-b1a1f12a71e8?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant living space with premium materials and layered lighting."
       },
       {
         "id": "apartment-1bhk-luxury-bathroom",
         "title": "Spa Bathroom",
-        "image": "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury spa-inspired bathroom with rainfall shower and marble finishes."
       },
       {
         "id": "apartment-1bhk-luxury-balcony",
         "title": "Premium Balcony",
-        "image": "https://images.unsplash.com/photo-1542268908-4629dddae91f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Upscale outdoor retreat with premium furnishings and city views."
       }
     ]
@@ -456,7 +452,7 @@ export const PACKAGES = [
       {
         "id": "apartment-1bhk-ultimate-kitchen",
         "title": "Gourmet Kitchen",
-        "image": "https://images.unsplash.com/photo-1556911227-b67051e74e64?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "State-of-the-art gourmet kitchen with premium appliances and finishes."
       },
       {
@@ -468,19 +464,19 @@ export const PACKAGES = [
       {
         "id": "apartment-1bhk-ultimate-living",
         "title": "Living Area",
-        "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated living room with designer furniture and smart home integration."
       },
       {
         "id": "apartment-1bhk-ultimate-bathroom",
         "title": "Luxury Bathroom",
-        "image": "https://images.unsplash.com/photo-1617198042775-4c9b046c044b?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ultra-luxury bathroom with premium Italian marble and spa fixtures."
       },
       {
         "id": "apartment-1bhk-ultimate-balcony",
         "title": "Entertainment Balcony",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expansive outdoor entertainment space with premium furnishings and panoramic views."
       }
     ]
@@ -509,121 +505,121 @@ export const PACKAGES = [
       {
         "id": "villa-3bhk-essential-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "villa-3bhk-essential-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "villa-3bhk-essential-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "villa-3bhk-essential-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "villa-3bhk-essential-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "villa-3bhk-essential-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "villa-3bhk-essential-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "villa-3bhk-essential-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "villa-3bhk-essential-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "villa-3bhk-essential-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "villa-3bhk-essential-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "villa-3bhk-essential-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "villa-3bhk-essential-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "villa-3bhk-essential-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "villa-3bhk-essential-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "villa-3bhk-essential-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "villa-3bhk-essential-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "villa-3bhk-essential-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "villa-3bhk-essential-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "villa-3bhk-essential-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -644,7 +640,7 @@ export const PACKAGES = [
       "Fitness Studio"
     ],
     "description": "A luxury 4BHK Villa design solution with specialized modular planning for a premium lifestyle.",
-    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Villa",
     "bhk": 4,
@@ -652,121 +648,121 @@ export const PACKAGES = [
       {
         "id": "villa-4bhk-luxury-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "villa-4bhk-luxury-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "villa-4bhk-luxury-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "villa-4bhk-luxury-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "villa-4bhk-luxury-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "villa-4bhk-luxury-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "villa-4bhk-luxury-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "villa-4bhk-luxury-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "villa-4bhk-luxury-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "villa-4bhk-luxury-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "villa-4bhk-luxury-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "villa-4bhk-luxury-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "villa-4bhk-luxury-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "villa-4bhk-luxury-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "villa-4bhk-luxury-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "villa-4bhk-luxury-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "villa-4bhk-luxury-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "villa-4bhk-luxury-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "villa-4bhk-luxury-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "villa-4bhk-luxury-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -787,7 +783,7 @@ export const PACKAGES = [
       "Wellness Gym"
     ],
     "description": "An ultimate 5BHK Villa design solution with specialized automation and stone finishes for a premium lifestyle.",
-    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Villa",
     "bhk": 5,
@@ -795,121 +791,121 @@ export const PACKAGES = [
       {
         "id": "villa-5bhk-ultimate-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "villa-5bhk-ultimate-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "villa-5bhk-ultimate-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "villa-5bhk-ultimate-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "villa-5bhk-ultimate-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "villa-5bhk-ultimate-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "villa-5bhk-ultimate-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "villa-5bhk-ultimate-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "villa-5bhk-ultimate-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "villa-5bhk-ultimate-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "villa-5bhk-ultimate-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "villa-5bhk-ultimate-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "villa-5bhk-ultimate-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "villa-5bhk-ultimate-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "villa-5bhk-ultimate-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "villa-5bhk-ultimate-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "villa-5bhk-ultimate-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "villa-5bhk-ultimate-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "villa-5bhk-ultimate-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "villa-5bhk-ultimate-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1615876234839-c2a1fdf88106?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -929,7 +925,7 @@ export const PACKAGES = [
       "10 Year Warranty"
     ],
     "description": "A tailored 2BHK solution designed for maximum comfort and style.",
-    "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Apartment",
     "bhk": 2,
@@ -937,43 +933,43 @@ export const PACKAGES = [
       {
         "id": "apartment-2bhk-essential-kitchen",
         "title": "Modular Kitchen",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Efficient modular kitchen with smart storage solutions and modern finishes."
       },
       {
         "id": "apartment-2bhk-essential-bedroom-1",
         "title": "Master Bedroom",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious master bedroom with integrated wardrobe and calming aesthetics."
       },
       {
         "id": "apartment-2bhk-essential-bedroom-2",
         "title": "Second Bedroom",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Comfortable second bedroom perfect for children or guests."
       },
       {
         "id": "apartment-2bhk-essential-bathroom-1",
         "title": "Master Bathroom",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Modern attached bathroom with premium fixtures and elegant finishes."
       },
       {
         "id": "apartment-2bhk-essential-bathroom-2",
         "title": "Common Bathroom",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Well-designed common bathroom accessible from living areas."
       },
       {
         "id": "apartment-2bhk-essential-dining",
         "title": "Dining Room",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with space for family gatherings."
       },
       {
         "id": "apartment-2bhk-essential-balcony",
         "title": "Balcony",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor space with all-weather seating and urban views."
       }
     ]
@@ -993,7 +989,7 @@ export const PACKAGES = [
       "10 Year Warranty"
     ],
     "description": "An exquisite 2BHK design featuring premium materials and bespoke layouts.",
-    "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Apartment",
     "bhk": 2,
@@ -1001,43 +997,43 @@ export const PACKAGES = [
       {
         "id": "apartment-2bhk-luxury-kitchen",
         "title": "Designer Kitchen",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Premium designer kitchen with high-end finishes and smart storage."
       },
       {
         "id": "apartment-2bhk-luxury-bedroom-1",
         "title": "Master Bedroom",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxurious master bedroom with designer wallpaper and custom wardrobe."
       },
       {
         "id": "apartment-2bhk-luxury-bedroom-2",
         "title": "Second Bedroom",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant second bedroom with premium finishes and ample natural light."
       },
       {
         "id": "apartment-2bhk-luxury-bathroom-1",
         "title": "Master Spa Bathroom",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury spa-inspired attached bathroom with rainfall shower and marble finishes."
       },
       {
         "id": "apartment-2bhk-luxury-bathroom-2",
         "title": "Guest Bathroom",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated guest bathroom with premium fixtures and designer tiles."
       },
       {
         "id": "apartment-2bhk-luxury-dining",
         "title": "Dining Room",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Refined dining space with designer lighting and premium furnishings."
       },
       {
         "id": "apartment-2bhk-luxury-balcony",
         "title": "Premium Balcony",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Upscale outdoor retreat with premium furnishings and city views."
       }
     ]
@@ -1057,7 +1053,7 @@ export const PACKAGES = [
       "10 Year Warranty"
     ],
     "description": "The peak of luxury living in a 2BHK configuration, equipped with advanced automation.",
-    "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Apartment",
     "bhk": 2,
@@ -1065,43 +1061,43 @@ export const PACKAGES = [
       {
         "id": "apartment-2bhk-ultimate-kitchen",
         "title": "Gourmet Kitchen",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "State-of-the-art gourmet kitchen with premium appliances and finishes."
       },
       {
         "id": "apartment-2bhk-ultimate-bedroom-1",
         "title": "Master Bedroom Suite",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Opulent master bedroom with custom millwork and luxury textiles."
       },
       {
         "id": "apartment-2bhk-ultimate-bedroom-2",
         "title": "Second Bedroom Suite",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxurious second bedroom with premium finishes and designer accents."
       },
       {
         "id": "apartment-2bhk-ultimate-bathroom-1",
         "title": "Master Luxury Bathroom",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ultra-luxury attached bathroom with premium Italian marble and spa fixtures."
       },
       {
         "id": "apartment-2bhk-ultimate-bathroom-2",
         "title": "Guest Luxury Bathroom",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Exquisite guest bathroom with designer fixtures and premium materials."
       },
       {
         "id": "apartment-2bhk-ultimate-dining",
         "title": "Dining Room",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated dining space with bespoke table and statement lighting."
       },
       {
         "id": "apartment-2bhk-ultimate-balcony",
         "title": "Entertainment Balcony",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expansive outdoor entertainment space with premium furnishings and panoramic views."
       }
     ]
@@ -1122,7 +1118,7 @@ export const PACKAGES = [
       "Home Gym"
     ],
     "description": "A sprawling 2BHK estate plan blending elegance with everyday functionality.",
-    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Villa",
     "bhk": 2,
@@ -1130,121 +1126,121 @@ export const PACKAGES = [
       {
         "id": "villa-2bhk-essential-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "villa-2bhk-essential-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "villa-2bhk-essential-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "villa-2bhk-essential-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "villa-2bhk-essential-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "villa-2bhk-essential-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "villa-2bhk-essential-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "villa-2bhk-essential-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "villa-2bhk-essential-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "villa-2bhk-essential-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "villa-2bhk-essential-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "villa-2bhk-essential-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "villa-2bhk-essential-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "villa-2bhk-essential-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "villa-2bhk-essential-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "villa-2bhk-essential-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "villa-2bhk-essential-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "villa-2bhk-essential-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "villa-2bhk-essential-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "villa-2bhk-essential-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -1265,7 +1261,7 @@ export const PACKAGES = [
       "Fitness Studio"
     ],
     "description": "A luxury 2BHK Villa design solution with specialized modular planning for a premium lifestyle.",
-    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Villa",
     "bhk": 2,
@@ -1273,121 +1269,121 @@ export const PACKAGES = [
       {
         "id": "villa-2bhk-luxury-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "villa-2bhk-luxury-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "villa-2bhk-luxury-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "villa-2bhk-luxury-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "villa-2bhk-luxury-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "villa-2bhk-luxury-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "villa-2bhk-luxury-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "villa-2bhk-luxury-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "villa-2bhk-luxury-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "villa-2bhk-luxury-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "villa-2bhk-luxury-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "villa-2bhk-luxury-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "villa-2bhk-luxury-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "villa-2bhk-luxury-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "villa-2bhk-luxury-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "villa-2bhk-luxury-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "villa-2bhk-luxury-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "villa-2bhk-luxury-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "villa-2bhk-luxury-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "villa-2bhk-luxury-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -1408,7 +1404,7 @@ export const PACKAGES = [
       "Wellness Gym"
     ],
     "description": "A ultimate 2BHK Villa design solution with specialized automation and stone finishes for a premium lifestyle.",
-    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Villa",
     "bhk": 2,
@@ -1416,121 +1412,121 @@ export const PACKAGES = [
       {
         "id": "villa-2bhk-ultimate-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "villa-2bhk-ultimate-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "villa-2bhk-ultimate-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "villa-2bhk-ultimate-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "villa-2bhk-ultimate-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "villa-2bhk-ultimate-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "villa-2bhk-ultimate-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "villa-2bhk-ultimate-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "villa-2bhk-ultimate-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "villa-2bhk-ultimate-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "villa-2bhk-ultimate-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "villa-2bhk-ultimate-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "villa-2bhk-ultimate-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "villa-2bhk-ultimate-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "villa-2bhk-ultimate-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "villa-2bhk-ultimate-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "villa-2bhk-ultimate-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "villa-2bhk-ultimate-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "villa-2bhk-ultimate-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "villa-2bhk-ultimate-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -1551,7 +1547,7 @@ export const PACKAGES = [
       "10 Year Warranty"
     ],
     "description": "A tailored 3BHK solution designed for maximum comfort and style.",
-    "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Apartment",
     "bhk": 3,
@@ -1559,121 +1555,121 @@ export const PACKAGES = [
       {
         "id": "apartment-3bhk-essential-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "apartment-3bhk-essential-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "apartment-3bhk-essential-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "apartment-3bhk-essential-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "apartment-3bhk-essential-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "apartment-3bhk-essential-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "apartment-3bhk-essential-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "apartment-3bhk-essential-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "apartment-3bhk-essential-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "apartment-3bhk-essential-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "apartment-3bhk-essential-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "apartment-3bhk-essential-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "apartment-3bhk-essential-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "apartment-3bhk-essential-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "apartment-3bhk-essential-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "apartment-3bhk-essential-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "apartment-3bhk-essential-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "apartment-3bhk-essential-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "apartment-3bhk-essential-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "apartment-3bhk-essential-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -1694,7 +1690,7 @@ export const PACKAGES = [
       "Premium Materials"
     ],
     "description": "An exquisite 3BHK design featuring premium materials and bespoke layouts.",
-    "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Apartment",
     "bhk": 3,
@@ -1702,121 +1698,121 @@ export const PACKAGES = [
       {
         "id": "apartment-3bhk-luxury-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "apartment-3bhk-luxury-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "apartment-3bhk-luxury-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "apartment-3bhk-luxury-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "apartment-3bhk-luxury-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "apartment-3bhk-luxury-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "apartment-3bhk-luxury-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "apartment-3bhk-luxury-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "apartment-3bhk-luxury-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "apartment-3bhk-luxury-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "apartment-3bhk-luxury-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "apartment-3bhk-luxury-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "apartment-3bhk-luxury-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "apartment-3bhk-luxury-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "apartment-3bhk-luxury-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "apartment-3bhk-luxury-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "apartment-3bhk-luxury-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "apartment-3bhk-luxury-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "apartment-3bhk-luxury-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "apartment-3bhk-luxury-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -1837,7 +1833,7 @@ export const PACKAGES = [
       "Lifetime Structure Warranty"
     ],
     "description": "The peak of luxury living in a 3BHK configuration, equipped with advanced automation.",
-    "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Apartment",
     "bhk": 3,
@@ -1845,121 +1841,121 @@ export const PACKAGES = [
       {
         "id": "apartment-3bhk-ultimate-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "apartment-3bhk-ultimate-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "apartment-3bhk-ultimate-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "apartment-3bhk-ultimate-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "apartment-3bhk-ultimate-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "apartment-3bhk-ultimate-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "apartment-3bhk-ultimate-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "apartment-3bhk-ultimate-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "apartment-3bhk-ultimate-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "apartment-3bhk-ultimate-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "apartment-3bhk-ultimate-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "apartment-3bhk-ultimate-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "apartment-3bhk-ultimate-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "apartment-3bhk-ultimate-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "apartment-3bhk-ultimate-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "apartment-3bhk-ultimate-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "apartment-3bhk-ultimate-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "apartment-3bhk-ultimate-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "apartment-3bhk-ultimate-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "apartment-3bhk-ultimate-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -1980,7 +1976,7 @@ export const PACKAGES = [
       "Home Gym"
     ],
     "description": "A sprawling 3BHK estate plan blending elegance with everyday functionality.",
-    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Villa",
     "bhk": 3,
@@ -1988,121 +1984,121 @@ export const PACKAGES = [
       {
         "id": "villa-3bhk-essential-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "villa-3bhk-essential-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "villa-3bhk-essential-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "villa-3bhk-essential-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "villa-3bhk-essential-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "villa-3bhk-essential-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "villa-3bhk-essential-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "villa-3bhk-essential-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "villa-3bhk-essential-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "villa-3bhk-essential-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "villa-3bhk-essential-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "villa-3bhk-essential-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "villa-3bhk-essential-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "villa-3bhk-essential-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "villa-3bhk-essential-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "villa-3bhk-essential-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "villa-3bhk-essential-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "villa-3bhk-essential-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "villa-3bhk-essential-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "villa-3bhk-essential-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1484154218962-a1c002085d2f?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -2123,7 +2119,7 @@ export const PACKAGES = [
       "Fitness Studio"
     ],
     "description": "A luxury 3BHK Villa design solution with specialized modular planning for a premium lifestyle.",
-    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Villa",
     "bhk": 3,
@@ -2131,121 +2127,121 @@ export const PACKAGES = [
       {
         "id": "villa-3bhk-luxury-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "villa-3bhk-luxury-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "villa-3bhk-luxury-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "villa-3bhk-luxury-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "villa-3bhk-luxury-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "villa-3bhk-luxury-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "villa-3bhk-luxury-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "villa-3bhk-luxury-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "villa-3bhk-luxury-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "villa-3bhk-luxury-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "villa-3bhk-luxury-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "villa-3bhk-luxury-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "villa-3bhk-luxury-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "villa-3bhk-luxury-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "villa-3bhk-luxury-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "villa-3bhk-luxury-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "villa-3bhk-luxury-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "villa-3bhk-luxury-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "villa-3bhk-luxury-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "villa-3bhk-luxury-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1618219944342-824e40a13285?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -2266,7 +2262,7 @@ export const PACKAGES = [
       "Wellness Gym"
     ],
     "description": "A ultimate 3BHK Villa design solution with specialized automation and stone finishes for a premium lifestyle.",
-    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Villa",
     "bhk": 3,
@@ -2274,121 +2270,121 @@ export const PACKAGES = [
       {
         "id": "villa-3bhk-ultimate-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "villa-3bhk-ultimate-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "villa-3bhk-ultimate-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "villa-3bhk-ultimate-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "villa-3bhk-ultimate-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "villa-3bhk-ultimate-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "villa-3bhk-ultimate-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "villa-3bhk-ultimate-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "villa-3bhk-ultimate-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "villa-3bhk-ultimate-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "villa-3bhk-ultimate-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "villa-3bhk-ultimate-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "villa-3bhk-ultimate-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "villa-3bhk-ultimate-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "villa-3bhk-ultimate-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "villa-3bhk-ultimate-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "villa-3bhk-ultimate-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "villa-3bhk-ultimate-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "villa-3bhk-ultimate-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "villa-3bhk-ultimate-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -2409,7 +2405,7 @@ export const PACKAGES = [
       "10 Year Warranty"
     ],
     "description": "A tailored 4BHK solution designed for maximum comfort and style.",
-    "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Apartment",
     "bhk": 4,
@@ -2417,121 +2413,121 @@ export const PACKAGES = [
       {
         "id": "apartment-4bhk-essential-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "apartment-4bhk-essential-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "apartment-4bhk-essential-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "apartment-4bhk-essential-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "apartment-4bhk-essential-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "apartment-4bhk-essential-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "apartment-4bhk-essential-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "apartment-4bhk-essential-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "apartment-4bhk-essential-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "apartment-4bhk-essential-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "apartment-4bhk-essential-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "apartment-4bhk-essential-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "apartment-4bhk-essential-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "apartment-4bhk-essential-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "apartment-4bhk-essential-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "apartment-4bhk-essential-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "apartment-4bhk-essential-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "apartment-4bhk-essential-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "apartment-4bhk-essential-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "apartment-4bhk-essential-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -2552,7 +2548,7 @@ export const PACKAGES = [
       "Premium Materials"
     ],
     "description": "An exquisite 4BHK design featuring premium materials and bespoke layouts.",
-    "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Apartment",
     "bhk": 4,
@@ -2560,121 +2556,121 @@ export const PACKAGES = [
       {
         "id": "apartment-4bhk-luxury-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "apartment-4bhk-luxury-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "apartment-4bhk-luxury-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "apartment-4bhk-luxury-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "apartment-4bhk-luxury-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "apartment-4bhk-luxury-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "apartment-4bhk-luxury-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "apartment-4bhk-luxury-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "apartment-4bhk-luxury-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "apartment-4bhk-luxury-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "apartment-4bhk-luxury-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "apartment-4bhk-luxury-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "apartment-4bhk-luxury-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "apartment-4bhk-luxury-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "apartment-4bhk-luxury-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "apartment-4bhk-luxury-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "apartment-4bhk-luxury-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "apartment-4bhk-luxury-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "apartment-4bhk-luxury-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "apartment-4bhk-luxury-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -2695,7 +2691,7 @@ export const PACKAGES = [
       "Lifetime Structure Warranty"
     ],
     "description": "The peak of luxury living in a 4BHK configuration, equipped with advanced automation.",
-    "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Apartment",
     "bhk": 4,
@@ -2703,121 +2699,121 @@ export const PACKAGES = [
       {
         "id": "apartment-4bhk-ultimate-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "apartment-4bhk-ultimate-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "apartment-4bhk-ultimate-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "apartment-4bhk-ultimate-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "apartment-4bhk-ultimate-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "apartment-4bhk-ultimate-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "apartment-4bhk-ultimate-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "apartment-4bhk-ultimate-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "apartment-4bhk-ultimate-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "apartment-4bhk-ultimate-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "apartment-4bhk-ultimate-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "apartment-4bhk-ultimate-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "apartment-4bhk-ultimate-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "apartment-4bhk-ultimate-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "apartment-4bhk-ultimate-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "apartment-4bhk-ultimate-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "apartment-4bhk-ultimate-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "apartment-4bhk-ultimate-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "apartment-4bhk-ultimate-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "apartment-4bhk-ultimate-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -2838,7 +2834,7 @@ export const PACKAGES = [
       "Home Gym"
     ],
     "description": "A sprawling 4BHK estate plan blending elegance with everyday functionality.",
-    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Villa",
     "bhk": 4,
@@ -2846,121 +2842,121 @@ export const PACKAGES = [
       {
         "id": "villa-4bhk-essential-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "villa-4bhk-essential-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "villa-4bhk-essential-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "villa-4bhk-essential-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "villa-4bhk-essential-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "villa-4bhk-essential-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "villa-4bhk-essential-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "villa-4bhk-essential-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "villa-4bhk-essential-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "villa-4bhk-essential-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "villa-4bhk-essential-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "villa-4bhk-essential-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "villa-4bhk-essential-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "villa-4bhk-essential-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "villa-4bhk-essential-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "villa-4bhk-essential-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "villa-4bhk-essential-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "villa-4bhk-essential-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "villa-4bhk-essential-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "villa-4bhk-essential-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -2981,7 +2977,7 @@ export const PACKAGES = [
       "Fitness Studio"
     ],
     "description": "A luxury 4BHK Villa design solution with specialized modular planning for a premium lifestyle.",
-    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Villa",
     "bhk": 4,
@@ -2989,121 +2985,121 @@ export const PACKAGES = [
       {
         "id": "villa-4bhk-luxury-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "villa-4bhk-luxury-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "villa-4bhk-luxury-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "villa-4bhk-luxury-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "villa-4bhk-luxury-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "villa-4bhk-luxury-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "villa-4bhk-luxury-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "villa-4bhk-luxury-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "villa-4bhk-luxury-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "villa-4bhk-luxury-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "villa-4bhk-luxury-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "villa-4bhk-luxury-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "villa-4bhk-luxury-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "villa-4bhk-luxury-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "villa-4bhk-luxury-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "villa-4bhk-luxury-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "villa-4bhk-luxury-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "villa-4bhk-luxury-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "villa-4bhk-luxury-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "villa-4bhk-luxury-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]
@@ -3124,7 +3120,7 @@ export const PACKAGES = [
       "Wellness Gym"
     ],
     "description": "A ultimate 4BHK Villa design solution with specialized automation and stone finishes for a premium lifestyle.",
-    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800",
+    "image": "",
     "category": "Full Home",
     "type": "Villa",
     "bhk": 4,
@@ -3132,121 +3128,121 @@ export const PACKAGES = [
       {
         "id": "villa-4bhk-ultimate-design-1",
         "title": "Modular Kitchen Concept",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Linear kitchen layout with efficient prep and storage zones for modern living."
       },
       {
         "id": "villa-4bhk-ultimate-design-2",
         "title": "Master Suite Retreat",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Calm master bedroom with designer wallpaper and integrated wardrobe wall."
       },
       {
         "id": "villa-4bhk-ultimate-design-3",
         "title": "Luxe Living Area",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Open-plan living space featuring layered lighting and premium upholstery."
       },
       {
         "id": "villa-4bhk-ultimate-design-4",
         "title": "Grand Dining Hall",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Elegant dining area with bespoke table and signature pendant lighting."
       },
       {
         "id": "villa-4bhk-ultimate-design-5",
         "title": "Modern Kid's Oasis",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Safe, vibrant and functional space for growing children to play and learn."
       },
       {
         "id": "villa-4bhk-ultimate-design-6",
         "title": "Executive Home Office",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Ergonomic workspace with soundproofing and luxury desk setup."
       },
       {
         "id": "villa-4bhk-ultimate-design-7",
         "title": "Serene Guest Suite",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Welcoming room for visitors with boutique hotel-style finishes."
       },
       {
         "id": "villa-4bhk-ultimate-design-8",
         "title": "Zen Pooja Sanctum",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Indian cultural prayer space with carved stone and soft niche lighting."
       },
       {
         "id": "villa-4bhk-ultimate-design-9",
         "title": "Skyline Balcony Lounge",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Relaxing outdoor corner with all-weather seating and urban vistas."
       },
       {
         "id": "villa-4bhk-ultimate-design-10",
         "title": "Premium Closet Design",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Spacious wardrobe system with built-in sensors and premium wood finish."
       },
       {
         "id": "villa-4bhk-ultimate-design-11",
         "title": "Spa-Inspired Bathroom",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Luxury bath with rainfall shower and marble flooring for ultimate relaxation."
       },
       {
         "id": "villa-4bhk-ultimate-design-12",
         "title": "Immersive Home Cinema",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Dolby Atmos enabled screening room with raised seating and velvet drapes."
       },
       {
         "id": "villa-4bhk-ultimate-design-13",
         "title": "Professional Home Gym",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Aerobic and strength training zone with non-slip flooring and mirrors."
       },
       {
         "id": "villa-4bhk-ultimate-design-14",
         "title": "Lush Terrace Garden",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Penthouse rooftop garden with automatic irrigation and ambient lighting."
       },
       {
         "id": "villa-4bhk-ultimate-design-15",
         "title": "Chic Breakfast Nook",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Cozy morning corner integrated into the kitchen for casual dining."
       },
       {
         "id": "villa-4bhk-ultimate-design-16",
         "title": "Designer Walk-in Robe",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Expanding dressing room with custom shoe racks and accessory islands."
       },
       {
         "id": "villa-4bhk-ultimate-design-17",
         "title": "Gallery Foyer Design",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Stunning entryway with statement art and designer console table."
       },
       {
         "id": "villa-4bhk-ultimate-design-18",
         "title": "Bespoke Home Bar",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Sophisticated spirits corner with marble counter and back-lit shelving."
       },
       {
         "id": "villa-4bhk-ultimate-design-19",
         "title": "Reading & Study Nook",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Quiet library corner with custom shelving and ergonomic lounge chair."
       },
       {
         "id": "villa-4bhk-ultimate-design-20",
         "title": "Smart Home Node",
-        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=800",
+        "image": "",
         "description": "Centralized automation hub for lighting, security and climate control."
       }
     ]

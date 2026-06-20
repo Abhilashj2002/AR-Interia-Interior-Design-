@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Interia - Project Structure & Setup Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        h3 {
+            color: #7f8c8d;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .architecture-diagram {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .architecture-diagram pre {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #495057;
+        }
+        
+        .folder-structure {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .folder-structure pre {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .screenshot-item {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .screenshot-item h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            min-height: 200px;
+        }
+        
+        .screenshot-placeholder img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        
+        .env-block {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            color: #721c24;
+        }
+        
+        .info {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            color: #0c5460;
+        }
+        
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            color: #155724;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin: 5px 0;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .feature-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .feature-item h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+        }
+        
+        .toc a {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏠 AR Interia - Project Structure & Setup Guide</h1>
+        
+        <div class="toc">
+            <h3>📋 Table of Contents</h3>
+            <ul>
+                <li><a href="#overview">Project Overview</a></li>
+                <li><a href="#architecture">Architecture Overview</a></li>
+                <li><a href="#structure">Project Structure</a></li>
+                <li><a href="#frontend">Frontend Structure</a></li>
+                <li><a href="#backend">Backend Structure</a></li>
+                <li><a href="#database">Database Structure</a></li>
+                <li><a href="#api-keys">API Keys Configuration</a></li>
+                <li><a href="#screenshots">Project Screenshots</a></li>
+                <li><a href="#getting-started">Getting Started</a></li>
+                <li><a href="#api-endpoints">API Endpoints</a></li>
+            </ul>
+        </div>
+
+        <h2 id="overview">🏠 Project Overview</h2>
+        
+        <p>AR Interia is a comprehensive full-stack interior design platform that enables customers to browse room designs, book interior projects, manage their activities, handle invoices and payments, and provides administrators with a complete dashboard for managing the entire business.</p>
+        
+        <h3>Key Features</h3>
+        <div class="feature-list">
+            <div class="feature-item">
+                <h4>🌐 Public Website</h4>
+                <p>Landing page, gallery, services, portfolio showcase</p>
+            </div>
+            <div class="feature-item">
+                <h4>👤 Customer Portal</h4>
+                <p>Login, dashboard, bookings, feedback, invoices, payments</p>
+            </div>
+            <div class="feature-item">
+                <h4>⚙️ Admin Dashboard</h4>
+                <p>Complete management of bookings, customers, invoices, payments</p>
+            </div>
+            <div class="feature-item">
+                <h4>🎨 Design Tools</h4>
+                <p>Price calculator, design studio, luxury showroom</p>
+            </div>
+            <div class="feature-item">
+                <h4>💬 Communication</h4>
+                <p>Integrated chatbot for customer support</p>
+            </div>
+            <div class="feature-item">
+                <h4>💳 Payment Integration</h4>
+                <p>Razorpay and PhonePe support</p>
+            </div>
+            <div class="feature-item">
+                <h4>🗄️ Database</h4>
+                <p>SQLite for local development and easy deployment</p>
+            </div>
+        </div>
+
+        <h2 id="architecture">🏗️ Architecture Overview</h2>
+        
+        <div class="architecture-diagram">
+            <pre>
+┌─────────────────────────────────────────────────────────────┐
+│                        Browser (User)                        │
+└────────────────────────┬────────────────────────────────────┘
+                         │ HTTP: http://127.0.0.1:5500
+                         ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Frontend (Vite + React)                  │
+│  - Public Pages (Home, Gallery, Services, Portfolio)        │
+│  - Customer Dashboard (Bookings, Invoices, Profile)         │
+│  - Admin Dashboard (Management, Analytics, Settings)        │
+│  - Design Tools (Price Calculator, Design Studio)            │
+└────────────────────────┬────────────────────────────────────┘
+                         │ API Requests: http://localhost:5175/api
+                         ▼
+┌─────────────────────────────────────────────────────────────┐
+│                  Backend (Node.js + Express)                 │
+│  - Authentication (JWT)                                      │
+│  - API Routes (Bookings, Payments, Invoices, Admin)          │
+│  - Business Logic (Pricing, Availability, Validation)        │
+│  - Payment Integration (Razorpay, PhonePe)                   │
+│  - Email Services (Nodemailer)                              │
+└────────────────────────┬────────────────────────────────────┘
+                         │ SQL Queries
+                         ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Database (SQLite)                         │
+│  - Users (Customers, Admins)                                 │
+│  - Bookings & Orders                                         │
+│  - Packages & Services                                      │
+│  - Invoices & Payments                                      │
+│  - Categories & Gallery Items                               │
+└─────────────────────────────────────────────────────────────┘
+            </pre>
+        </div>
+
+        <h2 id="structure">📁 Project Structure</h2>
+        
+        <h3>Root Directory</h3>
+        <div class="folder-structure">
+            <pre>
+arfinal/
+├── backend/              # Backend module wrappers and API
+├── frontend/             # Frontend application
+├── server/               # Express server, database logic, routes
+├── public/               # Static assets (images, uploads, videos)
+├── scripts/              # Utility scripts, migrations, tests
+├── index.html            # Vite HTML entry point
+├── main.ts               # Main frontend runtime
+├── package.json          # Dependencies and scripts
+├── .env.example          # Environment variables template
+└── README.md             # Project documentation
+            </pre>
+        </div>
+
+        <h2 id="frontend">🎨 Frontend Structure</h2>
+        
+        <h3>Location: frontend/src/</h3>
+        <div class="folder-structure">
+            <pre>
+frontend/src/
+├── app/                  # Application entry points and runtime
+│   ├── backend_module.runtime.ts
+│   ├── frontend_module.runtime.ts
+│   └── main.runtime.ts
+├── components/           # Reusable UI components
+├── features/            # Feature-specific modules
+│   ├── admin/           # Admin authentication and management
+│   ├── admin-dashboard/  # Main admin dashboard
+│   ├── auth/            # Authentication (login, register)
+│   ├── booking/         # Booking flow and management
+│   ├── categories/      # Service categories
+│   ├── chatbot/         # AI chatbot interface
+│   ├── contact/         # Contact form and pages
+│   ├── customer-dashboard/  # Customer portal
+│   ├── design-studio/   # 3D design studio
+│   ├── gallery/         # Image gallery
+│   ├── homepage/        # Landing page
+│   ├── luxury-showroom/ # Premium showcase
+│   ├── packages/        # Service packages
+│   ├── payments/        # Payment processing
+│   ├── portfolio/       # Portfolio showcase
+│   ├── price-calculator/ # Pricing calculator
+│   ├── services/        # Services pages
+│   └── shared/          # Shared utilities
+├── homepage/            # Homepage specific components
+├── services/            # Service-related logic
+├── styles/              # Global styles and themes
+├── types.ts             # TypeScript type definitions
+└── constants.ts         # Application constants
+            </pre>
+        </div>
+
+        <h3>Frontend Technologies</h3>
+        <ul>
+            <li><strong>Framework</strong>: Vite (build tool), TypeScript</li>
+            <li><strong>Styling</strong>: Tailwind CSS</li>
+            <li><strong>3D Graphics</strong>: Three.js</li>
+            <li><strong>Charts</strong>: Chart.js</li>
+            <li><strong>HTTP Client</strong>: Axios</li>
+            <li><strong>State Management</strong>: React hooks and context</li>
+        </ul>
+
+        <h2 id="backend">🔧 Backend Structure</h2>
+        
+        <h3>Location: backend/src/ and server/</h3>
+        <div class="folder-structure">
+            <pre>
+backend/src/
+├── api/                 # API entry points
+│   └── server.js        # Main Express server
+├── db/                  # Database repositories
+│   └── repositories/    # Data access layer
+│       ├── bookingsRepository.js
+│       └── ...
+└── modules/             # Business logic modules
+    ├── admin/           # Admin operations
+    ├── admin-dashboard/ # Dashboard logic
+    ├── bookings/        # Booking management
+    ├── categories/      # Category management
+    ├── chatbot/         # Chatbot AI integration
+    ├── customer-dashboard/ # Customer operations
+    ├── design-studio/   # Design studio logic
+    ├── gallery/         # Gallery management
+    ├── homepage/        # Homepage content
+    ├── invoices/        # Invoice generation
+    ├── luxury-showroom/ # Showroom logic
+    ├── packages/        # Package management
+    ├── payments/        # Payment processing
+    ├── portfolio/       # Portfolio management
+    ├── price-calculator/ # Pricing logic
+    └── services/        # Service management
+
+server/
+├── index.js             # Main server configuration
+├── database.js          # Database connection setup
+├── db.js                # Database schema and operations
+├── invoices.js          # Invoice generation logic
+├── razorpay.js          # Razorpay integration
+├── routes/              # API route handlers
+│   ├── invoices.js      # Invoice endpoints
+│   ├── packages.js      # Package endpoints
+│   └── smartGenerate.js # AI generation endpoints
+├── seed-*.js            # Database seeding scripts
+└── middleware/          # Express middleware
+            </pre>
+        </div>
+
+        <h3>Backend Technologies</h3>
+        <ul>
+            <li><strong>Runtime</strong>: Node.js (>=22.0.0)</li>
+            <li><strong>Framework</strong>: Express.js</li>
+            <li><strong>Database</strong>: SQLite3</li>
+            <li><strong>Authentication</strong>: JWT (JSON Web Tokens)</li>
+            <li><strong>Security</strong>: bcryptjs for password hashing</li>
+            <li><strong>Email</strong>: Nodemailer</li>
+            <li><strong>PDF Generation</strong>: PDFKit, jsPDF</li>
+            <li><strong>File Upload</strong>: Multer</li>
+            <li><strong>Automation</strong>: Puppeteer for screenshots</li>
+        </ul>
+
+        <h2 id="database">🗄️ Database Structure</h2>
+        
+        <div class="info">
+            <strong>Database:</strong> SQLite | <strong>Location:</strong> server/ar_interia.db | <strong>Type:</strong> SQLite3 (file-based)
+        </div>
+
+        <h3>Main Tables</h3>
+        
+        <h4>Users Table</h4>
+        <div class="code-block">
+            <pre>
+- id (PRIMARY KEY)
+- email (UNIQUE)
+- password_hash
+- role (admin/customer)
+- name
+- phone
+- created_at
+- updated_at
+            </pre>
+        </div>
+
+        <h4>Bookings Table</h4>
+        <div class="code-block">
+            <pre>
+- id (PRIMARY KEY)
+- user_id (FOREIGN KEY)
+- package_id (FOREIGN KEY)
+- status (pending/confirmed/completed/cancelled)
+- total_amount
+- booking_date
+- created_at
+- updated_at
+            </pre>
+        </div>
+
+        <h4>Packages Table</h4>
+        <div class="code-block">
+            <pre>
+- id (PRIMARY KEY)
+- name
+- category
+- price
+- description
+- image_url
+- features (JSON)
+- is_active
+            </pre>
+        </div>
+
+        <h4>Invoices Table</h4>
+        <div class="code-block">
+            <pre>
+- id (PRIMARY KEY)
+- booking_id (FOREIGN KEY)
+- invoice_number (UNIQUE)
+- amount
+- status (pending/paid/overdue)
+- due_date
+- pdf_url
+- created_at
+            </pre>
+        </div>
+
+        <h4>Payments Table</h4>
+        <div class="code-block">
+            <pre>
+- id (PRIMARY KEY)
+- invoice_id (FOREIGN KEY)
+- amount
+- payment_method (razorpay/phonepe)
+- transaction_id
+- status (success/failed/pending)
+- created_at
+            </pre>
+        </div>
+
+        <h2 id="api-keys">🔑 API Keys Configuration</h2>
+        
+        <div class="warning">
+            <strong>⚠️ Security Warning:</strong> API keys and sensitive configuration should be added to environment variables. <strong>Never commit real API keys to the repository.</strong>
+        </div>
+
+        <h3>Step 1: Create Environment File</h3>
+        
+        <p>Copy the example environment file:</p>
+        
+        <h4>Windows PowerShell:</h4>
+        <div class="code-block">
+            <pre>Copy-Item .env.example .env.local</pre>
+        </div>
+
+        <h4>macOS/Linux:</h4>
+        <div class="code-block">
+            <pre>cp .env.example .env.local</pre>
+        </div>
+
+        <h3>Step 2: Add Your API Keys</h3>
+        
+        <p>Edit <code>.env.local</code> and add your actual API keys:</p>
+        
+        <div class="env-block">
+            <pre>
+# Runtime Configuration
+NODE_ENV=development
+PAYMENT_SERVER_PORT=5175
+JWT_SECRET=your-super-secret-jwt-key-min-32-chars
+
+# AI Provider Keys (Optional)
+PRO_ENGINE_KEY=your-pro-engine-api-key
+GEMINI_API_KEY=your-gemini-api-key
+
+# Razorpay Payment Keys (Required for Razorpay)
+RAZORPAY_KEY_ID=your-razorpay-key-id
+RAZORPAY_KEY_SECRET=your-razorpay-key-secret
+
+# PhonePe Payment Keys (Required for PhonePe)
+PHONEPE_MERCHANT_ID=your-phonepe-merchant-id
+PHONEPE_SALT_KEY=your-phonepe-salt-key
+PHONEPE_SALT_INDEX=1
+PHONEPE_ENV=UAT
+PAYMENT_REDIRECT_BASE=http://127.0.0.1:5500/dashboard
+PAYMENT_CALLBACK_BASE=http://localhost:5175/api/payments/phonepe/callback
+
+# Email Configuration (Required for email features)
+EMAIL_ENABLED=true
+EMAIL_SERVICE=gmail
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASSWORD=your-gmail-app-password
+            </pre>
+        </div>
+
+        <h3>API Key Usage</h3>
+        
+        <h4>1. JWT Secret</h4>
+        <ul>
+            <li><strong>Purpose</strong>: Secure authentication tokens</li>
+            <li><strong>Usage</strong>: User login sessions and API authentication</li>
+            <li><strong>Security</strong>: Use a strong, random string (minimum 32 characters)</li>
+            <li><strong>Example</strong>: <code>JWT_SECRET=abc123xyz789def456ghi789jkl012mno345pqr678stu901vwx</code></li>
+        </ul>
+
+        <h4>2. AI Provider Keys</h4>
+        <ul>
+            <li><strong>Pro Engine Key</strong>: AI-powered design suggestions and chatbot</li>
+            <li><strong>Gemini API Key</strong>: Alternative AI provider for chatbot and features</li>
+            <li><strong>Usage</strong>: Called from backend AI integration modules</li>
+            <li><strong>Optional</strong>: Only required if AI features are enabled</li>
+        </ul>
+
+        <h4>3. Razorpay Keys</h4>
+        <ul>
+            <li><strong>Key ID</strong>: Public key for frontend payment integration</li>
+            <li><strong>Key Secret</strong>: Private key for backend payment verification</li>
+            <li><strong>Usage</strong>: Payment processing and webhook verification</li>
+            <li><strong>Environment</strong>: Use test keys for development, production keys for live</li>
+        </ul>
+
+        <h4>4. PhonePe Keys</h4>
+        <ul>
+            <li><strong>Merchant ID</strong>: Your PhonePe merchant identifier</li>
+            <li><strong>Salt Key</strong>: Secret key for payment verification</li>
+            <li><strong>Salt Index</strong>: Key version (usually 1)</li>
+            <li><strong>Usage</strong>: UAT (User Acceptance Testing) for development, PROD for live</li>
+        </ul>
+
+        <h4>5. Email Configuration</h4>
+        <ul>
+            <li><strong>Email Service</strong>: SMTP provider (gmail, outlook, etc.)</li>
+            <li><strong>Email User</strong>: Your email address</li>
+            <li><strong>Email Password</strong>: App-specific password (not regular password)</li>
+            <li><strong>Usage</strong>: Sending invoices, notifications, verification emails</li>
+        </ul>
+
+        <div class="warning">
+            <strong>⚠️ Frontend-Safe Variables:</strong> For variables that need to be exposed to the frontend, use the <code>VITE_</code> prefix. Only add public or non-sensitive keys to <code>VITE_</code> variables as these are exposed in the browser.
+        </div>
+
+        <h2 id="screenshots">📸 Project Screenshots</h2>
+        
+        <div class="screenshot-grid">
+            <div class="screenshot-item">
+                <h4>Homepage</h4>
+                <div class="screenshot-placeholder">
+                    <img src="screenshots/homepage.png" alt="Homepage" onerror="this.style.display='none'; this.parentElement.innerHTML='📸 Screenshot not yet added<br><small>Add: screenshots/homepage.png</small>'">
+                </div>
+                <p>The landing page featuring hero section, featured designs, and service highlights.</p>
+            </div>
+
+            <div class="screenshot-item">
+                <h4>Chatbot</h4>
+                <div class="screenshot-placeholder">
+                    <img src="screenshots/chatbot.png" alt="Chatbot" onerror="this.style.display='none'; this.parentElement.innerHTML='📸 Screenshot not yet added<br><small>Add: screenshots/chatbot.png</small>'">
+                </div>
+                <p>AI-powered chatbot for customer support and design assistance.</p>
+            </div>
+
+            <div class="screenshot-item">
+                <h4>Services Page</h4>
+                <div class="screenshot-placeholder">
+                    <img src="screenshots/services.png" alt="Services" onerror="this.style.display='none'; this.parentElement.innerHTML='📸 Screenshot not yet added<br><small>Add: screenshots/services.png</small>'">
+                </div>
+                <p>Detailed services page showcasing interior design offerings.</p>
+            </div>
+
+            <div class="screenshot-item">
+                <h4>Admin Dashboard</h4>
+                <div class="screenshot-placeholder">
+                    <img src="screenshots/admin-dashboard.png" alt="Admin Dashboard" onerror="this.style.display='none'; this.parentElement.innerHTML='📸 Screenshot not yet added<br><small>Add: screenshots/admin-dashboard.png</small>'">
+                </div>
+                <p>Comprehensive admin dashboard for managing all business operations.</p>
+            </div>
+
+            <div class="screenshot-item">
+                <h4>Customer Dashboard</h4>
+                <div class="screenshot-placeholder">
+                    <img src="screenshots/customer-dashboard.png" alt="Customer Dashboard" onerror="this.style.display='none'; this.parentElement.innerHTML='📸 Screenshot not yet added<br><small>Add: screenshots/customer-dashboard.png</small>'">
+                </div>
+                <p>Customer portal for managing bookings, invoices, and profile.</p>
+            </div>
+
+            <div class="screenshot-item">
+                <h4>Invoice Page</h4>
+                <div class="screenshot-placeholder">
+                    <img src="screenshots/invoice.png" alt="Invoice" onerror="this.style.display='none'; this.parentElement.innerHTML='📸 Screenshot not yet added<br><small>Add: screenshots/invoice.png</small>'">
+                </div>
+                <p>Professional invoice generation and management interface.</p>
+            </div>
+
+            <div class="screenshot-item">
+                <h4>Portfolio Page</h4>
+                <div class="screenshot-placeholder">
+                    <img src="screenshots/portfolio.png" alt="Portfolio" onerror="this.style.display='none'; this.parentElement.innerHTML='📸 Screenshot not yet added<br><small>Add: screenshots/portfolio.png</small>'">
+                </div>
+                <p>Portfolio showcase featuring completed interior design projects.</p>
+            </div>
+
+            <div class="screenshot-item">
+                <h4>Gallery Page</h4>
+                <div class="screenshot-placeholder">
+                    <img src="screenshots/gallery.png" alt="Gallery" onerror="this.style.display='none'; this.parentElement.innerHTML='📸 Screenshot not yet added<br><small>Add: screenshots/gallery.png</small>'">
+                </div>
+                <p>Filterable image gallery organized by categories and styles.</p>
+            </div>
+        </div>
+
+        <div class="info">
+            <strong>📝 Note:</strong> To add screenshots, create a <code>screenshots/</code> directory in the project root and add images with the filenames specified above. Screenshots should be in PNG or JPG format and recommended size is 1200x800 pixels.
+        </div>
+
+        <h2 id="getting-started">🚀 Getting Started</h2>
+        
+        <h3>Prerequisites</h3>
+        <ul>
+            <li>Node.js >= 22.0.0</li>
+            <li>npm or yarn</li>
+            <li>Git</li>
+        </ul>
+
+        <h3>Installation</h3>
+        
+        <h4>1. Clone the repository</h4>
+        <div class="code-block">
+            <pre>
+git clone &lt;repository-url&gt;
+cd arfinal
+            </pre>
+        </div>
+
+        <h4>2. Install dependencies</h4>
+        <div class="code-block">
+            <pre>npm install</pre>
+        </div>
+
+        <h4>3. Set up environment variables</h4>
+        <div class="code-block">
+            <pre>
+cp .env.example .env.local
+# Edit .env.local with your API keys
+            </pre>
+        </div>
+
+        <h4>4. Start the development server</h4>
+        <div class="code-block">
+            <pre>npm run start</pre>
+        </div>
+
+        <h4>5. Open in browser</h4>
+        <div class="code-block">
+            <pre>http://127.0.0.1:5500</pre>
+        </div>
+
+        <h3>Available Scripts</h3>
+        <div class="code-block">
+            <pre>
+npm run start          # Start frontend + backend + database
+npm run dev            # Frontend only
+npm run dev:server     # Backend only
+npm run build          # Production build
+npm run start:prod     # Build and run production server
+npm run test:e2e       # End-to-end tests
+npm run seed:invoices  # Seed sample invoices
+            </pre>
+        </div>
+
+        <h2 id="api-endpoints">📊 API Endpoints</h2>
+        
+        <h3>Authentication</h3>
+        <ul>
+            <li><code>POST /api/auth/login</code> - User login</li>
+            <li><code>POST /api/auth/register</code> - User registration</li>
+            <li><code>POST /api/auth/verify</code> - Email verification</li>
+        </ul>
+
+        <h3>Bookings</h3>
+        <ul>
+            <li><code>GET /api/bookings</code> - Get user bookings</li>
+            <li><code>POST /api/bookings</code> - Create new booking</li>
+            <li><code>PUT /api/bookings/:id</code> - Update booking</li>
+            <li><code>DELETE /api/bookings/:id</code> - Cancel booking</li>
+        </ul>
+
+        <h3>Packages</h3>
+        <ul>
+            <li><code>GET /api/packages</code> - Get all packages</li>
+            <li><code>GET /api/packages/:id</code> - Get specific package</li>
+            <li><code>POST /api/packages</code> - Create package (admin)</li>
+        </ul>
+
+        <h3>Invoices</h3>
+        <ul>
+            <li><code>GET /api/invoices</code> - Get user invoices</li>
+            <li><code>GET /api/invoices/:id</code> - Get specific invoice</li>
+            <li><code>POST /api/invoices/generate</code> - Generate invoice</li>
+        </ul>
+
+        <h3>Payments</h3>
+        <ul>
+            <li><code>POST /api/payments/razorpay/create</code> - Create Razorpay order</li>
+            <li><code>POST /api/payments/phonepe/create</code> - Create PhonePe order</li>
+            <li><code>POST /api/payments/callback</code> - Payment callback handler</li>
+        </ul>
+
+        <h3>Admin</h3>
+        <ul>
+            <li><code>GET /api/admin/dashboard</code> - Dashboard statistics</li>
+            <li><code>GET /api/admin/users</code> - Manage users</li>
+            <li><code>GET /api/admin/bookings</code> - Manage all bookings</li>
+            <li><code>GET /api/admin/analytics</code> - Business analytics</li>
+        </ul>
+
+        <div class="success">
+            <strong>✅ Project Status:</strong> Production Ready | <strong>Version:</strong> 1.0.0 | <strong>Last Updated:</strong> June 20, 2026
+        </div>
+    </div>
+</body>
+</html>

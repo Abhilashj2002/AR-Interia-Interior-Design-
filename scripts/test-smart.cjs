@@ -1,7 +1,10 @@
 const https = require('https');
 const fs = require('fs');
 
-const PRO_ENGINE_KEY = 'REDACTED_API_KEY';
+const PRO_ENGINE_KEY = process.env.PRO_ENGINE_KEY;
+if (!PRO_ENGINE_KEY) {
+    throw new Error('Missing PRO_ENGINE_KEY environment variable.');
+}
 const imgPath = 'd:/AR_INTERIA1_copy/public/category/Bathroom/bathroom1.jpg';
 
 const imageBytes = fs.readFileSync(imgPath);

@@ -1,25 +1,166 @@
-// Utility to get the best image for a room
-const getRoomImage = (room: any): string => {
-  if (room?.image && typeof room.image === 'string' && room.image.trim()) {
-    return room.image;
+const renderAdminPaymentHistoryModal = () => {
+  const modal = (state.admin as any).paymentHistoryModal;
+  if (!modal || !modal.customerId) return '';
+  const customer = state.users.find((u) => u.id === modal.customerId);
+  if (!customer) return '';
+  if (modal.loading) {
+    return `
+      <div class="fixed inset-0 z-[120] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" data-action="close-admin-payment-history">
+        <div class="bg-white rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl animate-fade-in-up" data-action="ignore">
+          <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+            <h3 class="text-lg font-bold text-[color:var(--primary)]">Payment History</h3>
+            <button data-action="close-admin-payment-history" class="text-slate-400 hover:text-slate-600">✕</button>
+          </div>
+          <div class="p-6 text-center text-slate-500">Loading payment history...</div>
+        </div>
+      </div>
+    `;
   }
-  // Use title + name + category + description so generic titles still resolve correctly.
-  const roomText = [room?.title, room?.name, room?.category, room?.description]
+  const payments = modal.payments || [];
+  if (payments.length === 0) {
+    return `
+      <div class="fixed inset-0 z-[120] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" data-action="close-admin-payment-history">
+        <div class="bg-white rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl animate-fade-in-up" data-action="ignore">
+          <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+            <h3 class="text-lg font-bold text-[color:var(--primary)]">Payment History</h3>
+            <button data-action="close-admin-payment-history" class="text-slate-400 hover:text-slate-600">✕</button>
+          </div>
+          <div class="p-6 text-center text-slate-500">No payments found for this customer.</div>
+        </div>
+      </div>
+    `;
+  }
+  return `
+    <div class="fixed inset-0 z-[120] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" data-action="close-admin-payment-history">
+      <div class="bg-white rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl animate-fade-in-up" data-action="ignore">
+        <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+          <h3 class="text-lg font-bold text-[color:var(--primary)]">Payment History</h3>
+          <button data-action="close-admin-payment-history" class="text-slate-400 hover:text-slate-600">✕</button>
+        </div>
+        <div class="p-6">
+          <div class="mb-4 text-base font-semibold text-[color:var(--primary)]">${escapeHtml(customer.name || customer.email || customer.id)}</div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-xs border border-slate-200 rounded-xl">
+              <thead class="bg-slate-50">
+                <tr>
+                  <th class="px-3 py-2 text-left">Payment ID</th>
+                  <th class="px-3 py-2 text-left">Amount</th>
+                  <th class="px-3 py-2 text-left">Status</th>
+                  <th class="px-3 py-2 text-left">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${payments.map((p: any) => `
+                  <tr>
+                    <td class="px-3 py-2">${escapeHtml(p.id || '')}</td>
+                    <td class="px-3 py-2">${formatCurrency(Number(p.amount || 0))}</td>
+                    <td class="px-3 py-2">${escapeHtml(p.status || '')}</td>
+                    <td class="px-3 py-2">${new Date(p.createdAt || p.date || Date.now()).toLocaleString()}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+};
+// Utility to get the best image for a room
+// CRITICAL: Only match on title/name/category — NOT description.
+// Also validates room.image against room title to reject mismatched saved images.
+const getRoomImage = (room) => {
+  // Match ONLY on title + name + category — NOT description
+  const roomText = [room?.title, room?.name, room?.category]
     .filter(Boolean)
-    .map((value: any) => String(value).toLowerCase())
+    .map((value) => String(value).toLowerCase())
     .join(' ');
-  if (roomText.includes('bedroom')) return '/category/Master Bedroom/master-bedroom1.jpg';
-  if (roomText.includes('kitchen')) return '/category/Kitchen/kitchen1.jpg';
-  if (roomText.includes('dining')) return '/category/Diningroom/dining-room1.jpg';
-  if (roomText.includes('bathroom')) return '/category/Bathroom/bathroom1.jpg';
-  if (roomText.includes('office')) return '/category/Office interior/office interior (1).jpg';
-  if (roomText.includes('balcony')) return '/category/Balcony/balcony (1).jpg';
-  if (roomText.includes('theatre') || roomText.includes('theater')) return '/category/Home theatre/home theatre (1).jpg';
-  if (roomText.includes('gym')) return '/category/Gym/gym (1).jpg';
-  if (roomText.includes('pool')) return '/category/Swimming pool/swimming pool.jpg';
-  if (roomText.includes('garden')) return '/category/Garden/garden (1).jpg';
-  // Default fallback
-  return '/category/Living room/living1.jpg';
+
+  // Detect which category the title belongs to
+  const getExpectedCategory = (text) => {
+    if (text.includes('kids') || text.includes('child') || (text.includes('oasis') && text.includes('kid'))) return 'kids';
+    if (text.includes('suite') || text.includes('retreat') || text.includes('master')) return 'master';
+    if (text.includes('guest')) return 'guest';
+    if (text.includes('bedroom')) return 'bedroom';
+    if (text.includes('kitchen') || text.includes('modular') || text.includes('chef') || text.includes('breakfast nook') || text.includes('gourmet')) return 'kitchen';
+    if (text.includes('dining') || text.includes('bar') || text.includes('restaurant')) return 'dining';
+    if (text.includes('terrace') || text.includes('rooftop')) return 'terrace';
+    if (text.includes('balcony') || text.includes('skyline') || text.includes('deck')) return 'balcony';
+    if (text.includes('garden') || text.includes('lawn') || text.includes('landscape')) return 'garden';
+    if (text.includes('living') || text.includes('lounge') || text.includes('hall') || text.includes('foyer') || text.includes('entryway')) return 'living';
+    if (text.includes('bathroom') || text.includes('washroom') || text.includes('toilet') || text.includes('bath') || text.includes('spa-inspired')) return 'bathroom';
+    if (text.includes('spa') || text.includes('wellness')) return 'spa';
+    if (text.includes('pooja') || text.includes('mandir') || text.includes('prayer') || text.includes('sanctum') || text.includes('zen')) return 'pooja';
+    if (text.includes('wardrobe') || text.includes('closet') || text.includes('robe') || text.includes('dressing room')) return 'wardrobe';
+    if (text.includes('office') || text.includes('study') || text.includes('workspace') || text.includes('reading') || text.includes('executive')) return 'office';
+    if (text.includes('theatre') || text.includes('theater') || text.includes('cinema') || text.includes('immersive')) return 'theatre';
+    if (text.includes('gym') || text.includes('fitness') || text.includes('workout')) return 'gym';
+    if (text.includes('pool') || text.includes('swimming')) return 'pool';
+    if (text.includes('nook')) return 'kitchen';
+    if (text.includes('area')) return 'living';
+    return 'unknown';
+  };
+
+  // Map expected category to image path
+  const categoryToImage = {
+    'kids':     '/category/Kids-bedroom/kids-bedroom1.jpg',
+    'master':   '/category/Master Bedroom/master-bedroom1.jpg',
+    'guest':    '/category/Guest room/guest room  (1).jpg',
+    'bedroom':  '/category/Master Bedroom/master-bedroom1.jpg',
+    'kitchen':  '/category/Kitchen/kitchen1.jpg',
+    'dining':   '/category/Diningroom/dining-room1.jpg',
+    'terrace':  '/category/Terrace/terrace (1).jpg',
+    'balcony':  '/category/Balcony/balcony (1).jpg',
+    'garden':   '/category/Garden/garden (1).jpg',
+    'living':   '/category/Living room/living1.jpg',
+    'bathroom': '/category/Bathroom/bathroom1.jpg',
+    'spa':      '/category/Spa/spa room (1).jpg',
+    'pooja':    '/category/Pooja room/pooja-room1.jpg',
+    'wardrobe': '/category/wardrobe/wardrobe1.jpg',
+    'office':   '/category/Office interior/office interior (1).jpg',
+    'theatre':  '/category/Home theatre/home theatre (1).jpg',
+    'gym':      '/category/Gym/gym (1).jpg',
+    'pool':     '/category/Swimming pool/swimming pool.jpg',
+    'unknown':  '/category/Living room/living1.jpg',
+  };
+
+  // Category markers present in image paths for cross-validation
+  const categoryPathMarkers = {
+    'kids':     ['kids-bedroom', 'kids bedroom'],
+    'master':   ['master bedroom', 'master-bedroom'],
+    'guest':    ['guest room'],
+    'bedroom':  ['master bedroom', 'master-bedroom', 'kids-bedroom'],
+    'kitchen':  ['kitchen'],
+    'dining':   ['diningroom', 'dining-room', 'dining room'],
+    'terrace':  ['terrace'],
+    'balcony':  ['balcony'],
+    'garden':   ['garden'],
+    'living':   ['living room', 'living-room'],
+    'bathroom': ['bathroom'],
+    'spa':      ['spa room', 'spa-room'],
+    'pooja':    ['pooja room', 'pooja-room'],
+    'wardrobe': ['wardrobe'],
+    'office':   ['office interior'],
+    'theatre':  ['home theatre', 'home-theatre'],
+    'gym':      ['gym'],
+    'pool':     ['swimming pool'],
+  };
+
+  const expectedCategory = getExpectedCategory(roomText);
+
+  // If a room.image is provided, validate it matches the expected category
+  if (room?.image && typeof room.image === 'string' && room.image.trim() && !room.image.includes('unsplash.com') && !room.image.includes('/category/Custom/')) {
+    const imgLower = room.image.toLowerCase();
+    const markers = categoryPathMarkers[expectedCategory] || [];
+    const imageMatchesCategory = markers.length === 0 || markers.some(m => imgLower.includes(m));
+    if (imageMatchesCategory) {
+      return room.image; // Image matches — use it
+    }
+    // Image does NOT match the room title — fall through to keyword-based resolution
+  }
+
+  // Keyword-based resolution (always correct, title-only matching)
+  return categoryToImage[expectedCategory] || '/category/Living room/living1.jpg';
 };
 import '../index.css';
 import Chart from 'chart.js/auto';
@@ -982,7 +1123,6 @@ const PORTFOLIO_CATEGORY_NAME_MAP: Record<string, string> = {
   'cat-classroom': 'Classroom',
   'cat-custom': 'Custom',
   'cat-dining-room': 'Dining Room',
-  'cat-epoxy-floor': 'Epoxy Floor',
   'cat-garden': 'Garden',
   'cat-home-theatre': 'Home Theatre',
   'cat-kids-bedroom': 'Kids Bedroom',
@@ -990,7 +1130,6 @@ const PORTFOLIO_CATEGORY_NAME_MAP: Record<string, string> = {
   'cat-office-interior': 'Office Interior',
   'cat-swimming-pool': 'Swimming Pool',
   'cat-terrace': 'Terrace',
-  'cat-epoxy': 'Epoxy',
   'cat-balcony': 'Balcony',
   'cat-bathroom': 'Bathroom',
   'cat-wardrobe': 'Wardrobe',
@@ -1027,7 +1166,6 @@ const getPortfolioSampleCategorySeries = () => {
     { id: 'cat-custom', label: 'Custom', patterns: ['custom'] },
     { id: 'cat-diningarea', label: 'Dining Area', patterns: ['dining area'] },
     { id: 'cat-dining-room', label: 'Dining Room', patterns: ['dining room'] },
-    { id: 'cat-epoxy-floor', label: 'Epoxy Floor', patterns: ['epoxy floor'] },
     { id: 'cat-garden', label: 'Garden', patterns: ['garden'] },
     { id: 'cat-guestroom', label: 'Guest Room', patterns: ['guestroom', 'guest room', 'guest'] },
     { id: 'cat-gym', label: 'Gym', patterns: ['gym'] },
@@ -1043,7 +1181,6 @@ const getPortfolioSampleCategorySeries = () => {
     { id: 'cat-swimming-pool', label: 'Swimming Pool', patterns: ['swimming pool'] },
     { id: 'cat-terrace', label: 'Terrace', patterns: ['terrace'] },
     { id: 'cat-wardrobe', label: 'Wardrobe', patterns: ['wardrobe'] },
-    { id: 'cat-epoxy', label: 'Epoxy', patterns: ['epoxy'] },
     { id: 'cat-pool', label: 'Swimming Pool', patterns: ['pool'] }
   ];
 
@@ -1073,14 +1210,12 @@ const resolvePortfolioCategoryId = (item: any): string => {
     if (normalizedId.includes('custom')) return 'cat-custom';
     if (normalizedId.includes('dining room')) return 'cat-dining-room';
     if (normalizedId.includes('dining area')) return 'cat-diningarea';
-    if (normalizedId.includes('epoxy floor')) return 'cat-epoxy-floor';
     if (normalizedId.includes('garden')) return 'cat-garden';
     if (normalizedId.includes('guest')) return 'cat-guestroom';
     if (normalizedId.includes('home theatre') || normalizedId.includes('home theater')) return 'cat-home-theatre';
     if (normalizedId.includes('kids bedroom') || normalizedId.includes('kid bedroom') || normalizedId.includes('kids-bedroom')) return 'cat-kids-bedroom';
     if (normalizedId.includes('meeting room')) return 'cat-meeting-room';
     if (normalizedId.includes('office interior') || normalizedId.includes('office')) return 'cat-office-interior';
-    if (normalizedId.includes('epoxy')) return 'cat-epoxy';
     if (normalizedId.includes('bedroom') || normalizedId.includes('master-bedroom') || normalizedId.includes('kids-bedroom')) return 'cat-bedroom';
     if (normalizedId.includes('swimming pool')) return 'cat-swimming-pool';
     if (normalizedId.includes('terrace')) return 'cat-terrace';
@@ -1104,14 +1239,12 @@ const resolvePortfolioCategoryId = (item: any): string => {
     if (rawCategory.includes('custom')) return 'cat-custom';
     if (rawCategory.includes('dining room')) return 'cat-dining-room';
     if (rawCategory.includes('dining area')) return 'cat-diningarea';
-    if (rawCategory.includes('epoxy floor')) return 'cat-epoxy-floor';
     if (rawCategory.includes('garden')) return 'cat-garden';
     if (rawCategory.includes('guest')) return 'cat-guestroom';
     if (rawCategory.includes('home theatre') || rawCategory.includes('home theater')) return 'cat-home-theatre';
     if (rawCategory.includes('kids bedroom') || rawCategory.includes('kid bedroom')) return 'cat-kids-bedroom';
     if (rawCategory.includes('meeting room')) return 'cat-meeting-room';
     if (rawCategory.includes('office interior') || rawCategory.includes('office')) return 'cat-office-interior';
-    if (rawCategory.includes('epoxy')) return 'cat-epoxy';
     if (rawCategory.includes('bedroom')) return 'cat-bedroom';
     if (rawCategory.includes('swimming pool')) return 'cat-swimming-pool';
     if (rawCategory.includes('terrace')) return 'cat-terrace';
@@ -3754,6 +3887,26 @@ const refreshCustomerData = async (options: RefreshOptions = {}) => {
       .catch((error) => {
         console.warn('Failed to fetch AI designs for admin:', error);
       });
+
+    // Fetch all payments from server for admin — used to populate customer payment counts
+    apiFetch('/payments', { headers: { ...getAuthHeaders() } })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data && data.success && Array.isArray(data.payments)) {
+          // Merge server payments with any local payments, deduplicating by id
+          const localPayments = getPayments();
+          const mergedById = new Map<string, any>();
+          [...data.payments, ...localPayments].forEach((p: any) => {
+            const pid = String(p?.id || '').trim();
+            if (pid && !mergedById.has(pid)) mergedById.set(pid, p);
+          });
+          state.customer.payments = [...mergedById.values()];
+          if (shouldRenderRefreshResult(options)) renderStabilized();
+        }
+      })
+      .catch((error) => {
+        console.warn('Failed to fetch all payments for admin:', error);
+      });
   }
 
   if (state.currentUser) {
@@ -4034,7 +4187,7 @@ const mergeServerLikesWithLocalDislikes = (serverLikes: any[]) => {
 
 const DISLIKE_FEEDBACK_STORAGE_KEY = 'ar_interia_dislike_feedbacks';
 const PACKAGE_CACHE_RESET_VERSION_KEY = 'ar_interia_package_cache_reset_version';
-const PACKAGE_CACHE_RESET_VERSION = '2026-03-22-room-map-v2';
+const PACKAGE_CACHE_RESET_VERSION = '2026-05-06-room-map-v7';
 
 const getDislikeFeedbackRecords = () => {
   try {
@@ -4888,85 +5041,6 @@ const getDesignPreviewImageForShowcase = (design: any) => {
   if (categoryImage) return categoryImage;
 
   return '';
-};
-
-const renderServiceShowcaseDetailsModal = () => {
-  const details = (state.customer as any).serviceShowcaseDetails;
-  if (!details) return '';
-
-  const relatedDesigns = getRelatedDesignsForShowcase(details);
-  const relatedImages = Array.isArray(details.relatedImages) ? details.relatedImages.filter(Boolean).slice(0, 5) : [];
-  const linkedService = state.services.find((service) => String(service.id || '') === String(details.serviceId || '')) || null;
-  const showcaseImage = normalizeAssetUrl(String(details.image || ''));
-  return `
-    <div class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" data-action="close-service-showcase-details">
-      <div class="bg-white rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto shadow-2xl animate-fade-in-up" data-action="ignore">
-        <div class="p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white z-10">
-          <h3 class="text-lg font-bold text-[color:var(--primary)]">Service Showcase Details</h3>
-          <button type="button" data-action="close-service-showcase-details" class="text-slate-400 hover:text-slate-600">✕</button>
-        </div>
-        <div class="p-6 space-y-4">
-          ${showcaseImage ? `
-            <div class="rounded-xl overflow-hidden border border-black/10 bg-slate-100">
-              <a href="${escapeHtml(showcaseImage)}" target="_blank" rel="noopener noreferrer" class="block" title="Open image">
-                <img src="${escapeHtml(showcaseImage)}" alt="${escapeHtml(details.title || 'Service Image')}" class="motion-3d w-full h-48 object-cover cursor-zoom-in" data-motion3d="true" />
-              </a>
-            </div>
-          ` : ''}
-          <div>
-            <div class="text-xs text-slate-500 uppercase tracking-wider">Name</div>
-            <div class="text-base font-semibold text-[color:var(--primary)]">${escapeHtml(details.title || 'Service')}</div>
-          </div>
-          <div>
-            <div class="text-xs text-slate-500 uppercase tracking-wider">Cost</div>
-            <div class="text-sm font-semibold text-[color:var(--accent)]">${escapeHtml(details.price || 'Contact for pricing')}</div>
-          </div>
-          ${linkedService ? `
-            <div>
-              <div class="text-xs text-slate-500 uppercase tracking-wider">Linked Service</div>
-              <div class="text-sm font-semibold text-slate-700">${escapeHtml(linkedService.title || 'Service')}</div>
-            </div>
-          ` : ''}
-          <div>
-            <div class="text-xs text-slate-500 uppercase tracking-wider mb-2">Related Images (up to 5)</div>
-            ${relatedImages.length > 0 ? `
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                ${relatedImages.map((imageUrl: string, index: number) => `
-                  <div class="rounded-xl border border-black/10 bg-slate-50 overflow-hidden">
-                    <a href="${escapeHtml(imageUrl)}" target="_blank" rel="noopener noreferrer" class="block h-24 bg-slate-100" title="Open related image">
-                      <img src="${escapeHtml(imageUrl)}" alt="Related Image ${index + 1}" class="motion-3d w-full h-full object-cover cursor-zoom-in" data-motion3d="true" />
-                    </a>
-                    <div class="px-3 py-2 text-xs text-slate-600">Related Image ${index + 1}</div>
-                  </div>
-                `).join('')}
-              </div>
-            ` : `
-              <div class="text-xs text-slate-500 uppercase tracking-wider mb-2">Related Designs (up to 5)</div>
-              ${relatedDesigns.length > 0 ? `
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                ${relatedDesigns.map((design: any) => `
-                  <div class="rounded-xl border border-black/10 bg-slate-50 overflow-hidden">
-                    <div class="h-24 bg-slate-100">
-                      ${(() => {
-      const imageUrl = getDesignPreviewImageForShowcase(design);
-      if (!imageUrl) return '<div class="w-full h-full flex items-center justify-center text-2xl">🏠</div>';
-      return `<a href="${escapeHtml(imageUrl)}" target="_blank" rel="noopener noreferrer" class="block" title="Open related image"><img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(design.title || 'Related Design')}" class="motion-3d w-full h-full object-cover cursor-zoom-in" data-motion3d="true" /></a>`;
-    })()}
-                    </div>
-                    <div class="px-3 py-2 flex items-center justify-between gap-3">
-                      <span class="text-sm text-slate-700 truncate">${escapeHtml(resolveDesignDisplayName(design, { imageUrl: design.previewImage, categoryId: design.categoryId, fallback: design.title || 'Design' }))}</span>
-                      <span class="text-xs font-semibold text-[color:var(--accent)] shrink-0">${getDesignAmount(design as any) > 0 ? formatCurrency(getDesignAmount(design as any)) : 'N/A'}</span>
-                    </div>
-                  </div>
-                `).join('')}
-              </div>
-              ` : '<div class="text-sm text-slate-400">No related images or designs found.</div>'}
-            `}
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
 };
 
 const normalizeBookingRecord = (booking: any) => ({
@@ -6751,10 +6825,52 @@ const renderInternal = () => {
     } else {
       content = '<div class="p-8 text-center text-red-600">Categories page is under construction or missing renderCategoryGallery implementation.</div>';
     }
-    content += renderVideoModal() + renderPackageModal() + renderPriceCalculatorModal() + renderServiceDetailsModal() + renderServiceShowcaseDetailsModal();
+    content += renderVideoModal() + renderPackageModal() + renderPriceCalculatorModal() + renderServiceDetailsModal() + renderAdminPaymentHistoryModal();
   } else {
-    content = renderLayout() + renderVideoModal() + renderPackageModal() + renderPriceCalculatorModal() + renderServiceDetailsModal() + renderServiceShowcaseDetailsModal();
+    content = renderLayout() + renderVideoModal() + renderPackageModal() + renderPriceCalculatorModal() + renderServiceDetailsModal() + renderAdminPaymentHistoryModal();
   }
+  // --- Admin Payment History Modal Event Handler ---
+  document.addEventListener('click', async (event) => {
+    const target = event.target as HTMLElement;
+    if (!target) return;
+    // Open payment history modal
+    if (target.matches('[data-action="admin-view-payments"]')) {
+      const customerId = target.getAttribute('data-customer-id');
+      if (customerId) {
+        (state.admin as any).paymentHistoryModal = { customerId, loading: true, payments: [] };
+        render();
+        // Try to load payment history from backend
+        try {
+          let payments = [];
+          // Try API first (use customerId query param)
+          const res = await fetch(`/api/payments?customerId=${encodeURIComponent(customerId)}`, {
+            headers: getAuthHeaders()
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data.payments)) payments = data.payments;
+          }
+          // Fallback to local if API fails
+          if (!payments.length) {
+            payments = [
+              ...((state.customer.payments || []).filter((p: any) => p.customerId === customerId)),
+              ...getPayments().filter((p: any) => p.customerId === customerId)
+            ];
+          }
+          (state.admin as any).paymentHistoryModal = { customerId, loading: false, payments };
+          render();
+        } catch (e) {
+          (state.admin as any).paymentHistoryModal = { customerId, loading: false, payments: [] };
+          render();
+        }
+      }
+    }
+    // Close payment history modal
+    if (target.matches('[data-action="close-admin-payment-history"]')) {
+      (state.admin as any).paymentHistoryModal = undefined;
+      render();
+    }
+  });
   root.innerHTML = normalizeTemplateMarkup(content);
   scheduleConfirmMessageDismiss();
   schedulePaymentSuccessDismiss();
@@ -10145,16 +10261,6 @@ ${scopedThreeDShowcase.length
             description: 'Flexible guest room with foldaway workspace and premium storage.',
             previewImage: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800',
             price: 980000,
-            motion3d: true
-          },
-          {
-            id: 'sample-epoxy-1',
-            title: 'Epoxy Luxe Flooring',
-            category: 'Epoxy',
-            categoryId: 'cat-epoxy',
-            description: 'High-gloss epoxy treatment with marble swirl finish for premium interiors.',
-            previewImage: 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?w=800',
-            price: 760000,
             motion3d: true
           }
         ];
@@ -15270,14 +15376,34 @@ const renderAdminCustomersSection = () => {
     bookingsByUser.set(userId, (bookingsByUser.get(userId) || 0) + 1);
   }
 
+  // Aggregate payment count per customer from all available payments (server + local)
+  const allPayments = [...(state.customer.payments || []), ...getPayments()]
+    .filter((p: any, idx: number, arr: any[]) =>
+      arr.findIndex((x: any) => String(x?.id || '') === String(p?.id || '')) === idx
+    );
+  const paymentsByUser = new Map<string, number>();
+  for (const payment of allPayments) {
+    const userId = String((payment as any)?.customerId || (payment as any)?.userId || '');
+    if (!userId) continue;
+    paymentsByUser.set(userId, (paymentsByUser.get(userId) || 0) + 1);
+  }
+
+  const savedPackagesByUser = new Map<string, number>();
+  const packagePreferenceMap = getPackagePreferenceMap() as Record<string, string[]>;
+  Object.entries(packagePreferenceMap).forEach(([userId, packageIds]) => {
+    savedPackagesByUser.set(String(userId), Array.isArray(packageIds) ? packageIds.length : 0);
+  });
+
   const customerRows = customers.map((customer) => {
     const customerId = String(customer.id || '');
     return renderAdminCustomerRow({
       customer,
       isEditing: editingCustomerId === customerId,
       customerLikes: likesByUser.get(customerId) || 0,
+      customerSavedPackages: savedPackagesByUser.get(customerId) || 0,
       customerFeedbacks: feedbackByUser.get(customerId) || 0,
       customerBookings: bookingsByUser.get(customerId) || 0,
+      customerPayments: paymentsByUser.get(customerId) || 0,
       escapeHtml
     });
   }).join('');
@@ -15330,6 +15456,7 @@ const renderAdminCustomersSection = () => {
                         <th class="text-left py-3 px-3 font-semibold text-slate-600">Liked Designs</th>
                         <th class="text-left py-3 px-3 font-semibold text-slate-600">Feedbacks</th>
                         <th class="text-left py-3 px-3 font-semibold text-slate-600">Bookings</th>
+                        <th class="text-left py-3 px-3 font-semibold text-slate-600">Payments</th>
                         <th class="text-left py-3 px-3 font-semibold text-slate-600">Actions</th>
                     </tr>
                 </thead>
@@ -17686,7 +17813,7 @@ const handlePublicFeedbackSubmit = async (formData: FormData) => {
   const payload = {
     userId: state.currentUser?.id,
     userName: name || state.currentUser?.name || 'A Valued Client',
-    designId: undefined,
+    designId: 'chatbot-general',
     rating: state.feedbackForm.rating,
     comment
   };
@@ -23901,6 +24028,7 @@ const fetchPackagesFromServer = async (
 };
 
 const init = async () => {
+  purgeLegacyPackageCaches();
   const initStart = getPerfNow();
   try {
     console.log('Initializing app...');

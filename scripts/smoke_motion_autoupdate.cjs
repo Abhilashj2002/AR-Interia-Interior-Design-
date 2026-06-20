@@ -48,12 +48,35 @@ async function apiJson(path, options = {}) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(attempt)
         });
-        if (login.ok && login.data?.token) break;
-        lastMessage = login?.data?.message || `Login failed (${login?.status ?? 'n/a'})`;
+        
+        if (login.ok && login.data?.token) {
+          token = login.data.token;
+          pass('Admin API login');
+          break;
+        } else if (login.ok && login.data?.twoFactorRequired && login.data?.challengeId && login.data?.debugCode) {
+          // Handle 2FA verification
+          const verifyResponse = await apiJson('/auth/login/verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              challengeId: login.data.challengeId,
+              code: login.data.debugCode
+            })
+          });
+          
+          if (verifyResponse.ok && verifyResponse.data?.token) {
+            token = verifyResponse.data.token;
+            pass('Admin API login with 2FA');
+            break;
+          } else {
+            lastMessage = verifyResponse.data?.message || '2FA verification failed';
+          }
+        } else {
+          lastMessage = login.data?.message || 'Invalid credentials';
+        }
       }
 
-      if (!login || !login.ok || !login.data?.token) throw new Error(lastMessage || 'Unable to acquire admin token');
-      token = login.data.token;
+      if (!token) throw new Error(lastMessage || 'Unable to acquire admin token');
       pass('Admin API login', 'token acquired');
     } catch (e) {
       fail('Admin API login', e);

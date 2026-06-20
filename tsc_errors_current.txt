@@ -1,2 +1,0 @@
-main.ts(21,43): error TS2307: Cannot find module './services/smartEngineService.ts' or its corresponding type declarations.
-services/smartService.ts(10,9): error TS2367: This comparison appears to be unintentional because the types 'StyleType' and '"Modern"' have no overlap.

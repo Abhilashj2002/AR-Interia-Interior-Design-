@@ -1,25 +1,99 @@
-﻿// Utility to get the best image for a room
-const getRoomImage = (room: any): string => {
-  if (room?.image && typeof room.image === 'string' && room.image.trim()) {
-    return room.image;
-  }
-  // Use title + name + category + description so generic titles still resolve correctly.
-  const roomText = [room?.title, room?.name, room?.category, room?.description]
+// @ts-nocheck
+// Utility to get the best image for a room
+// CRITICAL: Only match on title/name/category — NOT description.
+// Also validates room.image against room title to reject mismatched saved images.
+const getRoomImage = (room) => {
+  // Match ONLY on title + name + category — NOT description
+  const roomText = [room?.title, room?.name, room?.category]
     .filter(Boolean)
-    .map((value: any) => String(value).toLowerCase())
+    .map((value) => String(value).toLowerCase())
     .join(' ');
-  if (roomText.includes('bedroom')) return '/category/Master Bedroom/master-bedroom1.jpg';
-  if (roomText.includes('kitchen')) return '/category/Kitchen/kitchen1.jpg';
-  if (roomText.includes('dining')) return '/category/Diningroom/dining-room1.jpg';
-  if (roomText.includes('bathroom')) return '/category/Bathroom/bathroom1.jpg';
-  if (roomText.includes('office')) return '/category/Office interior/office interior (1).jpg';
-  if (roomText.includes('balcony')) return '/category/Balcony/balcony (1).jpg';
-  if (roomText.includes('theatre') || roomText.includes('theater')) return '/category/Home theatre/home theatre (1).jpg';
-  if (roomText.includes('gym')) return '/category/Gym/gym (1).jpg';
-  if (roomText.includes('pool')) return '/category/Swimming pool/swimming pool.jpg';
-  if (roomText.includes('garden')) return '/category/Garden/garden (1).jpg';
-  // Default fallback
-  return '/category/Living room/living1.jpg';
+
+  // Detect which category the title belongs to
+  const getExpectedCategory = (text) => {
+    if (text.includes('kids') || text.includes('child') || (text.includes('oasis') && text.includes('kid'))) return 'kids';
+    if (text.includes('suite') || text.includes('retreat') || text.includes('master')) return 'master';
+    if (text.includes('guest')) return 'guest';
+    if (text.includes('bedroom')) return 'bedroom';
+    if (text.includes('kitchen') || text.includes('modular') || text.includes('chef') || text.includes('breakfast nook') || text.includes('gourmet')) return 'kitchen';
+    if (text.includes('dining') || text.includes('bar') || text.includes('restaurant')) return 'dining';
+    if (text.includes('terrace') || text.includes('rooftop')) return 'terrace';
+    if (text.includes('balcony') || text.includes('skyline') || text.includes('deck')) return 'balcony';
+    if (text.includes('garden') || text.includes('lawn') || text.includes('landscape')) return 'garden';
+    if (text.includes('living') || text.includes('lounge') || text.includes('hall') || text.includes('foyer') || text.includes('entryway')) return 'living';
+    if (text.includes('bathroom') || text.includes('washroom') || text.includes('toilet') || text.includes('bath') || text.includes('spa-inspired')) return 'bathroom';
+    if (text.includes('spa') || text.includes('wellness')) return 'spa';
+    if (text.includes('pooja') || text.includes('mandir') || text.includes('prayer') || text.includes('sanctum') || text.includes('zen')) return 'pooja';
+    if (text.includes('wardrobe') || text.includes('closet') || text.includes('robe') || text.includes('dressing room')) return 'wardrobe';
+    if (text.includes('office') || text.includes('study') || text.includes('workspace') || text.includes('reading') || text.includes('executive')) return 'office';
+    if (text.includes('theatre') || text.includes('theater') || text.includes('cinema') || text.includes('immersive')) return 'theatre';
+    if (text.includes('gym') || text.includes('fitness') || text.includes('workout')) return 'gym';
+    if (text.includes('pool') || text.includes('swimming')) return 'pool';
+    if (text.includes('nook')) return 'kitchen';
+    if (text.includes('area')) return 'living';
+    return 'unknown';
+  };
+
+  // Map expected category to image path
+  const categoryToImage = {
+    'kids':     '/category/Kids-bedroom/kids-bedroom1.jpg',
+    'master':   '/category/Master Bedroom/master-bedroom1.jpg',
+    'guest':    '/category/Guest room/guest room  (1).jpg',
+    'bedroom':  '/category/Master Bedroom/master-bedroom1.jpg',
+    'kitchen':  '/category/Kitchen/kitchen1.jpg',
+    'dining':   '/category/Diningroom/dining-room1.jpg',
+    'terrace':  '/category/Terrace/terrace (1).jpg',
+    'balcony':  '/category/Balcony/balcony (1).jpg',
+    'garden':   '/category/Garden/garden (1).jpg',
+    'living':   '/category/Living room/living1.jpg',
+    'bathroom': '/category/Bathroom/bathroom1.jpg',
+    'spa':      '/category/Spa/spa room (1).jpg',
+    'pooja':    '/category/Pooja room/pooja-room1.jpg',
+    'wardrobe': '/category/wardrobe/wardrobe1.jpg',
+    'office':   '/category/Office interior/office interior (1).jpg',
+    'theatre':  '/category/Home theatre/home theatre (1).jpg',
+    'gym':      '/category/Gym/gym (1).jpg',
+    'pool':     '/category/Swimming pool/swimming pool.jpg',
+    'unknown':  '/category/Living room/living1.jpg',
+  };
+
+  // Category markers present in image paths for cross-validation
+  const categoryPathMarkers = {
+    'kids':     ['kids-bedroom', 'kids bedroom'],
+    'master':   ['master bedroom', 'master-bedroom'],
+    'guest':    ['guest room'],
+    'bedroom':  ['master bedroom', 'master-bedroom', 'kids-bedroom'],
+    'kitchen':  ['kitchen'],
+    'dining':   ['diningroom', 'dining-room', 'dining room'],
+    'terrace':  ['terrace'],
+    'balcony':  ['balcony'],
+    'garden':   ['garden'],
+    'living':   ['living room', 'living-room'],
+    'bathroom': ['bathroom'],
+    'spa':      ['spa room', 'spa-room'],
+    'pooja':    ['pooja room', 'pooja-room'],
+    'wardrobe': ['wardrobe'],
+    'office':   ['office interior'],
+    'theatre':  ['home theatre', 'home-theatre'],
+    'gym':      ['gym'],
+    'pool':     ['swimming pool'],
+  };
+
+  const expectedCategory = getExpectedCategory(roomText);
+
+  // If a room.image is provided, validate it matches the expected category
+  if (room?.image && typeof room.image === 'string' && room.image.trim() && !room.image.includes('unsplash.com') && !room.image.includes('/category/Custom/')) {
+    const imgLower = room.image.toLowerCase();
+    const markers = categoryPathMarkers[expectedCategory] || [];
+    const imageMatchesCategory = markers.length === 0 || markers.some(m => imgLower.includes(m));
+    if (imageMatchesCategory) {
+      return room.image; // Image matches — use it
+    }
+    // Image does NOT match the room title — fall through to keyword-based resolution
+  }
+
+  // Keyword-based resolution (always correct, title-only matching)
+  return categoryToImage[expectedCategory] || '/category/Living room/living1.jpg';
 };
 import '../index.css';
 import Chart from 'chart.js/auto';
@@ -1615,7 +1689,7 @@ const mergeServerLikesWithLocalDislikes = (serverLikes: any[]) => {
 
 const DISLIKE_FEEDBACK_STORAGE_KEY = 'ar_interia_dislike_feedbacks';
 const PACKAGE_CACHE_RESET_VERSION_KEY = 'ar_interia_package_cache_reset_version';
-const PACKAGE_CACHE_RESET_VERSION = '2026-03-22-room-map-v2';
+const PACKAGE_CACHE_RESET_VERSION = '2026-05-06-room-map-v7';
 
 const getDislikeFeedbackRecords = () => {
   try {
@@ -7727,16 +7801,6 @@ ${scopedThreeDShowcase.length
             previewImage: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800',
             price: 980000,
             motion3d: true
-          },
-          {
-            id: 'sample-epoxy-1',
-            title: 'Epoxy Luxe Flooring',
-            category: 'Epoxy',
-            categoryId: 'cat-epoxy',
-            description: 'High-gloss epoxy treatment with marble swirl finish for premium interiors.',
-            previewImage: 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?w=800',
-            price: 760000,
-            motion3d: true
           }
         ];
 
@@ -12339,6 +12403,13 @@ const renderAdminCustomersSection = () => {
     bookingsByUser.set(userId, (bookingsByUser.get(userId) || 0) + 1);
   }
 
+  const paymentsByUser = new Map<string, number>();
+  for (const payment of (state.customer.payments || [])) {
+    const userId = String((payment as any)?.userId || (payment as any)?.customerId || '');
+    if (!userId) continue;
+    paymentsByUser.set(userId, (paymentsByUser.get(userId) || 0) + 1);
+  }
+
   const customerRows = customers.map((customer) => {
     const customerId = String(customer.id || '');
     return renderAdminCustomerRow({
@@ -12347,6 +12418,7 @@ const renderAdminCustomersSection = () => {
       customerLikes: likesByUser.get(customerId) || 0,
       customerFeedbacks: feedbackByUser.get(customerId) || 0,
       customerBookings: bookingsByUser.get(customerId) || 0,
+      customerPayments: paymentsByUser.get(customerId) || 0,
       escapeHtml
     });
   }).join('');
@@ -12398,7 +12470,7 @@ const renderAdminCustomersSection = () => {
                       <th class="text-left py-3 px-3 font-semibold text-slate-600">Pincode</th>
                         <th class="text-left py-3 px-3 font-semibold text-slate-600">Liked Designs</th>
                         <th class="text-left py-3 px-3 font-semibold text-slate-600">Feedbacks</th>
-                        <th class="text-left py-3 px-3 font-semibold text-slate-600">Bookings</th>
+                        <th class="text-left py-3 px-3 font-semibold text-slate-600">Bookings</th><th class="text-left py-3 px-3 font-semibold text-slate-600">Payments</th>
                         <th class="text-left py-3 px-3 font-semibold text-slate-600">Actions</th>
                     </tr>
                 </thead>

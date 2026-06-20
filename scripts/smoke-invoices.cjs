@@ -58,6 +58,23 @@ async function login(username, password) {
     body: JSON.stringify({ username, password }),
   });
   const json = await res.json();
+
+  if (res.ok && json?.twoFactorRequired && json?.challengeId && json?.debugCode) {
+    const verifyRes = await fetch(`${BASE}/api/auth/login/verify`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        challengeId: json.challengeId,
+        code: json.debugCode,
+      }),
+    });
+    const verifyJson = await verifyRes.json();
+    if (!verifyRes.ok || !verifyJson?.success || !verifyJson?.token) {
+      throw new Error(`2FA verification failed: ${verifyRes.status} ${JSON.stringify(verifyJson)}`);
+    }
+    return verifyJson;
+  }
+
   if (!res.ok || !json?.success || !json?.token) {
     throw new Error(`Login failed: ${res.status} ${JSON.stringify(json)}`);
   }

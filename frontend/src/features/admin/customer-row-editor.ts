@@ -4,8 +4,10 @@ export type AdminCustomerRowRenderArgs = {
   customer: User;
   isEditing: boolean;
   customerLikes: number;
+  customerSavedPackages: number;
   customerFeedbacks: number;
   customerBookings: number;
+  customerPayments: number;
   escapeHtml: (value: string) => string;
 };
 
@@ -13,8 +15,10 @@ export const renderAdminCustomerRow = ({
   customer,
   isEditing,
   customerLikes,
+  customerSavedPackages,
   customerFeedbacks,
   customerBookings,
+  customerPayments,
   escapeHtml
 }: AdminCustomerRowRenderArgs): string => {
   if (!isEditing) {
@@ -25,8 +29,10 @@ export const renderAdminCustomerRow = ({
         <td class="py-3 px-3 text-slate-600">${escapeHtml(String((customer as any).location || '-'))}</td>
         <td class="py-3 px-3 text-slate-600">${escapeHtml(String((customer as any).pincode || '-'))}</td>
         <td class="py-3 px-3"><span class="px-2 py-1 rounded-lg bg-blue-100 text-blue-700 text-xs font-semibold">${customerLikes}</span></td>
+        <td class="py-3 px-3"><span class="px-2 py-1 rounded-lg bg-amber-100 text-amber-700 text-xs font-semibold">${customerSavedPackages}</span></td>
         <td class="py-3 px-3"><span class="px-2 py-1 rounded-lg bg-green-100 text-green-700 text-xs font-semibold">${customerFeedbacks}</span></td>
         <td class="py-3 px-3"><span class="px-2 py-1 rounded-lg bg-purple-100 text-purple-700 text-xs font-semibold">${customerBookings}</span></td>
+        <td class="py-3 px-3"><span class="px-2 py-1 rounded-lg bg-emerald-100 text-emerald-700 text-xs font-semibold">${customerPayments}</span></td>
         <td class="py-3 px-3">
           <div class="flex flex-wrap gap-2">
             <button type="button" data-action="admin-edit-customer-inline" data-customer-id="${escapeHtml(customer.id)}" class="px-3 py-1 rounded-lg bg-blue-100 text-blue-700 text-xs font-semibold hover:bg-blue-200 transition">Edit</button>
@@ -39,7 +45,7 @@ export const renderAdminCustomerRow = ({
 
   return `
     <tr class="border-b border-black/5 bg-slate-50/80">
-      <td colspan="8" class="py-3 px-3">
+      <td colspan="10" class="py-3 px-3">
         <form data-form="admin-inline-customer-form" data-customer-id="${escapeHtml(customer.id)}" class="rounded-2xl border border-black/10 bg-white p-4 space-y-4 shadow-sm">
           <div class="flex items-center justify-between gap-3 flex-wrap">
             <div>
@@ -84,10 +90,14 @@ export const renderAdminCustomerRow = ({
             <textarea name="bio" rows="2" class="px-3 py-2 rounded-xl border border-black/10 md:col-span-3" placeholder="Bio">${escapeHtml(String((customer as any).bio || ''))}</textarea>
           </div>
 
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+          <div class="grid grid-cols-2 md:grid-cols-6 gap-3 text-xs">
             <div class="rounded-xl bg-slate-50 border border-black/5 p-3">
               <div class="text-slate-400 uppercase tracking-wide">Likes</div>
               <div class="mt-1 font-semibold text-[color:var(--primary)]">${customerLikes}</div>
+            </div>
+            <div class="rounded-xl bg-slate-50 border border-black/5 p-3">
+              <div class="text-slate-400 uppercase tracking-wide">Saved Packages</div>
+              <div class="mt-1 font-semibold text-[color:var(--primary)]">${customerSavedPackages}</div>
             </div>
             <div class="rounded-xl bg-slate-50 border border-black/5 p-3">
               <div class="text-slate-400 uppercase tracking-wide">Feedback</div>
@@ -96,6 +106,10 @@ export const renderAdminCustomerRow = ({
             <div class="rounded-xl bg-slate-50 border border-black/5 p-3">
               <div class="text-slate-400 uppercase tracking-wide">Bookings</div>
               <div class="mt-1 font-semibold text-[color:var(--primary)]">${customerBookings}</div>
+            </div>
+            <div class="rounded-xl bg-slate-50 border border-black/5 p-3">
+              <div class="text-slate-400 uppercase tracking-wide">Payments</div>
+              <div class="mt-1 font-semibold text-[color:var(--primary)]">${customerPayments}</div>
             </div>
             <div class="rounded-xl bg-slate-50 border border-black/5 p-3">
               <div class="text-slate-400 uppercase tracking-wide">Record</div>

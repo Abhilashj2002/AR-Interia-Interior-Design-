@@ -319,7 +319,7 @@ const isEmailEnabled = () => {
   return Boolean(String(process.env.EMAIL_USER || '').trim()) && Boolean(String(process.env.EMAIL_PASSWORD || '').trim());
 };
 
-const INVOICE_ADMIN_EMAIL = String(process.env.INVOICE_ADMIN_EMAIL || 'admin954809@gmail.com').trim().toLowerCase();
+const INVOICE_ADMIN_EMAIL = String(process.env.INVOICE_ADMIN_EMAIL || 'admin@gmail.com').trim().toLowerCase();
 
 const collectInvoiceRecipients = (customerEmail) => {
   const recipients = new Set();

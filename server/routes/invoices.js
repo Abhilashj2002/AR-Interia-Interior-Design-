@@ -181,10 +181,11 @@ router.get('/all', authenticateToken, async (req, res) => {
       )
     );
 
-    const rows = await allAsync(db, `SELECT ${INVOICE_LIST_COLUMNS} FROM invoices ORDER BY createdAt DESC LIMIT 100`);
+    const rows = await allAsync(db, `SELECT ${INVOICE_LIST_COLUMNS} FROM invoices ORDER BY createdAt DESC`);
     res.json({
       success: true,
       count: rows.length,
+      totalCount: rows.length,
       invoices: rows,
     });
   } catch (error) {

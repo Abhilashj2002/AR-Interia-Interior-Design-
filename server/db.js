@@ -8,10 +8,17 @@ const sqlite3 = sqlite3Module.verbose();
 const DB_PATH = path.join(__dirname, 'ar_interia.db');
 
 let db = null;
+let dbInitializing = false;
+let dbInitPromise = null;
 
 export const initializeDb = () => {
-  return new Promise((resolve, reject) => {
+  if (db) return Promise.resolve(db);
+  if (dbInitializing) return dbInitPromise;
+  
+  dbInitializing = true;
+  dbInitPromise = new Promise((resolve, reject) => {
     db = new sqlite3.Database(DB_PATH, (err) => {
+      dbInitializing = false;
       if (err) {
         console.error('Error opening database:', err);
         reject(err);
@@ -22,9 +29,17 @@ export const initializeDb = () => {
       }
     });
   });
+  return dbInitPromise;
 };
 
-export const getDb = () => db;
+export const getDb = () => {
+  if (!db) {
+    throw new Error('Main database not initialized. Call initializeDb() first.');
+  }
+  return db;
+};
+
+export const isDbInitialized = () => db !== null;
 
 const initializeDatabase = () => {
   if (!db) return;
@@ -355,6 +370,11 @@ const initializeDatabase = () => {
     db.run('CREATE INDEX IF NOT EXISTS idx_invoices_status ON invoices(status)');
     db.run('CREATE INDEX IF NOT EXISTS idx_payments_status ON payments(status)');
     db.run('CREATE INDEX IF NOT EXISTS idx_payments_customer_status ON payments(customerId, status)');
+    db.run('CREATE INDEX IF NOT EXISTS idx_bookings_customer_date ON bookings(customerId, bookingDate DESC)');
+    db.run('CREATE INDEX IF NOT EXISTS idx_bookings_status_date ON bookings(status, bookingDate DESC)');
+    db.run('CREATE INDEX IF NOT EXISTS idx_bookings_date ON bookings(bookingDate DESC)');
+    db.run('CREATE INDEX IF NOT EXISTS idx_bookings_design ON bookings(designId)');
+    db.run('CREATE INDEX IF NOT EXISTS idx_payments_booking_updated ON payments(bookingId, updatedAt DESC, createdAt DESC)');
 
     db.all(
       `SELECT
@@ -527,7 +547,7 @@ const seedDatabase = () => {
 
     const adminCustomer = {
       name: 'Administrator',
-      email: 'admin954809@gmail.com',
+      email: 'admin@gmail.com',
       username: 'admin',
       password: 'Admin@1234',
       role: 'admin'
@@ -883,6 +903,19 @@ const normalizeDesignKey = (value) =>
     .trim()
     .replace(/\s+/g, ' ');
 
+const isSyntheticBookingDesignReference = (booking) => {
+  const designId = String(booking?.designId || '').toLowerCase();
+  const bookingId = String(booking?.id || '').toLowerCase();
+  if (!designId) return false;
+  return (
+    designId.startsWith('package-')
+    || designId.startsWith('pkg-')
+    || designId.includes('smoke')
+    || designId.includes('sync')
+    || bookingId.startsWith('bk-smoke-')
+  );
+};
+
 const seedCategories = () => {
   if (!db) return;
   const categories = [
@@ -905,8 +938,7 @@ const seedCategories = () => {
     { title: 'Meeting Room', description: 'Corporate conference and meeting room designs', image: '/api/category-images/Meeting room/meeting room (1).jpg' },
     { title: 'Home Theatre', description: 'Premium home theatre designs for luxury homes', image: '/api/category-images/Home theatre/home theatre (1).jpg' },
     { title: 'Guest Room', description: 'Elegant guest room designs for hospitality', image: '/api/category-images/Guest room/guest room  (1).jpg' },
-    { title: 'Classroom', description: 'Modern learning spaces for institutes and corporates', image: '/api/category-images/Classroom/classroom1.jpg' },
-    { title: 'Epoxy Floor', description: 'Modern and durable epoxy flooring designs', image: '/api/category-images/Epoxy Floor/epoxy1.jpg' }
+    { title: 'Classroom', description: 'Modern learning spaces for institutes and corporates', image: '/api/category-images/Classroom/classroom1.jpg' }
   ];
 
   const categoryIds = [];
@@ -1015,9 +1047,10 @@ const repairBookingDesignReferences = () => {
       if (title) designByTitle.set(title, design);
     });
 
-    db.all(`SELECT id, designId, designName, cost FROM bookings`, [], (bookingErr, bookingRows) => {
+    db.all(`SELECT id, designId, designName, price, cost FROM bookings`, [], (bookingErr, bookingRows) => {
       if (bookingErr || !bookingRows || bookingRows.length === 0) return;
 
+      let unresolvedLegacyCount = 0;
       bookingRows.forEach((booking) => {
         const bookingDesignId = String(booking.designId || '');
         const bookingDesignName = normalizeDesignKey(booking.designName || '');
@@ -1043,8 +1076,10 @@ const repairBookingDesignReferences = () => {
           const isDemo = String(booking.id || '').startsWith('demo-');
           if (isDemo && designRows.length > 0) {
             resolved = designRows[0];
+          } else if (isSyntheticBookingDesignReference(booking)) {
+            return;
           } else {
-            console.warn(`[DB] Skipped ambiguous booking repair for ${booking.id}`);
+            unresolvedLegacyCount += 1;
             return;
           }
         }
@@ -1068,6 +1103,9 @@ const repairBookingDesignReferences = () => {
           [nextDesignId, nextDesignName, nextPrice, nextCost, booking.id]
         );
       });
+      if (unresolvedLegacyCount > 0 && process.env.DEBUG_DB_REPAIR === '1') {
+        console.log(`[DB] Skipped ${unresolvedLegacyCount} legacy booking repairs with ambiguous design references.`);
+      }
     });
   });
 };

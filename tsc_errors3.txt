@@ -1,5 +1,0 @@
-main.ts(3241,33): error TS2339: Property 'portfolioDialog' does not exist on type 'CustomerState'.
-main.ts(7774,22): error TS2339: Property 'portfolioDialog' does not exist on type 'CustomerState'.
-main.ts(7789,22): error TS2339: Property 'portfolioDialog' does not exist on type 'CustomerState'.
-types.ts(89,12): error TS2304: Cannot find name 'AdminDesign'.
-types.ts(92,10): error TS2304: Cannot find name 'Like'.

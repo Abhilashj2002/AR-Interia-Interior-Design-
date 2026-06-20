@@ -1,3 +1,6 @@
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./server/database.sqlite', (err) => {
   if (err) console.error('Error:', err.message);

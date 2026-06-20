@@ -31,7 +31,6 @@ const CATEGORIES_TO_CREATE = [
   { id: 'terrace', title: 'Terrace', description: 'Rooftop and terrace spaces' },
   { id: 'wardrobe', title: 'Wardrobe', description: 'Custom storage solutions' },
   { id: 'garden', title: 'Garden', description: 'Beautiful garden landscapes' },
-  { id: 'epoxy-floor', title: 'Epoxy Floor', description: 'Decorative epoxy flooring' },
   { id: 'classroom', title: 'Classroom', description: 'Educational space designs' },
   { id: 'meeting-room', title: 'Meeting Room', description: 'Professional meeting spaces' }
 ];
@@ -55,7 +54,6 @@ const CATEGORY_MAPPING = {
   'cat-terrace': 'terrace',
   'cat-wardrobe': 'wardrobe',
   'cat-garden': 'garden',
-  'cat-epoxy': 'epoxy-floor',
   'cat-classroom': 'classroom',
   'cat-meeting': 'meeting-room'
 };
