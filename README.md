@@ -6,6 +6,8 @@ The project includes a public website, gallery, services pages, portfolio conten
 
 ## Project Preview
 
+The chatbot and invoice screenshots were refreshed with automated Playwright captures for clearer, more realistic previews.
+
 ### Home Page
 
 ![AR Interia home page](./screenshots/01-home-hero.png)
