@@ -8,39 +8,39 @@ The project includes a public website, gallery, services pages, portfolio conten
 
 ### Home Page
 
-![AR Interia home page](./01-home-hero.png)
+![AR Interia home page](./screenshots/01-home-hero.png)
 
 ### Gallery Page
 
-![AR Interia gallery page](./02-gallery.png)
+![AR Interia gallery page](./screenshots/02-gallery.png)
 
 ### Services Page
 
-![AR Interia services page](./03-services.png)
+![AR Interia services page](./screenshots/03-services.png)
 
 ### Portfolio Page
 
-![AR Interia portfolio page](./04-portfolio.png)
+![AR Interia portfolio page](./screenshots/04-portfolio.png)
 
 ### Admin Dashboard
 
-![AR Interia admin dashboard](./05-admin-dashboard.png)
+![AR Interia admin dashboard](./screenshots/05-admin-dashboard.png)
 
 ### Services Category Page
 
-![AR Interia services category page](./06-category.png)
+![AR Interia services category page](./screenshots/06-category.png)
 
 ### Chatbot
 
-![AR Interia chatbot](./07-chatbot.png)
+![AR Interia chatbot](./screenshots/07-chatbot.png)
 
 ### Customer/User Page
 
-![AR Interia customer user page](./08-customer-user.png)
+![AR Interia customer user page](./screenshots/08-customer-user.png)
 
 ### Invoice
 
-![AR Interia invoice preview](./09-invoice.png)
+![AR Interia invoice preview](./screenshots/09-invoice.png)
 
 ## Features
 
