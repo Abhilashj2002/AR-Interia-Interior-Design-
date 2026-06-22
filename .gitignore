@@ -38,6 +38,7 @@ public/invoices/
 # Screenshot files
 *.png
 !public/**/*.png
+!screenshots/*.png
 
 # Temporary and scratch files
 scratch/

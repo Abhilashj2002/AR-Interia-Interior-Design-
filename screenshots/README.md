@@ -2,18 +2,19 @@
 
 This directory contains project screenshots for the README documentation.
 
-## Required Screenshots
+## Current Screenshots
 
-Add the following screenshots to this directory:
+The root README uses these generated screenshots:
 
-1. **homepage.png** - The main landing page with hero section
-2. **chatbot.png** - AI chatbot interface showing conversation
-3. **services.png** - Services page listing interior design services
-4. **admin-dashboard.png** - Admin dashboard with statistics and management tools
-5. **customer-dashboard.png** - Customer portal showing bookings and profile
-6. **invoice.png** - Invoice preview or invoice management page
-7. **portfolio.png** - Portfolio showcase page with project examples
-8. **gallery.png** - Image gallery with category filters
+1. **01-home-hero.png** - The main landing page with hero section
+2. **02-gallery.png** - Image gallery with category filters
+3. **03-services.png** - Services page listing interior design services
+4. **04-portfolio.png** - Portfolio showcase page with project examples
+5. **05-admin-dashboard.png** - Admin dashboard with statistics and management tools
+6. **06-category.png** - Services category/detail view
+7. **07-chatbot.png** - AI chatbot interface
+8. **08-customer-user.png** - Customer portal showing account activity
+9. **09-invoice.png** - Invoice or customer billing area
 
 ## Screenshot Guidelines
 
@@ -38,21 +39,29 @@ Add the following screenshots to this directory:
 - **Linux**: Use gnome-screenshot or similar tool
 
 ### Automated Screenshots
-The project includes scripts for automated screenshot capture:
+Start the app first:
+
 ```bash
-npm run screenshots:capture
+npm run start
+```
+
+Then run:
+
+```bash
+node scripts/capture-readme-screenshots.mjs
 ```
 
 ## Current Status
 
-- [ ] homepage.png
-- [ ] chatbot.png
-- [ ] services.png
-- [ ] admin-dashboard.png
-- [ ] customer-dashboard.png
-- [ ] invoice.png
-- [ ] portfolio.png
-- [ ] gallery.png
+- [x] 01-home-hero.png
+- [x] 02-gallery.png
+- [x] 03-services.png
+- [x] 04-portfolio.png
+- [x] 05-admin-dashboard.png
+- [x] 06-category.png
+- [x] 07-chatbot.png
+- [x] 08-customer-user.png
+- [x] 09-invoice.png
 
 ## Notes
 
